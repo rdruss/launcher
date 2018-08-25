@@ -5,6 +5,7 @@ import { Alert } from 'patternfly-react';
 
 import { CapabilitiesList } from './CapabilitiesSelector';
 import logo from './logo.svg';
+import {Secured} from "./auth/secured";
 
 class App extends React.Component<any, {selectedCapability: Set<string>}> {
   private capabilities = [
@@ -37,7 +38,7 @@ class App extends React.Component<any, {selectedCapability: Set<string>}> {
       id: 'cap4'
     }
   ]
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -48,24 +49,26 @@ class App extends React.Component<any, {selectedCapability: Set<string>}> {
 
   public render() {
     return (
-      <div>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to React</h1>
-          </header>
-          <p className="App-intro">
-            To get started, edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <Alert type="warning">
-            <strong>Holy guacamole!</strong> Best check yo self, you're not looking too
-            good.
-          </Alert>
+      <Secured>
+        <div>
+          <div className="App">
+            <header className="App-header">
+              <img src={logo} className="App-logo" alt="logo" />
+              <h1 className="App-title">Welcome to React</h1>
+            </header>
+            <p className="App-intro">
+              To get started, edit <code>src/App.tsx</code> and save to reload.
+            </p>
+            <Alert type="warning">
+              <strong>Holy guacamole!</strong> Best check yo self, you're not looking too
+              good.
+            </Alert>
+          </div>
+          {
+            <CapabilitiesList capabilities={this.capabilities} select={this.onCapabilitySelect}/>
+          }
         </div>
-        {
-          <CapabilitiesList capabilities={this.capabilities} select={this.onCapabilitySelect}/>
-        }
-      </div>
+      </Secured>
     );
   }
 

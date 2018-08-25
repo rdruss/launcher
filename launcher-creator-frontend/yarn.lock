@@ -4583,6 +4583,14 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+jssha@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/jssha/-/jssha-2.3.1.tgz#147b2125369035ca4b2f7d210dc539f009b3de9a"
+
+keycloak-js@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/keycloak-js/-/keycloak-js-4.3.0.tgz#69f1b63105061898529b968740a763c37408aac6"
+
 keycode@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/keycode/-/keycode-2.2.0.tgz#3d0af56dc7b8b8e5cba8d0a97f107204eec22b04"

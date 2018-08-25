@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "jssha": "^2.3.1",
+    "keycloak-js": "^4.3.0",
     "patternfly": "^3.54.1",
     "patternfly-react": "^2.14.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-scripts-ts": "2.17.0"
+    "react-scripts-ts": "2.17.0",
+    "uuid": "^3.3.2"
   },
   "scripts": {
     "copy-fonts": "ncp node_modules/patternfly/dist/fonts src/fonts",
