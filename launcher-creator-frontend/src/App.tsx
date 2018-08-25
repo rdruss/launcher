@@ -6,34 +6,46 @@ import { Alert } from 'patternfly-react';
 import { CapabilitiesList } from './CapabilitiesSelector';
 import logo from './logo.svg';
 
-class App extends React.Component {
+class App extends React.Component<any, {selectedCapability: Set<string>}> {
   private capabilities = [
     {
       description: "Some general information about this capability. \
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
       sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
-      Odio facilisis mauris sit amet massa vitae tortor."
+      Odio facilisis mauris sit amet massa vitae tortor.",
+      id: 'cap1'
     },
     {
       description: "Some general information about this capability. \
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
       sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
-      Odio facilisis mauris sit amet massa vitae tortor."
+      Odio facilisis mauris sit amet massa vitae tortor.",
+      id: 'cap2'
     },
     {
       description: "Some general information about this capability. \
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
       sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
-      Odio facilisis mauris sit amet massa vitae tortor."
+      Odio facilisis mauris sit amet massa vitae tortor.",
+      id: 'cap3'
     },
     {
       description: "Some general information about this capability. \
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
       sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
-      Odio facilisis mauris sit amet massa vitae tortor."
+      Odio facilisis mauris sit amet massa vitae tortor.",
+      id: 'cap4'
     }
   ]
   
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedCapability: new Set<string>()
+    };
+    this.onCapabilitySelect = this.onCapabilitySelect.bind(this);
+  }
+
   public render() {
     return (
       <div>
@@ -51,10 +63,14 @@ class App extends React.Component {
           </Alert>
         </div>
         {
-          <CapabilitiesList capabilities={this.capabilities} />
+          <CapabilitiesList capabilities={this.capabilities} select={this.onCapabilitySelect}/>
         }
       </div>
     );
+  }
+
+  private onCapabilitySelect(event: string) {
+    this.setState({selectedCapability: new Set(this.state.selectedCapability.add(event))})
   }
 }
 
