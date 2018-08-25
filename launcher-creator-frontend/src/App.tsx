@@ -3,10 +3,37 @@ import './App.css';
 
 import { Alert } from 'patternfly-react';
 
-import { CapabilitiesSelector } from './CapabilitiesSelector';
+import { CapabilitiesList } from './CapabilitiesSelector';
 import logo from './logo.svg';
 
 class App extends React.Component {
+  private capabilities = [
+    {
+      description: "Some general information about this capability. \
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
+      Odio facilisis mauris sit amet massa vitae tortor."
+    },
+    {
+      description: "Some general information about this capability. \
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
+      Odio facilisis mauris sit amet massa vitae tortor."
+    },
+    {
+      description: "Some general information about this capability. \
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
+      Odio facilisis mauris sit amet massa vitae tortor."
+    },
+    {
+      description: "Some general information about this capability. \
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
+      Odio facilisis mauris sit amet massa vitae tortor."
+    }
+  ]
+  
   public render() {
     return (
       <div>
@@ -23,7 +50,9 @@ class App extends React.Component {
             good.
           </Alert>
         </div>
-        <CapabilitiesSelector />
+        {
+          <CapabilitiesList capabilities={this.capabilities} />
+        }
       </div>
     );
   }
