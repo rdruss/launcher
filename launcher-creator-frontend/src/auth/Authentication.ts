@@ -1,4 +1,4 @@
-import {User} from "./user";
+import {User} from "./User";
 
 export abstract class Authentication {
   protected _user?: User;

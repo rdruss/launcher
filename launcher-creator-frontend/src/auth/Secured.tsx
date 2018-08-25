@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {Authentication} from './authentication';
-import {KeycloakAuthentication} from './keycloak-authentication';
-import {KeycloakConfig} from "./keycloak-config";
+import {Authentication} from './Authentication';
+import {KeycloakAuthentication} from './KeycloakAuthentication';
+import {KeycloakConfig} from "./KeycloakConfig";
 import {Button} from 'patternfly-react';
-import {User} from "./user";
+import {User} from "./User";
 
 
 class SecuredState {

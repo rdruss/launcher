@@ -5,7 +5,7 @@ import { Alert } from 'patternfly-react';
 
 import { CapabilitiesList } from './CapabilitiesSelector';
 import logo from './logo.svg';
-import {Secured} from "./auth/secured";
+import {Secured} from "./auth/Secured";
 
 class App extends React.Component<any, {selectedCapability: Set<string>}> {
   private capabilities = [

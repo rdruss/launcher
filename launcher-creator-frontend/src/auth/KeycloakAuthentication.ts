@@ -1,9 +1,9 @@
 import * as jsSHA from 'jssha';
 import * as _ from 'lodash';
 import {v4 as uuidv4} from 'uuid';
-import {Authentication} from './authentication';
-import {KeycloakConfig} from './keycloak-config';
-import {User} from "./user";
+import {Authentication} from './Authentication';
+import {KeycloakConfig} from './KeycloakConfig';
+import {User} from "./User";
 import * as Keycloak from "keycloak-js";
 
 export class KeycloakAuthentication extends Authentication {
