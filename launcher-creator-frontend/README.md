@@ -1,7 +1,7 @@
 
-# Flying App Bakery
+# Launcher Creator Frontend
 
-The best way to create and launch an app on the cloud.
+The quickest way to create and launch a full-featured service on the cloud.
 
 ## Build
 
