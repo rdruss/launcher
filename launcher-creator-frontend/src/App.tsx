@@ -64,9 +64,13 @@ class App extends React.Component<any, {selectedCapability: Set<string>}> {
               good.
             </Alert>
           </div>
+          <CapabilitiesList capabilities={this.capabilities} select={this.onCapabilitySelect}/>
+          Selected capabilities:
+          <ul>
           {
-            <CapabilitiesList capabilities={this.capabilities} select={this.onCapabilitySelect}/>
+            Array.from(this.state.selectedCapability).map((cap, i) => (<li key={i}>{cap}</li>))
           }
+          </ul>
         </div>
       </Secured>
     );

@@ -35,7 +35,7 @@ export class Secured extends React.Component<any, SecuredState> {
     public render() {
         if (!this.state.user) {
             return (
-                <Button type="primary" onClick={this.login}>Login</Button>
+                <Button button="primary" onClick={this.login}>Login</Button>
             );
         }
         return (
