@@ -5,36 +5,36 @@ import { Alert } from 'patternfly-react';
 
 import { CapabilitiesList } from './CapabilitiesSelector';
 import logo from './logo.svg';
-import {Secured} from "./auth/Secured";
+import StoreContainer from './redux/StoreContainer';
 
 class App extends React.Component<any, {selectedCapability: Set<string>}> {
   private capabilities = [
     {
-      description: "Some general information about this capability. \
+      description: 'Some general information about this capability. \
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
       sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
-      Odio facilisis mauris sit amet massa vitae tortor.",
+      Odio facilisis mauris sit amet massa vitae tortor.',
       id: 'cap1'
     },
     {
-      description: "Some general information about this capability. \
+      description: 'Some general information about this capability. \
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
       sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
-      Odio facilisis mauris sit amet massa vitae tortor.",
+      Odio facilisis mauris sit amet massa vitae tortor.',
       id: 'cap2'
     },
     {
-      description: "Some general information about this capability. \
+      description: 'Some general information about this capability. \
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
       sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
-      Odio facilisis mauris sit amet massa vitae tortor.",
+      Odio facilisis mauris sit amet massa vitae tortor.',
       id: 'cap3'
     },
     {
-      description: "Some general information about this capability. \
+      description: 'Some general information about this capability. \
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
       sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
-      Odio facilisis mauris sit amet massa vitae tortor.",
+      Odio facilisis mauris sit amet massa vitae tortor.',
       id: 'cap4'
     }
   ]
@@ -49,7 +49,7 @@ class App extends React.Component<any, {selectedCapability: Set<string>}> {
 
   public render() {
     return (
-      <Secured>
+      <StoreContainer>
         <div>
           <div className="App">
             <header className="App-header">
@@ -72,7 +72,7 @@ class App extends React.Component<any, {selectedCapability: Set<string>}> {
           }
           </ul>
         </div>
-      </Secured>
+      </StoreContainer>
     );
   }
 

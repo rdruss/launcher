@@ -1,20 +1,25 @@
 {
-  "name": "flying-app-bakery",
+  "name": "launcher-creator-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.6",
     "jssha": "^2.3.1",
     "keycloak-js": "^4.3.0",
     "patternfly": "^3.54.1",
     "patternfly-react": "^2.14.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-redux": "^5.0.7",
     "react-scripts-ts": "2.17.0",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^0.16.0",
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "copy-fonts": "ncp node_modules/patternfly/dist/fonts src/fonts",
-    "copy-img": "ncp node_modules/patternfly/dist/img src/img",
+    "copy-fonts": "ncp node_modules/patternfly/dist/fonts src/assets/fonts",
+    "copy-img": "ncp node_modules/patternfly/dist/img src/assets/img",
     "build-css": "node-sass-chokidar src/ --output-style compressed $npm_package_sassIncludes_src $npm_package_sassIncludes_patternfly $npm_package_sassIncludes_patternflyReact $npm_package_sassIncludes_bootstrap $npm_package_sassIncludes_fontAwesome -o src/",
     "watch-css": "yarn build-css && node-sass-chokidar src/ --output-style compressed $npm_package_sassIncludes_src $npm_package_sassIncludes_patternfly $npm_package_sassIncludes_patternflyReact $npm_package_sassIncludes_bootstrap $npm_package_sassIncludes_fontAwesome -o src/ --watch --recursive",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json}\"",
