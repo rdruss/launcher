@@ -1,12 +1,12 @@
 # compiled patternfly assets
-src/css/*
-!src/css/.gitkeep
-src/img/*
-!src/img/.gitkeep
-src/fonts/*
-!src/fonts/.gitkeep
-src/sass/*
-!src/sass/index.sass
+src/assets/patternfly/css/*
+!src/assets/patternfly/css/.gitkeep
+src/assets/patternfly/img/*
+!src/assets/patternfly/img/.gitkeep
+src/assets/patternfly/fonts/*
+!src/assets/patternfly/fonts/.gitkeep
+src/assets/patternfly/sass/*
+!src/assets/patternfly/sass/index.sass
 
 # Logs
 logs

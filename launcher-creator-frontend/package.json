@@ -18,8 +18,8 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "copy-fonts": "ncp node_modules/patternfly/dist/fonts src/assets/fonts",
-    "copy-img": "ncp node_modules/patternfly/dist/img src/assets/img",
+    "copy-fonts": "ncp node_modules/patternfly/dist/fonts src/assets/patternfly/fonts",
+    "copy-img": "ncp node_modules/patternfly/dist/img src/assets/patternfly/img",
     "build-css": "node-sass-chokidar src/ --output-style compressed $npm_package_sassIncludes_src $npm_package_sassIncludes_patternfly $npm_package_sassIncludes_patternflyReact $npm_package_sassIncludes_bootstrap $npm_package_sassIncludes_fontAwesome -o src/",
     "watch-css": "yarn build-css && node-sass-chokidar src/ --output-style compressed $npm_package_sassIncludes_src $npm_package_sassIncludes_patternfly $npm_package_sassIncludes_patternflyReact $npm_package_sassIncludes_bootstrap $npm_package_sassIncludes_fontAwesome -o src/ --watch --recursive",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json}\"",

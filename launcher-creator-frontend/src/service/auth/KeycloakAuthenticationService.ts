@@ -7,6 +7,12 @@ import * as Keycloak from 'keycloak-js';
 
 export type OptionalUser = User | undefined;
 
+class StoredData {
+  public readonly token: string;
+  public readonly refreshToken: string;
+  public readonly idToken: string;
+}
+
 export class KeycloakAuthenticationService  {
 
   private _user: OptionalUser;
@@ -25,7 +31,7 @@ export class KeycloakAuthenticationService  {
 
   public init = (): Promise<OptionalUser> => {
     return new Promise((resolve, reject) => {
-      const sessionKC = JSON.parse(sessionStorage.getItem('kc'));
+      const sessionKC = KeycloakAuthenticationService.getStoredData();
       this.keycloak.init({ ...sessionKC })
         .error((e) => reject(e))
         .success(() => {
@@ -34,6 +40,8 @@ export class KeycloakAuthenticationService  {
         });
     });
   };
+
+
 
   public get user() {
     return this._user
@@ -44,7 +52,7 @@ export class KeycloakAuthenticationService  {
   };
 
   public logout = () => {
-    sessionStorage.removeItem('kc');
+    KeycloakAuthenticationService.clearStoredData();
     this.keycloak.logout();
   };
 
@@ -88,11 +96,11 @@ export class KeycloakAuthenticationService  {
 
   private initUser() {
     if (this.keycloak.token) {
-      sessionStorage.setItem('kc', JSON.stringify({
+      KeycloakAuthenticationService.setStoredData({
         token: this.keycloak.token,
         refreshToken: this.keycloak.refreshToken,
         idToken: this.keycloak.idToken,
-      }));
+      });
       this._user = {
         userName: _.get(this.keycloak, 'tokenParsed.preferred_username'),
         token: this.keycloak.token,
@@ -100,5 +108,17 @@ export class KeycloakAuthenticationService  {
         accountLink: {},
       };
     }
+  }
+
+  private static clearStoredData() {
+    localStorage.removeItem('kc');
+  }
+
+  private static setStoredData(data: StoredData) {
+    localStorage.setItem('kc', JSON.stringify(data));
+  }
+
+  private static getStoredData(): StoredData {
+    return JSON.parse(localStorage.getItem('kc'));
   }
 }

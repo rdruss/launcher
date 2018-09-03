@@ -4,7 +4,6 @@ import './App.css';
 import { Alert } from 'patternfly-react';
 
 import { CapabilitiesList } from './react/components/capabilities/CapabilitiesSelector';
-import logo from './logo.svg';
 import StoreContainer from './redux/StoreContainer';
 
 class App extends React.Component<any, {selectedCapability: Set<string>}> {
@@ -52,13 +51,6 @@ class App extends React.Component<any, {selectedCapability: Set<string>}> {
       <StoreContainer>
         <div>
           <div className="App">
-            <header className="App-header">
-              <img src={logo} className="App-logo" alt="logo" />
-              <h1 className="App-title">Welcome to React</h1>
-            </header>
-            <p className="App-intro">
-              To get started, edit <code>src/App.tsx</code> and save to reload.
-            </p>
             <Alert type="warning">
               <strong>Holy guacamole!</strong> Best check yo self, you're not looking too
               good.

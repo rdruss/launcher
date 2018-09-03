@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Button, EmptyState, Spinner } from 'patternfly-react';
+import { Button, EmptyState } from 'patternfly-react';
 import { TopNav } from './TopNav';
+import { SectionLoader } from './SectionLoader';
 
 class MainLayoutProps {
   public readonly inProgress = true;
@@ -20,7 +21,7 @@ export class MainLayout extends React.Component<MainLayoutProps, {}> {
     return (
       <div id="layout-container">
         <TopNav {...this.props}/>
-        <Spinner loading={this.props.inProgress}>
+        <SectionLoader loading={this.props.inProgress}>
           {!this.props.authenticated && (
             <EmptyState>
               <EmptyState.Icon />
@@ -37,7 +38,7 @@ export class MainLayout extends React.Component<MainLayoutProps, {}> {
             </EmptyState>
           )}
           {this.props.authenticated && this.props.children}
-        </Spinner>
+        </SectionLoader>
     </div>
   );
   }
