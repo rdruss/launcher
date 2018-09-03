@@ -15,7 +15,6 @@ function* authenticationRequest(action) {
     } else {
       yield put(authentication.userNotConnected());
     }
-
   } catch (e) {
     yield put(authentication.authenticationFailure(e));
   }

@@ -3,7 +3,7 @@ import './App.css';
 
 import { Alert } from 'patternfly-react';
 
-import { CapabilitiesList } from './CapabilitiesSelector';
+import { CapabilitiesList } from './react/components/capabilities/CapabilitiesSelector';
 import logo from './logo.svg';
 import StoreContainer from './redux/StoreContainer';
 
