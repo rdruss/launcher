@@ -102,7 +102,8 @@ export class KeycloakAuthenticationService  {
         idToken: this.keycloak.idToken,
       });
       this._user = {
-        userName: _.get(this.keycloak, 'tokenParsed.preferred_username'),
+        userName: _.get(this.keycloak, 'tokenParsed.name'),
+        userPreferredName: _.get(this.keycloak, 'tokenParsed.preferred_username'),
         token: this.keycloak.token,
         sessionState: _.get(this.keycloak, 'tokenParsed.session_state'),
         accountLink: {},

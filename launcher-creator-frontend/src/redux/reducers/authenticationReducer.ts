@@ -2,13 +2,9 @@ import { AuthenticationState } from '../states';
 import { AuthenticationAction } from '../actions';
 
 const INITIAL_STATE: AuthenticationState = {
-  token: undefined,
-  userName: undefined,
   error: false,
-  message: '',
   authenticated: false,
   inProgress: false,
-  sessionTimeOut: undefined
 };
 
 // This Reducer allows changes to the 'AuthenticationReducer' portion of Redux Store
@@ -26,6 +22,7 @@ const authenticationReducer = (state: AuthenticationState = INITIAL_STATE, actio
         authenticated: true,
         token: action.response.token,
         userName: action.response.userName,
+        userPreferredName: action.response.userPreferredName,
         sessionTimeOut: action.response.sessionTimeOut
       });
     case AuthenticationAction.USER_NOT_CONNECTED:
