@@ -8,7 +8,6 @@ class TopNavProps {
   public readonly authenticated = false;
   public readonly userName = 'Brian Johnson';
   public readonly logout: () => {};
-  public readonly login: () => {};
 }
 
 export const TopNav = (props: TopNavProps) => (

@@ -30,6 +30,5 @@ export const CapabilitiesList = ({ capabilities, select }) => (
       }
     </Patternfly.Row>
   </Patternfly.CardGrid>
-
 );
 
