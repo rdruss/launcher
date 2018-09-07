@@ -45,12 +45,16 @@ class CapabilityStep extends React.Component<any, {selectedCapability: Set<strin
     return (
       <div>
         <CapabilitiesList capabilities={this.capabilities} select={this.onCapabilitySelect}/>
-        Selected capabilities:
-        <ul>
-          {
-            Array.from(this.state.selectedCapability).map((cap, i) => (<li key={i}>{cap}</li>))
-          }
-        </ul>
+        {this.state.selectedCapability.size > 0 && (
+          <div>
+            Selected capabilities:
+            <ul>
+            {
+              Array.from(this.state.selectedCapability).map((cap, i) => (<li key={i}>{cap}</li>))
+            }
+            </ul>
+          </div>
+        )}
       </div>
     );
   }

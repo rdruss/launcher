@@ -1,8 +1,10 @@
 import * as React from 'react';
+
 import CapabilityStep from '../components/capabilities/CapabilityStep';
 import MainLayoutContainer from '../components/layout/MainLayoutContainer';
 import Lizard from '../components/lizard/Lizard';
 import LizardStep from '../components/lizard/LizardStep';
+import LizardButton from '../components/lizard/LizardButton';
 
 class HomePage extends React.Component<any, {selectedCapability: Set<string>}> {
 
@@ -18,13 +20,14 @@ class HomePage extends React.Component<any, {selectedCapability: Set<string>}> {
     return (
         <MainLayoutContainer>
           <Lizard>
-            <LizardStep title={'Language & Runtime'} complete>
+            <LizardStep title={'Language & Runtime'} summary={'➡️ Your future application will use Java Vert.x'} complete>
               Please select you language and runtime.
             </LizardStep>
             <LizardStep title={'Capabilities'} current>
               <CapabilityStep />
+              <LizardButton type={'next'} />
             </LizardStep>
-            <LizardStep title={'Summary'} locked>
+            <LizardStep title={'Summary'}>
               Here is a summary of your future application. Launch!
             </LizardStep>
             <LizardStep title={'What\'s next...'} locked>
