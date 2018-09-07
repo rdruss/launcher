@@ -10,7 +10,7 @@ class TopNavProps {
   public readonly logout: () => {};
 }
 
-export const TopNav = (props: TopNavProps) => (
+const TopNav = (props: TopNavProps) => (
   <Masthead
     iconImg={logo}
     title="Launcher Creator"
@@ -36,3 +36,5 @@ export const TopNav = (props: TopNavProps) => (
     </Masthead.Collapse>
   </Masthead>
 );
+
+export default TopNav;

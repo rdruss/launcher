@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { TopNav } from './TopNav';
-import { SectionLoader } from './SectionLoader';
+import TopNav from './TopNav';
+import SectionLoader from './SectionLoader';
 
 class MainLayoutProps {
   public readonly inProgress = true;
@@ -9,7 +9,7 @@ class MainLayoutProps {
   public readonly logout: () => {};
 }
 
-export class MainLayout extends React.Component<MainLayoutProps, {}> {
+class MainLayout extends React.Component<MainLayoutProps, {}> {
 
   constructor(props: MainLayoutProps) {
     super(props);
@@ -25,5 +25,6 @@ export class MainLayout extends React.Component<MainLayoutProps, {}> {
     </div>
   );
   }
-
 }
+
+export default MainLayout;

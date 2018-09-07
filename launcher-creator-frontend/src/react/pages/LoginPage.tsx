@@ -6,7 +6,7 @@ class LoginPageProps {
   public readonly login: () => {};
 }
 
-export const LoginPage = (props: LoginPageProps) => (
+const LoginPage = (props: LoginPageProps) => (
   <MainLayoutContainer>
     <EmptyState>
       <EmptyState.Icon />
@@ -23,3 +23,5 @@ export const LoginPage = (props: LoginPageProps) => (
     </EmptyState>
   </MainLayoutContainer>
 );
+
+export default LoginPage;

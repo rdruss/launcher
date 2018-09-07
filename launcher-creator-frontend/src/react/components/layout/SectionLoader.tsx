@@ -7,7 +7,7 @@ class LoaderProps {
   public readonly children?: ReactNode;
 }
 
-export const SectionLoader = (props: LoaderProps) => (
+const SectionLoader = (props: LoaderProps) => (
   <div className="container">
     <div className="section-loader-wrapper">
       {props.loading && (
@@ -25,3 +25,5 @@ export const SectionLoader = (props: LoaderProps) => (
     </div>
   </div>
 );
+
+export default SectionLoader;
