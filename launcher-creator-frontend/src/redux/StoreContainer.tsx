@@ -19,7 +19,7 @@ const store = createStore(
 
 sagaMiddleware.run(sagas);
 
-store.dispatch(authentication.authenticationRequest());
+store.dispatch(authentication.authenticate());
 
 const StoreContainer = (props) => (<Provider store={store}>{props.children}</Provider>);
 

@@ -3,11 +3,11 @@ import { Spinner, Icon, Masthead, MenuItem } from 'patternfly-react';
 import logo from '../../../assets/logo/RHD-logo.svg';
 import './TopNav.css';
 
-class TopNavProps {
-  public readonly inProgress = true;
-  public readonly authenticated = false;
-  public readonly userName = 'Brian Johnson';
-  public readonly logout: () => {};
+interface TopNavProps {
+  inProgress: boolean;
+  authenticated: boolean;
+  userName: string;
+  logout: () => {};
 }
 
 const TopNav = (props: TopNavProps) => (

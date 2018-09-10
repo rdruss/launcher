@@ -14,8 +14,12 @@ export interface AuthenticationState {
   sessionTimeOut?: Date;
 }
 
+export interface CapabilitiesState {
+}
+
 // This defines the  Global Application State
 export interface AppState {
   globalState: GlobalState;
   authentication: AuthenticationState;
+  capabilities: CapabilitiesState;
 }

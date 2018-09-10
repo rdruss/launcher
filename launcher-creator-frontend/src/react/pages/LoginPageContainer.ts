@@ -7,7 +7,7 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  login: () => dispatch(authentication.loginRequest()),
+  login: () => dispatch(authentication.login()),
 });
 
 const LoginPageContainer = connect(

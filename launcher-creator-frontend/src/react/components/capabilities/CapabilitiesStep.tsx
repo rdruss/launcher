@@ -2,7 +2,15 @@ import * as React from 'react';
 
 import { CapabilitiesList } from './CapabilitiesSelector';
 
-class CapabilityStep extends React.Component<any, {selectedCapability: Set<string>}> {
+interface CapabilitiesStepProps {
+  fetchCapabilities: () => {}
+}
+
+interface CapabilitiesStepState {
+  selectedCapability: Set<string>
+}
+
+class CapabilitiesStep extends React.Component<CapabilitiesStepProps, CapabilitiesStepState> {
   private capabilities = [
     {
       description: 'Some general information about this capability. \
@@ -32,13 +40,17 @@ class CapabilityStep extends React.Component<any, {selectedCapability: Set<strin
       Odio facilisis mauris sit amet massa vitae tortor.',
       id: 'cap4'
     }
-  ]
+  ];
 
   constructor(props) {
     super(props);
     this.state = {
       selectedCapability: new Set<string>()
     };
+  }
+
+  public componentDidMount() {
+    this.props.fetchCapabilities();
   }
 
   public render() {
@@ -64,4 +76,4 @@ class CapabilityStep extends React.Component<any, {selectedCapability: Set<strin
   }
 }
 
-export default CapabilityStep;
+export default CapabilitiesStep;

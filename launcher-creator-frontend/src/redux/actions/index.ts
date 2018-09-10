@@ -1,23 +1,30 @@
 import { action } from '../utils/Actions';
 
 export enum AuthenticationAction {
-  AUTHENTICATION_REQUEST = 'AUTHENTICATION_REQUEST',
+  AUTHENTICATE = 'AUTHENTICATE',
   USER_CONNECTED = 'AUTHENTICATION_USER_CONNECTED',
   USER_NOT_CONNECTED = 'AUTHENTICATION_USER_NOT_CONNECTED',
   AUTHENTICATION_FAILURE = 'AUTHENTICATION_FAILURE',
-  LOGIN_REQUEST = 'LOGIN_REQUEST',
-  LOGOUT_REQUEST = 'LOGOUT_REQUEST'
-};
+  LOGIN = 'LOGIN',
+  LOGOUT = 'LOGOUT'
+}
 
 export const authentication = {
-  authenticationRequest: () => action(AuthenticationAction.AUTHENTICATION_REQUEST, {}),
-  loginRequest: () => action(AuthenticationAction.LOGIN_REQUEST, {}),
+  authenticate: () => action(AuthenticationAction.AUTHENTICATE, {}),
+  login: () => action(AuthenticationAction.LOGIN, {}),
   userConnected: (response) => action(AuthenticationAction.USER_CONNECTED, {response}),
   userNotConnected: () => action(AuthenticationAction.USER_NOT_CONNECTED, {}),
   authenticationFailure: (error) => action(AuthenticationAction.AUTHENTICATION_FAILURE, {error}),
-  logoutRequest: () => action(AuthenticationAction.LOGOUT_REQUEST, {}),
+  logout: () => action(AuthenticationAction.LOGOUT, {}),
 };
 
+export enum CapabilitiesAction {
+  FETCH_CAPABILITIES = 'FETCH_CAPABILITIES',
+}
+
+export const capabilities = {
+  fetch: () => action(CapabilitiesAction.FETCH_CAPABILITIES, { request: { url: `/capabilities` } })
+};
 
 
 

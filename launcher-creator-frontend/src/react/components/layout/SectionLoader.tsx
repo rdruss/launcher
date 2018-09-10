@@ -2,9 +2,10 @@ import * as React from 'react';
 import { ReactNode } from 'react';
 import './SectionLoader.css';
 import paragraph from '../../../assets/img/short-paragraph.png';
-class LoaderProps {
-  public readonly loading: boolean;
-  public readonly children?: ReactNode;
+
+interface LoaderProps {
+  loading: boolean;
+  children?: ReactNode;
 }
 
 const SectionLoader = (props: LoaderProps) => (

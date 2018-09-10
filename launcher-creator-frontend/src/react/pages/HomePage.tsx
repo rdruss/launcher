@@ -1,19 +1,15 @@
 import * as React from 'react';
 
-import CapabilityStep from '../components/capabilities/CapabilityStep';
 import MainLayoutContainer from '../components/layout/MainLayoutContainer';
 import Lizard from '../components/lizard/Lizard';
 import LizardStep from '../components/lizard/LizardStep';
 import LizardButton from '../components/lizard/LizardButton';
+import CapabilitiesStepContainer from '../components/capabilities/CapabilitiesStepContainer';
 
-class HomePage extends React.Component<any, {selectedCapability: Set<string>}> {
+class HomePage extends React.Component<{}, {}> {
 
   constructor(props) {
     super(props);
-    this.state = {
-      selectedCapability: new Set<string>()
-    };
-    this.onCapabilitySelect = this.onCapabilitySelect.bind(this);
   }
 
   public render() {
@@ -24,7 +20,7 @@ class HomePage extends React.Component<any, {selectedCapability: Set<string>}> {
               Please select you language and runtime.
             </LizardStep>
             <LizardStep title={'Capabilities'} current>
-              <CapabilityStep />
+              <CapabilitiesStepContainer />
               <LizardButton type={'next'} />
             </LizardStep>
             <LizardStep title={'Summary'}>
@@ -36,10 +32,6 @@ class HomePage extends React.Component<any, {selectedCapability: Set<string>}> {
           </Lizard>
         </MainLayoutContainer>
     );
-  }
-
-  private onCapabilitySelect(event: string) {
-    this.setState({selectedCapability: new Set(this.state.selectedCapability.add(event))})
   }
 }
 

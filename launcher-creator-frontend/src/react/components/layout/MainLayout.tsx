@@ -2,11 +2,11 @@ import * as React from 'react';
 import TopNav from './TopNav';
 import SectionLoader from './SectionLoader';
 
-class MainLayoutProps {
-  public readonly inProgress = true;
-  public readonly authenticated = false;
-  public readonly userName = 'Brian Johnson';
-  public readonly logout: () => {};
+interface MainLayoutProps {
+  inProgress: boolean;
+  authenticated: boolean;
+  userName: string;
+  logout: () => {};
 }
 
 class MainLayout extends React.Component<MainLayoutProps, {}> {

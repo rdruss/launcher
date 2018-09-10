@@ -10,9 +10,9 @@ const INITIAL_STATE: AuthenticationState = {
 // This Reducer allows changes to the 'AuthenticationReducer' portion of Redux Store
 const authenticationReducer = (state: AuthenticationState = INITIAL_STATE, action) => {
   switch (action.type) {
-    case AuthenticationAction.AUTHENTICATION_REQUEST:
-    case AuthenticationAction.LOGIN_REQUEST:
-    case AuthenticationAction.LOGOUT_REQUEST:
+    case AuthenticationAction.AUTHENTICATE:
+    case AuthenticationAction.LOGIN:
+    case AuthenticationAction.LOGOUT:
       return Object.assign({}, INITIAL_STATE, {
         inProgress: true,
       });

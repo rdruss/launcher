@@ -36,8 +36,8 @@ function* logoutRequest(action) {
   }
 }
 
-export default function* watchAuthentication() {
-  yield takeEvery(AuthenticationAction.AUTHENTICATION_REQUEST, authenticationRequest);
-  yield takeEvery(AuthenticationAction.LOGIN_REQUEST, loginRequest);
-  yield takeEvery(AuthenticationAction.LOGOUT_REQUEST, logoutRequest);
+export default function* authenticationSaga() {
+  yield takeEvery(AuthenticationAction.AUTHENTICATE, authenticationRequest);
+  yield takeEvery(AuthenticationAction.LOGIN, loginRequest);
+  yield takeEvery(AuthenticationAction.LOGOUT, logoutRequest);
 }

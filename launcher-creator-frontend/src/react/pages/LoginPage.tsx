@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Button, EmptyState } from 'patternfly-react';
 import MainLayoutContainer from '../components/layout/MainLayoutContainer';
 
-class LoginPageProps {
-  public readonly login: () => {};
+interface LoginPageProps {
+  login: () => {};
 }
 
 const LoginPage = (props: LoginPageProps) => (
