@@ -1,9 +1,15 @@
 import * as React from 'react';
 
 import * as Patternfly from 'patternfly-react';
+import { Capability } from '../../../../redux/states/index';
 
-export const CapabilitiesSelector = ({ capability, onSelect }) => {
-  const doOnSelect = () => onSelect(capability.id);
+interface CapabilityCardProps {
+  capability: Capability;
+  onSelect: (capability: Capability) => void;
+}
+
+const CapabilityCard = ({ capability, onSelect } : CapabilityCardProps) => {
+  const doOnSelect = () => onSelect(capability);
   return (
     <Patternfly.Col xs={12} md={4}>
       <Patternfly.Card>
@@ -20,15 +26,21 @@ export const CapabilitiesSelector = ({ capability, onSelect }) => {
   );
 };
 
-export const CapabilitiesList = ({ capabilities, select }) => (
+interface CapabilitiesSelectorProps {
+  capabilities: [Capability];
+  onSelect: (capability: Capability) => void;
+}
+
+const CapabilitiesSelector = ({ capabilities, onSelect } : CapabilitiesSelectorProps) => (
   <Patternfly.CardGrid>
     <Patternfly.Row style={{ marginBottom: '20px', marginTop: '20px' }}>
       {
         capabilities.map((cap, i) => (
-          <CapabilitiesSelector key={i} capability={cap} onSelect={select} />)
+          <CapabilityCard key={i} capability={cap} onSelect={onSelect} />)
         )
       }
     </Patternfly.Row>
   </Patternfly.CardGrid>
 );
 
+export default CapabilitiesSelector;

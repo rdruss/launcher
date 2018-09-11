@@ -3,15 +3,18 @@ import * as Patternfly from 'patternfly-react';
 
 interface LizardButtonProps {
   type: 'next' | 'launch';
-  children?: React.ReactNode;
+  title?: string;
 }
 
-const LizardButton: React.StatelessComponent<LizardButtonProps> = ({ type, children }) => {
+const LizardButton: React.StatelessComponent<LizardButtonProps> = ({ type, title }) => {
   let text = 'Launch';
   let icon = 'check';
-  if(type === 'next') {
+  if (type === 'next') {
     text = 'Next';
     icon = 'angle-right';
+  }
+  if (title) {
+    text = title;
   }
   return (
     <Patternfly.Button className={'lizard-button'}>

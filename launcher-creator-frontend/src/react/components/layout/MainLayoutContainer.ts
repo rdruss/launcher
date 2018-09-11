@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { AppState } from '../../../redux/states';
-import { authentication } from '../../../redux/actions';
+import { authenticationAction } from '../../../redux/actions';
 import MainLayout from './MainLayout';
 
 const mapStateToProps = (state: AppState) => ({
@@ -10,7 +10,7 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  logout: () => dispatch(authentication.logout())
+  logout: () => dispatch(authenticationAction.logout())
 });
 
 const MainLayoutContainer = connect(

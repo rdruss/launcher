@@ -14,12 +14,40 @@ export interface AuthenticationState {
   sessionTimeOut?: Date;
 }
 
-export interface CapabilitiesState {
+export interface IdAndName {
+  id: string;
+  name: string;
+}
+
+export interface Runtime {
+  id: string;
+  language: string;
+  name: string;
+  description?: string;
+  icon?: string;
+}
+
+export interface Capability {
+  module: string;
+  name: string;
+  description: string;
+  props: {
+    runtime?: {
+      values: [IdAndName];
+    }
+  };
+}
+
+export interface FetchState<T> {
+  data: T;
+  error: string;
+  pending: number;
 }
 
 // This defines the  Global Application State
 export interface AppState {
   globalState: GlobalState;
   authentication: AuthenticationState;
-  capabilities: CapabilitiesState;
+  capabilities: FetchState<[Capability]>;
+  runtimes: FetchState<[Runtime]>;
 }

@@ -19,7 +19,7 @@ const LizardStep: React.StatelessComponent<LizardStepProps>
             <i className={classNames('ico fa', { 'fa-check ico-green': complete, 'fa-lock ico-muted': locked})} />
           )}
         </a>
-        {summary && (
+        {!current && summary && (
           <span className="summary">{summary}</span>
         )}
         {current && (

@@ -9,7 +9,7 @@ export enum AuthenticationAction {
   LOGOUT = 'LOGOUT'
 }
 
-export const authentication = {
+export const authenticationAction = {
   authenticate: () => action(AuthenticationAction.AUTHENTICATE, {}),
   login: () => action(AuthenticationAction.LOGIN, {}),
   userConnected: (response) => action(AuthenticationAction.USER_CONNECTED, {response}),
@@ -18,13 +18,14 @@ export const authentication = {
   logout: () => action(AuthenticationAction.LOGOUT, {}),
 };
 
-export enum CapabilitiesAction {
+export enum ApiAction {
   FETCH_CAPABILITIES = 'FETCH_CAPABILITIES',
+  FETCH_RUNTIMES = 'FETCH_RUNTIMES',
 }
 
-export const capabilities = {
-  fetch: () => action(CapabilitiesAction.FETCH_CAPABILITIES, { request: { url: `/capabilities` } })
+export const apiAction = {
+  fetchCapabilities: () => action(ApiAction.FETCH_CAPABILITIES, { request: { url: `/capabilities` } }),
+  fetchRuntimes: () => action(ApiAction.FETCH_RUNTIMES, { request: { url: `/runtimes` } })
 };
-
 
 

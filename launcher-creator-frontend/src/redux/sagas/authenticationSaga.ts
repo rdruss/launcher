@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { authentication, AuthenticationAction } from '../actions';
+import { authenticationAction, AuthenticationAction } from '../actions';
 import { KeycloakAuthenticationService, OptionalUser } from '../../service/auth/KeycloakAuthenticationService';
 import { KeycloakConfig } from '../../service/auth/KeycloakConfig';
 
@@ -11,12 +11,12 @@ function* authenticationRequest(action) {
   try {
     const user:OptionalUser = yield call(keycloakService.init, action.payload);
     if (user) {
-      yield put(authentication.userConnected(user));
+      yield put(authenticationAction.userConnected(user));
     } else {
-      yield put(authentication.userNotConnected());
+      yield put(authenticationAction.userNotConnected());
     }
   } catch (e) {
-    yield put(authentication.authenticationFailure(e));
+    yield put(authenticationAction.authenticationFailure(e));
   }
 }
 
@@ -24,7 +24,7 @@ function* loginRequest(action) {
   try {
     yield call(keycloakService.login, action.payload);
   } catch (e) {
-    yield put(authentication.authenticationFailure(e));
+    yield put(authenticationAction.authenticationFailure(e));
   }
 }
 
@@ -32,7 +32,7 @@ function* logoutRequest(action) {
   try {
     yield call(keycloakService.logout, action.payload);
   } catch (e) {
-    yield put(authentication.authenticationFailure(e));
+    yield put(authenticationAction.authenticationFailure(e));
   }
 }
 

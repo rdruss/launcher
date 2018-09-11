@@ -7,7 +7,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import sagas from './sagas/index';
 import rootReducer from './reducers/index';
-import { authentication } from './actions';
+import { authenticationAction } from './actions';
 
 const loggerMiddleware = createLogger();
 const sagaMiddleware = createSagaMiddleware();
@@ -19,7 +19,7 @@ const store = createStore(
 
 sagaMiddleware.run(sagas);
 
-store.dispatch(authentication.authenticate());
+store.dispatch(authenticationAction.authenticate());
 
 const StoreContainer = (props) => (<Provider store={store}>{props.children}</Provider>);
 
