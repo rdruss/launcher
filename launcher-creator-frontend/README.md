@@ -38,6 +38,8 @@ $ yarn build
 ## Serve build
 
 ```bash
+$ yarn install
+$ yarn build
 $ yarn serve
 ```
 
