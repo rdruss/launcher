@@ -38,7 +38,7 @@ $ yarn build
 ## Serve build
 
 ```bash
-$ yarn static
+$ yarn serve
 ```
 
 

@@ -15,7 +15,7 @@
     "start:mock": "REACT_APP_API_DRIVER=mock npm start",
     "start:api": "REACT_APP_API_DRIVER=api npm start",
     "start:prod": "run-s build static",
-    "static": "static build",
+    "serve": "static build",
     "build-js": "react-scripts-ts build",
     "build": "npm-run-all copy-fonts copy-img build-css build-js",
     "test": "react-scripts-ts test --env=jsdom",
