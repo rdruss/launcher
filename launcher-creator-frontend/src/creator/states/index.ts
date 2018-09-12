@@ -56,6 +56,8 @@ export interface TitleStepState {
   valid: boolean;
 }
 
+export const TITLE_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
+
 export interface RuntimeStepState {
   runtime?: Runtime;
   valid: boolean;

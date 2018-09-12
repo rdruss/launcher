@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import Lizard from '../../../../components/lizard';
+import { TITLE_REGEXP } from '../../../states';
 
 interface TitleStepProps {
   onTitleChange: (title: string) => void
@@ -54,7 +55,7 @@ class TitleStep extends Component<TitleStepProps, TitleStepState> {
   }
 
   private isTitleValid(title: string): boolean {
-    return title && title.length > 3;
+    return title && TITLE_REGEXP.test(title);
   }
 }
 

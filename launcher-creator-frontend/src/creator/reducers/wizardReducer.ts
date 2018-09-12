@@ -1,4 +1,4 @@
-import { Capability, WizardStepId, WizardState } from '../states';
+import { Capability, WizardStepId, WizardState, TITLE_REGEXP } from '../states';
 import { WizardAction } from '../actions';
 
 const INITIAL_STATE: WizardState = {
@@ -13,7 +13,7 @@ const wizardReducer = (state: WizardState = INITIAL_STATE, action) => {
   let newState = state;
   switch (action.type) {
     case WizardAction.SELECT_TITLE:
-      newState = { ...state, titleStep: { title: action.title, valid: (action.title && action.title.length > 2) } };
+      newState = { ...state, titleStep: { title: action.title, valid: (action.title && TITLE_REGEXP.test(action.title)) } };
       break;
     case WizardAction.SELECT_RUNTIME:
       newState = { ...state, runtimeStep: { runtime: action.runtime, valid: true } };
