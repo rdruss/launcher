@@ -14,7 +14,7 @@
     "start": "BROWSER=none npm-run-all copy-fonts copy-img -p watch-css start-js",
     "start:mock": "REACT_APP_API_DRIVER=mock npm start",
     "start:api": "REACT_APP_API_DRIVER=api npm start",
-    "start:prod": "run-s build static",
+    "start:prod": "run-s build serve",
     "serve": "static build",
     "build-js": "react-scripts-ts build",
     "build": "npm-run-all copy-fonts copy-img build-css build-js",
