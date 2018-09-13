@@ -1,9 +1,11 @@
 import { connect } from 'react-redux';
-import { AppState, WizardStepId } from '../../../states';
+import { AppState, Runtime, WizardStepId } from '../../../states';
 import RuntimeStep from './RuntimeStep';
-import { wizardAction } from '../../../actions';
+import { apiAction, wizardAction } from '../../../actions';
 
 const mapStateToProps = (state: AppState) => ({
+  runtimes: state.runtimes.data || [],
+  loading: !state.runtimes.data || state.runtimes.pending > 0,
   selectedRuntime: state.wizard.runtimeStep.runtime,
   valid: state.wizard.runtimeStep.valid,
   current: state.wizard.current === WizardStepId.RUNTIME_STEP,
@@ -11,6 +13,8 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  fetchRuntimes: () => dispatch(apiAction.fetchRuntimes()),
+  onSelect: (runtime: Runtime) => dispatch(wizardAction.selectRuntime(runtime)),
   goToNextStep: () => dispatch(wizardAction.goToStep(WizardStepId.CAPABILITIES_STEP)),
 });
 

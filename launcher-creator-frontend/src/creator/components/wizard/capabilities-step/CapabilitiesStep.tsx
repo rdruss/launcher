@@ -1,13 +1,17 @@
 import * as React from 'react';
 import { Capability } from '../../../states';
 import Wizard from '../../../../components/wizard';
-import CapabilitiesSelectorContainer from './CapabilitiesSelectorContainer';
+import CapabilitiesSelector from './CapabilitiesSelector';
 
 interface CapabilitiesStepProps {
+  capabilities: Capability[];
   selectedCapabilities: Set<Capability>;
   valid: boolean;
   current: boolean;
   locked: boolean;
+  onSelect: (capability: Capability) => void;
+  fetchCapabilities: () => {};
+  loading: boolean;
 }
 
 class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { CapabilitiesStepState }> {
@@ -15,21 +19,26 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
     super(props);
   }
 
+  public componentDidMount() {
+    this.props.fetchCapabilities();
+  }
+
   public render() {
+    const { current, locked, valid, selectedCapabilities } = this.props;
     return (
       <Wizard.Step
         title={'Capabilities'}
-        current={this.props.current}
-        locked={this.props.locked}
-        complete={this.props.valid}
+        current={current}
+        locked={locked}
+        complete={valid}
       >
-        <CapabilitiesSelectorContainer/>
-        {this.props.selectedCapabilities.size > 0 && (
+        <CapabilitiesSelector {...this.props}/>
+        {selectedCapabilities.size > 0 && (
           <div>
             Selected capabilities:
             <ul>
               {
-                Array.from(this.props.selectedCapabilities).map((cap, i) => (<li key={i}>{cap.name}</li>))
+                Array.from(selectedCapabilities).map((cap, i) => (<li key={i}>{cap.name}</li>))
               }
             </ul>
           </div>

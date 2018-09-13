@@ -1,36 +1,41 @@
 import * as React from 'react';
 
 import './RuntimeStep.css';
-import RuntimeSelectorContainer from './RuntimeSelectorContainer';
 import { Runtime } from '../../../states';
 import Wizard from '../../../../components/wizard';
+import RuntimeSelector from './RuntimeSelector';
 
 interface RuntimeStepProps {
+  runtimes: Runtime[];
   selectedRuntime?: Runtime;
   valid: boolean;
   current: boolean;
   locked: boolean;
   goToNextStep: () => void;
+  fetchRuntimes: () => {};
+  onSelect: (runtime: Runtime) => void;
+  loading: boolean;
 }
 
 class RuntimeStep extends React.Component<RuntimeStepProps, {}> {
 
-  constructor(props) {
-    super(props);
+  public componentDidMount() {
+    this.props.fetchRuntimes();
   }
 
   public render() {
-    const summary = this.props.selectedRuntime && `➡️ Your future application will use «${this.props.selectedRuntime.name}»`;
+    const { current, locked, valid, selectedRuntime, goToNextStep } = this.props;
+    const summary = selectedRuntime && `➡️ Your future application will use «${selectedRuntime.name}»`;
     return (
       <Wizard.Step
           title={'Language & Runtime'}
           summary={summary}
-          current={this.props.current}
-          locked={this.props.locked}
-          complete={this.props.valid}
+          current={current}
+          locked={locked}
+          complete={valid}
       >
-        <RuntimeSelectorContainer />
-        <Wizard.Button type={'next'} title={'Let\'s select capabilities'} disabled={!this.props.valid} onClick={this.props.goToNextStep}/>
+        <RuntimeSelector  {...this.props} />
+        <Wizard.Button type={'next'} title={'Let\'s select capabilities'} disabled={!valid} onClick={goToNextStep}/>
       </Wizard.Step>
     );
   }

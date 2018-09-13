@@ -10,8 +10,10 @@ interface RuntimeCardProps {
   onSelect: (runtime: Runtime) => void;
 }
 
-const RuntimeCard: React.StatelessComponent<RuntimeCardProps> = ({runtime, onSelect, selected = false}) => {
+function RuntimeCard(props: RuntimeCardProps) {
+  const { runtime, onSelect, selected = false } = props;
   const doOnSelect = () => onSelect(runtime);
+  console.log(selected);
   return (
     <Patternfly.ListViewItem
       onClick={doOnSelect}
@@ -21,40 +23,33 @@ const RuntimeCard: React.StatelessComponent<RuntimeCardProps> = ({runtime, onSel
       description={runtime.description}
     />
   );
-};
+}
 
 interface RuntimeSelectorProps {
   loading: boolean;
   selectedRuntime?: Runtime;
   runtimes: Runtime[];
-  fetchRuntimes: () => {};
   onSelect: (runtime: Runtime) => void;
 }
 
-class RuntimeSelector extends React.Component<RuntimeSelectorProps> {
-
-  public componentDidMount() {
-    this.props.fetchRuntimes();
-  }
-
-  public render() {
-    const {runtimes, onSelect, selectedRuntime} = this.props;
-    return (
-      <div className={'runtime-selector'}>
-        <SectionLoader loading={this.props.loading}>
-          <p>Here you can choose a runtime for a specific programming language.</p>
-          <Patternfly.ListView>
-            {
-              runtimes && runtimes.map((runtime, i) => (
-                <RuntimeCard key={i} runtime={runtime} onSelect={onSelect}
-                             selected={selectedRuntime && selectedRuntime.id === runtime.id}/>)
-              )
-            }
-          </Patternfly.ListView>
-        </SectionLoader>
-      </div>
-    );
-  }
+function RuntimeSelector(props: RuntimeSelectorProps) {
+  const {runtimes, onSelect, selectedRuntime} = props;
+  console.log('runtimes' + runtimes);
+  return (
+    <div className={'runtime-selector'}>
+      <SectionLoader loading={props.loading}>
+        <p>Here you can choose a runtime for a specific programming language.</p>
+        <Patternfly.ListView>
+          {
+            runtimes.map((runtime, i) => (
+              <RuntimeCard key={i} runtime={runtime} onSelect={onSelect}
+                           selected={selectedRuntime && selectedRuntime.id === runtime.id}/>)
+            )
+          }
+        </Patternfly.ListView>
+      </SectionLoader>
+    </div>
+  );
 }
 
 export default RuntimeSelector;
