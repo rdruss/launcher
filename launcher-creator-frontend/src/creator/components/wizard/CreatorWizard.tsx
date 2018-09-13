@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { WizardStepId } from '../../states';
 import TitleStepContainer from './title-step/TitleStepContainer';
-import Lizard from '../../../components/lizard';
+import Wizard from '../../../components/wizard';
 import RuntimeStepContainer from './runtime-step/RuntimeStepContainer';
 import CapabilitiesStepContainer from './capabilities-step/CapabilitiesStepContainer';
 
@@ -20,21 +20,21 @@ class CreatorWizard extends React.Component<CreatorWizardProps> {
   public render() {
     const { current } = this.props;
     return (
-      <Lizard>
+      <Wizard>
         <TitleStepContainer/>
         <RuntimeStepContainer/>
         <CapabilitiesStepContainer/>
-        <Lizard.Step
+        <Wizard.Step
           title={'Source Repository'}
           current={current === WizardStepId.REPOSITORY_STEP}
           locked={true}
         >
-          <Lizard.Button type={'next'}/>
-        </Lizard.Step>
-        <Lizard.Step title={'What\'s next...'} locked>
+          <Wizard.Button type={'next'}/>
+        </Wizard.Step>
+        <Wizard.Step title={'What\'s next...'} locked>
           Now that your application has been set up, here is what you can do...
-        </Lizard.Step>
-      </Lizard>
+        </Wizard.Step>
+      </Wizard>
     );
   }
 }

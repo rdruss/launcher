@@ -8,7 +8,7 @@ interface LizardButtonProps {
   disabled?: boolean;
 }
 
-const LizardButton: React.StatelessComponent<LizardButtonProps> = ({ type, title, onClick, disabled = false }) => {
+const WizardButton: React.StatelessComponent<LizardButtonProps> = ({ type, title, onClick, disabled = false }) => {
   let text = 'Launch';
   let icon = 'check';
   if (type === 'next') {
@@ -25,4 +25,4 @@ const LizardButton: React.StatelessComponent<LizardButtonProps> = ({ type, title
   );
 }
 
-export default LizardButton;
+export default WizardButton;

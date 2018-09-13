@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Capability } from '../../../states';
-import Lizard from '../../../../components/lizard';
+import Wizard from '../../../../components/wizard';
 import CapabilitiesSelectorContainer from './CapabilitiesSelectorContainer';
 
 interface CapabilitiesStepProps {
@@ -17,7 +17,7 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
 
   public render() {
     return (
-      <Lizard.Step
+      <Wizard.Step
         title={'Capabilities'}
         current={this.props.current}
         locked={this.props.locked}
@@ -34,8 +34,8 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
             </ul>
           </div>
         )}
-        <Lizard.Button type={'next'}/>
-      </Lizard.Step>
+        <Wizard.Button type={'next'}/>
+      </Wizard.Step>
     );
   }
 }

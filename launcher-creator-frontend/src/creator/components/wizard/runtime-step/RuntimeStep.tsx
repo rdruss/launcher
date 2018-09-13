@@ -3,7 +3,7 @@ import * as React from 'react';
 import './RuntimeStep.css';
 import RuntimeSelectorContainer from './RuntimeSelectorContainer';
 import { Runtime } from '../../../states';
-import Lizard from '../../../../components/lizard';
+import Wizard from '../../../../components/wizard';
 
 interface RuntimeStepProps {
   selectedRuntime?: Runtime;
@@ -22,7 +22,7 @@ class RuntimeStep extends React.Component<RuntimeStepProps, {}> {
   public render() {
     const summary = this.props.selectedRuntime && `➡️ Your future application will use «${this.props.selectedRuntime.name}»`;
     return (
-      <Lizard.Step
+      <Wizard.Step
           title={'Language & Runtime'}
           summary={summary}
           current={this.props.current}
@@ -30,8 +30,8 @@ class RuntimeStep extends React.Component<RuntimeStepProps, {}> {
           complete={this.props.valid}
       >
         <RuntimeSelectorContainer />
-        <Lizard.Button type={'next'} title={'Let\'s select capabilities'} disabled={!this.props.valid} onClick={this.props.goToNextStep}/>
-      </Lizard.Step>
+        <Wizard.Button type={'next'} title={'Let\'s select capabilities'} disabled={!this.props.valid} onClick={this.props.goToNextStep}/>
+      </Wizard.Step>
     );
   }
 }

@@ -11,7 +11,7 @@ interface LizardStepProps {
   children?: React.ReactNode;
 }
 
-const LizardStep: React.StatelessComponent<LizardStepProps>
+const WizardStep: React.StatelessComponent<LizardStepProps>
   = ({ title, complete = false, summary, current = false, locked = false, children }) => (
       <li className={classNames({'complete': complete, current, locked})}>
         <a href="#">{title}
@@ -28,4 +28,4 @@ const LizardStep: React.StatelessComponent<LizardStepProps>
       </li>
 );
 
-export default LizardStep;
+export default WizardStep;

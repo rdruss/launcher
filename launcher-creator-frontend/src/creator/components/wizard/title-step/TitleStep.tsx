@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import Lizard from '../../../../components/lizard';
+import Wizard from '../../../../components/wizard';
 import { TITLE_REGEXP } from '../../../states';
 
 interface TitleStepProps {
@@ -30,7 +30,7 @@ class TitleStep extends Component<TitleStepProps, TitleStepState> {
 
   public render() {
     return (
-      <Lizard.Step
+      <Wizard.Step
         title={'Title'}
         summary={`➡️ Your future application will be named «${this.props.title}»`}
         current={this.props.current}
@@ -39,8 +39,8 @@ class TitleStep extends Component<TitleStepProps, TitleStepState> {
         <p>
           <input type="text" value={this.state.title} onChange={this.onTitleChange}/>
         </p>
-        <Lizard.Button type={'next'} title={'Let\'s select Language and Runtime'} onClick={this.gotoNextStep} disabled={!this.state.valid}/>
-      </Lizard.Step>
+        <Wizard.Button type={'next'} title={'Let\'s select Language and Runtime'} onClick={this.gotoNextStep} disabled={!this.state.valid}/>
+      </Wizard.Step>
     );
   }
 
