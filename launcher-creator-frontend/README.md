@@ -43,5 +43,3 @@ $ yarn build
 $ yarn serve
 ```
 
-
-
