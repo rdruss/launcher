@@ -15,7 +15,7 @@ const mapStateToProps = (state: AppState) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchRuntimes: () => dispatch(apiAction.fetchRuntimes()),
   onSelect: (runtime: Runtime) => dispatch(wizardAction.selectRuntime(runtime)),
-  goToNextStep: () => dispatch(wizardAction.goToStep(WizardStepId.CAPABILITIES_STEP)),
+  goToStep: (step: WizardStepId) => dispatch(wizardAction.goToStep(step)),
 });
 
 const RuntimeStepContainer = connect(

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
+import { Component } from 'react';
 
 
 interface LizardStepProps {
@@ -9,14 +10,20 @@ interface LizardStepProps {
   current?:boolean;
   locked?: boolean;
   children?: React.ReactNode;
+  onClick?: () => void;
 }
 
-const WizardStep: React.StatelessComponent<LizardStepProps>
-  = ({ title, complete = false, summary, current = false, locked = false, children }) => (
+class WizardStep extends Component<LizardStepProps> {
+  public static defaultProps = {complete: false, current: false, locked: false};
+
+  public render() {
+    const {title, complete, summary, current, locked, onClick, children} = this.props;
+    const linkOnClick = locked ? () => {} : onClick;
+    return (
       <li className={classNames({'complete': complete, current, locked})}>
-        <a href="#">{title}
+        <a href="#" onClick={linkOnClick}>{title}
           {(complete || locked) && (
-            <i className={classNames('ico fa', { 'fa-check ico-green': complete, 'fa-lock ico-muted': locked})} />
+            <i className={classNames('ico fa', {'fa-check ico-green': complete, 'fa-lock ico-muted': locked})}/>
           )}
         </a>
         {!current && summary && (
@@ -26,6 +33,8 @@ const WizardStep: React.StatelessComponent<LizardStepProps>
           <span className="content">{children}</span>
         )}
       </li>
-);
+    );
+  }
+}
 
 export default WizardStep;

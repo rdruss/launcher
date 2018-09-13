@@ -11,7 +11,7 @@ const mapStateToProps = (state: AppState) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onTitleChange: (title) => dispatch(wizardAction.selectTitle(title)),
-  goToNextStep: () => dispatch(wizardAction.goToStep(WizardStepId.RUNTIME_STEP)),
+  goToStep: (step: WizardStepId) => dispatch(wizardAction.goToStep(step)),
 });
 
 const TitleStepContainer = connect(
