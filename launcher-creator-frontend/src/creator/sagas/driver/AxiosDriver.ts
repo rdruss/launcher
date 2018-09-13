@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createDriver } from 'redux-saga-requests-axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://api-creator-backend.dev.rdu2c.fabric8.io',
+  baseURL: process.env.REACT_APP_API_URL,
 });
 
 const driver = createDriver(axiosInstance);

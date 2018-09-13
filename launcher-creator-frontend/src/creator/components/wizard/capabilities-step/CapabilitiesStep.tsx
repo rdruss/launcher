@@ -4,7 +4,6 @@ import Lizard from '../../../../components/lizard';
 import CapabilitiesSelectorContainer from './CapabilitiesSelectorContainer';
 
 interface CapabilitiesStepProps {
-  capabilities: Capability[];
   selectedCapabilities: Set<Capability>;
   valid: boolean;
   current: boolean;
