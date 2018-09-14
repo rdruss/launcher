@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { AppState, Capability, WizardStepId } from '../../states/index';
 import { apiAction, wizardAction } from '../../actions/index';
-import CapabilitiesStep from '../../components/wizard/capabilities-step/CapabilitiesStep';
+import CapabilitiesStep from '../../components/creator-wizard/capabilities-step/CapabilitiesStep';
 
 const mapStateToProps = (state: AppState) => ({
   capabilities: state.capabilities.data || [],
