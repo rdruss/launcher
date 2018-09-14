@@ -29,14 +29,13 @@ class TitleStep extends Component<TitleStepProps, TitleStepState> {
   }
 
   public render() {
-    const goToCurrentStep = () => this.props.goToStep(WizardStepId.TITLE_STEP);
     return (
       <Wizard.Step
         title={'Title'}
         summary={`➡️ Your future application will be named «${this.props.title}»`}
         current={this.props.current}
         complete={this.props.valid}
-        onClick={goToCurrentStep}
+        onClick={this.props.goToStep}
       >
         <p>
           <input type="text" value={this.state.title} onChange={this.onTitleChange}/>

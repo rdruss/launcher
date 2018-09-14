@@ -18,7 +18,7 @@ class WizardStep extends Component<LizardStepProps> {
 
   public render() {
     const {title, complete, summary, current, locked, onClick, children} = this.props;
-    const linkOnClick = locked ? () => {} : onClick;
+    const linkOnClick = locked || !onClick ? () => {} : () => onClick();
     return (
       <li className={classNames({'complete': complete, current, locked})}>
         <a href="#" onClick={linkOnClick}>{title}

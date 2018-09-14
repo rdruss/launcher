@@ -13,11 +13,10 @@ interface RuntimeCardProps {
 function RuntimeCard(props: RuntimeCardProps) {
   const { runtime, onSelect, selected = false } = props;
   const doOnSelect = () => onSelect(runtime);
-  console.log(selected);
   return (
     <Patternfly.ListViewItem
       onClick={doOnSelect}
-      checkboxInput={(<input type="radio" checked={selected} value={runtime.id}/>)}
+      checkboxInput={(<input type="radio" checked={selected} value={runtime.id} readOnly/>)}
       leftContent={(<img className={'runtime-icon'} src={runtime.icon}/>)}
       heading={runtime.name}
       description={runtime.description}

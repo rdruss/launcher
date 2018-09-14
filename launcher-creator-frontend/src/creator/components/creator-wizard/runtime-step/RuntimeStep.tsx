@@ -27,7 +27,6 @@ class RuntimeStep extends React.Component<RuntimeStepProps, {}> {
     const { current, locked, valid, selectedRuntime } = this.props;
     const summary = selectedRuntime && `➡️ Your future application will use «${selectedRuntime.name}»`;
     const goToNextStep = () => this.props.goToStep(WizardStepId.CAPABILITIES_STEP);
-    const goToStep = () => this.props.goToStep(WizardStepId.RUNTIME_STEP);
     return (
       <Wizard.Step
           title={'Language & Runtime'}
@@ -35,7 +34,7 @@ class RuntimeStep extends React.Component<RuntimeStepProps, {}> {
           current={current}
           locked={locked}
           complete={valid}
-          onClick={goToStep}
+          onClick={this.props.goToStep}
       >
         <RuntimeSelector  {...this.props} />
         <Wizard.Button type={'next'} title={'Let\'s select capabilities'} disabled={!valid} onClick={goToNextStep}/>

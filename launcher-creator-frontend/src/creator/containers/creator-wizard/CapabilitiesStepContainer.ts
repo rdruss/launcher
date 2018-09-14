@@ -1,14 +1,12 @@
-import { connect } from 'react-redux';
-import { AppState, Capability, WizardStepId } from '../../states/index';
-import { apiAction, wizardAction } from '../../actions/index';
+import { AppState, Capability, WizardStepId } from '../../states';
+import { apiAction, wizardAction } from '../../actions';
 import CapabilitiesStep from '../../components/creator-wizard/capabilities-step/CapabilitiesStep';
+import connectStep from './ConnectStep';
 
 const mapStateToProps = (state: AppState) => ({
   capabilities: state.capabilities.data || [],
   loading: !state.capabilities.data || state.capabilities.pending > 0,
   selectedCapabilities: state.wizard.capabilitiesStep.capabilities,
-  valid: state.wizard.capabilitiesStep.valid,
-  current: state.wizard.current === WizardStepId.CAPABILITIES_STEP,
   locked: !state.wizard.runtimeStep.valid,
 });
 
@@ -17,7 +15,8 @@ const mapDispatchToProps = (dispatch) => ({
   onSelect: (capability: Capability) => dispatch(wizardAction.addCapability(capability)),
 });
 
-const CapabilitiesStepContainer = connect(
+const CapabilitiesStepContainer = connectStep(
+  WizardStepId.CAPABILITIES_STEP,
   mapStateToProps,
   mapDispatchToProps,
 )(CapabilitiesStep);

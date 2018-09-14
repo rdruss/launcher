@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Capability } from '../../../states';
+import { Capability, WizardStepId } from '../../../states';
 import Wizard from '../../../../components/wizard';
 import CapabilitiesSelector from './CapabilitiesSelector';
 
@@ -9,6 +9,7 @@ interface CapabilitiesStepProps {
   valid: boolean;
   current: boolean;
   locked: boolean;
+  goToStep: (step?:WizardStepId) => void;
   onSelect: (capability: Capability) => void;
   fetchCapabilities: () => {};
   loading: boolean;
@@ -31,6 +32,7 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
         current={current}
         locked={locked}
         complete={valid}
+        onClick={this.props.goToStep}
       >
         <CapabilitiesSelector {...this.props}/>
         {selectedCapabilities.size > 0 && (

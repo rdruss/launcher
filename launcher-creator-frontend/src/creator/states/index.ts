@@ -45,10 +45,10 @@ export interface FetchState<T> {
 }
 
 export enum WizardStepId {
-  TITLE_STEP = 'title-step',
-  RUNTIME_STEP = 'runtime-step',
-  CAPABILITIES_STEP = 'capabilities-step',
-  REPOSITORY_STEP = 'repository-step'
+  TITLE_STEP = 'titleStep',
+  RUNTIME_STEP = 'runtimeStep',
+  CAPABILITIES_STEP = 'capabilitiesStep',
+  REPOSITORY_STEP = 'repositoryStep'
 }
 
 export interface TitleStepState {
