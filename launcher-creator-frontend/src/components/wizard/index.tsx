@@ -9,7 +9,7 @@ class Wizard extends React.Component {
 
     public render() {
         return (
-          <div className="lizard">
+          <div className="wizard">
             <ul>
               {this.props.children}
             </ul>

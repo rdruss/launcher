@@ -19,7 +19,7 @@ const WizardButton: React.StatelessComponent<LizardButtonProps> = ({ type, title
     text = title;
   }
   return (
-    <Patternfly.Button className={'lizard-button'} onClick={onClick} disabled={disabled}>
+    <Patternfly.Button className={'wizard-button'} onClick={onClick} disabled={disabled}>
       <Patternfly.Icon type="fa" name={icon} /> {text}
     </Patternfly.Button>
   );
