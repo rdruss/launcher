@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, EmptyState } from 'patternfly-react';
-import MainLayoutContainer from '../components/layout/MainLayoutContainer';
+import MainLayoutContainer from '../layout/MainLayoutContainer';
 
 interface LoginPageProps {
   login: () => {};

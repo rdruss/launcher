@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import { AppState, Runtime, WizardStepId } from '../../../states';
-import RuntimeStep from './RuntimeStep';
-import { apiAction, wizardAction } from '../../../actions';
+import { AppState, Runtime, WizardStepId } from '../../states/index';
+import RuntimeStep from '../../components/wizard/runtime-step/RuntimeStep';
+import { apiAction, wizardAction } from '../../actions/index';
 
 const mapStateToProps = (state: AppState) => ({
   runtimes: state.runtimes.data || [],

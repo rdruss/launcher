@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import { AppState, WizardStepId } from '../../../states';
-import { wizardAction } from '../../../actions';
-import TitleStep from './TitleStep';
+import { AppState, WizardStepId } from '../../states/index';
+import { wizardAction } from '../../actions/index';
+import TitleStep from '../../components/wizard/title-step/TitleStep';
 
 const mapStateToProps = (state: AppState) => ({
   title: state.wizard.titleStep.title,

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import LoginPageContainer from './pages/LoginPageContainer';
-import HomePageContainer from './pages/HomePageContainer';
+import LoginPageContainer from '../containers/pages/LoginPageContainer';
+import HomePageContainer from '../containers/pages/HomePageContainer';
 
 class AppRouterProps {
   public readonly authenticated: boolean;

@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 
-import sagas from './sagas';
-import rootReducer from './reducers';
-import { authenticationAction } from './actions';
+import sagas from '../sagas/index';
+import rootReducer from '../reducers/index';
+import { authenticationAction } from '../actions';
 
 const loggerMiddleware = createLogger();
 const sagaMiddleware = createSagaMiddleware();

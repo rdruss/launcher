@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { AppState } from './states';
-import AppRouter from './AppRouter';
+import { AppState } from '../states/index';
+import AppRouter from '../components/AppRouter';
 
 const mapStateToProps = (state: AppState) => ({
   authenticated: state.authentication.authenticated,

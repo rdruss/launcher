@@ -1,4 +1,4 @@
-import { action } from '../utils/Actions';
+import { action } from '../../utils/Actions';
 import { Capability, Runtime, WizardStepId } from '../states';
 
 export enum AuthenticationAction {

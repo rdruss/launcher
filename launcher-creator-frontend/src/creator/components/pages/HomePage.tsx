@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import MainLayoutContainer from '../components/layout/MainLayoutContainer';
-import CreatorWizardContainer from '../components/wizard/CreatorWizardContainer';
+import MainLayoutContainer from '../layout/MainLayoutContainer';
+import CreatorWizardContainer from '../../containers/wizard/CreatorWizardContainer';
 
 export default function HomePage() {
   return (

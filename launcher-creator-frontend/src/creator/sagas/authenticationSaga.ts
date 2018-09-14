@@ -1,8 +1,8 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { authenticationAction, AuthenticationAction } from '../actions';
-import { KeycloakAuthenticationService, OptionalUser } from '../service/auth/KeycloakAuthenticationService';
-import { KeycloakConfig } from '../service/auth/KeycloakConfig';
+import { KeycloakAuthenticationService, OptionalUser } from '../../service/auth/KeycloakAuthenticationService';
+import { KeycloakConfig } from '../../service/auth/KeycloakConfig';
 
 const config = new KeycloakConfig();
 const keycloakService = new KeycloakAuthenticationService(config);
