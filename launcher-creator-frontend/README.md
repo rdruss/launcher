@@ -7,6 +7,9 @@ The quickest way to create and launch a full-featured service on the cloud.
 
 You can try the demo there: http://launcher-creator-frontend.devtools-dev.ext.devshift.net/
 
+[Doc to setup CD on OpenShift ](./openshift-setup.md)
+
+
 ## Dev
 
 ### Use mock data
@@ -15,7 +18,7 @@ $ yarn install
 $ yarn start:mock
 ```
 
-### Use api (env: REACT_APP_API_URL)
+### Use api (env: REACT_APP_CREATOR_API_URL)
 ```bash
 $ yarn install
 $ yarn start:api
@@ -42,4 +45,5 @@ $ yarn install
 $ yarn build
 $ yarn serve
 ```
+
 
