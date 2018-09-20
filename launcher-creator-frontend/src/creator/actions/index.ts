@@ -43,6 +43,7 @@ export enum WizardAction {
   SELECT_TITLE = 'WIZARD_SELECT_TITLE',
   SELECT_RUNTIME = 'WIZARD_SELECT_RUNTIME',
   ADD_CAPABILITY = 'WIZARD_ADD_CAPABILITY',
+  REMOVE_CAPABILITY = 'WIZARD_REMOVE_CAPABILITY',
   GO_TO_STEP = 'WIZARD_GO_TO_STEP',
 }
 
@@ -50,6 +51,7 @@ export const wizardAction = {
   selectTitle: (title: string) => action(WizardAction.SELECT_TITLE, {title}),
   selectRuntime: (runtime: Runtime) => action(WizardAction.SELECT_RUNTIME, {runtime}),
   addCapability: (capability: Capability) => action(WizardAction.ADD_CAPABILITY, {capability}),
+  removeCapability: (capability: Capability) => action(WizardAction.REMOVE_CAPABILITY, {capability}),
   goToStep: (stepId: WizardStepId) => action(WizardAction.GO_TO_STEP, {stepId}),
 };
 

@@ -15,6 +15,7 @@ const mapStateToProps = (state: AppState) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchCapabilities: () => dispatch(apiAction.fetchCapabilities()),
   onSelect: (capability: Capability) => dispatch(wizardAction.addCapability(capability)),
+  onUnselect: (capability: Capability) => dispatch(wizardAction.removeCapability(capability)),
 });
 
 const CapabilitiesStepContainer = connectStep(

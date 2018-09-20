@@ -13,6 +13,7 @@ const INITIAL_STATE: WizardState = {
 
 const wizardReducer = (state: WizardState = INITIAL_STATE, action) => {
   let newState = state;
+  const capabilities = new Set(state.capabilitiesStep.capabilities);
   switch (action.type) {
     case WizardAction.SELECT_TITLE:
       newState = { ...state, titleStep: { title: action.title, valid: (action.title && TITLE_REGEXP.test(action.title)) } };
@@ -21,8 +22,12 @@ const wizardReducer = (state: WizardState = INITIAL_STATE, action) => {
       newState = { ...state, runtimeStep: { runtime: action.runtime, valid: true } };
       break;
     case WizardAction.ADD_CAPABILITY:
-      const newCapabilities = new Set(state.capabilitiesStep.capabilities).add(action.capability);
-      newState = { ...state, capabilitiesStep: { capabilities: newCapabilities, valid: newCapabilities.size > 0 } };
+      capabilities.add(action.capability)
+      newState = { ...state, capabilitiesStep: { capabilities, valid: capabilities.size > 0 } };
+      break;
+    case WizardAction.REMOVE_CAPABILITY:
+      capabilities.delete(action.capability);
+      newState = { ...state, capabilitiesStep: { capabilities, valid: capabilities.size > 0 } };
       break;
     case WizardAction.GO_TO_STEP:
       newState = { ...state, current: action.stepId };

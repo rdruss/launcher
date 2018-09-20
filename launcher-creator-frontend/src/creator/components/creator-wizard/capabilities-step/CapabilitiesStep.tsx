@@ -9,6 +9,7 @@ interface CapabilitiesStepProps extends StepProps {
   capabilities: Capability[];
   selectedCapabilities: Set<Capability>;
   onSelect: (capability: Capability) => void;
+  onUnselect: (capability: Capability) => void;
   fetchCapabilities: () => {};
   loading: boolean;
 }
@@ -23,7 +24,7 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
   }
 
   public render() {
-    const { current, locked, valid, selectedCapabilities } = this.props;
+    const { current, locked, valid } = this.props;
     const goToNextStep = () => this.props.goToStep(WizardStepId.DESTINATION_STEP);
     return (
       <Wizard.Step
@@ -34,16 +35,6 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
         onClick={this.props.goToStep}
       >
         <CapabilitiesSelector {...this.props}/>
-        {selectedCapabilities.size > 0 && (
-          <div>
-            Selected capabilities:
-            <ul>
-              {
-                Array.from(selectedCapabilities).map((cap, i) => (<li key={i}>{cap.name}</li>))
-              }
-            </ul>
-          </div>
-        )}
         <Wizard.Button type={'next'} onClick={goToNextStep}/>
       </Wizard.Step>
     );
