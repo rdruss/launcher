@@ -32,7 +32,7 @@ interface CapabilitiesSelectorProps {
   onUnselect: (capability: Capability) => void;
 }
 
-function CapabilitiesSelector(props: CapabilitiesSelectorProps) {
+function CapabilitiesSelection(props: CapabilitiesSelectorProps) {
   const {capabilities, onSelect, loading, selectedCapabilities, onUnselect} = props;
   return (
     <div className={'capabilities-selector'}>
@@ -56,4 +56,4 @@ function CapabilitiesSelector(props: CapabilitiesSelectorProps) {
   );
 }
 
-export default CapabilitiesSelector;
+export default CapabilitiesSelection;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Wizard from '../../../../components/wizard';
-import CapabilitiesSelector from './CapabilitiesSelector';
+import CapabilitiesSelection from './CapabilitiesSelection';
 import Capability from '../../../models/Capability';
 import { StepProps } from '../StepProps';
 import { WizardStepId } from '../../../states/WizardState';
@@ -34,7 +34,7 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
         complete={valid}
         onClick={this.props.goToStep}
       >
-        <CapabilitiesSelector {...this.props}/>
+        <CapabilitiesSelection {...this.props}/>
         <Wizard.Button type={'next'} onClick={goToNextStep}/>
       </Wizard.Step>
     );

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import './RuntimeStep.css';
 import Wizard from '../../../../components/wizard';
-import RuntimeSelector from './RuntimeSelector';
+import RuntimeSelection from './RuntimeSelection';
 import Runtime from '../../../models/Runtime';
 import { WizardStepId } from '../../../states/WizardState';
 import { StepProps } from '../StepProps';
@@ -34,7 +34,7 @@ class RuntimeStep extends React.Component<RuntimeStepProps, {}> {
           complete={valid}
           onClick={this.props.goToStep}
       >
-        <RuntimeSelector  {...this.props} />
+        <RuntimeSelection  {...this.props} />
         <Wizard.Button type={'next'} title={'Let\'s select capabilities'} disabled={!valid} onClick={goToNextStep}/>
       </Wizard.Step>
     );

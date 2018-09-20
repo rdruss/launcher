@@ -24,5 +24,19 @@ export interface AppState {
 
 export const AuthenticationSelector = {
   token: (state: AppState) => state.authentication.token,
+};
 
+export const ApiCapabilitiesSelector = {
+  capabilities: (state: AppState, runtime?: Runtime): Capability[] => {
+    if (runtime) {
+      return state.capabilities.data.filter(c => Boolean(c.props.runtime.values.find(p => p.id === runtime.id))) || [];
+    }
+    return state.capabilities.data ||[];
+  },
+  loading: (state: AppState): boolean => !state.capabilities.data || state.capabilities.pending > 0,
+};
+
+export const ApiRuntimesSelector = {
+  runtimes: (state: AppState): Runtime[] => state.runtimes.data,
+  loading: (state: AppState): boolean => !state.runtimes.data || state.runtimes.pending > 0,
 };

@@ -31,7 +31,7 @@ interface RuntimeSelectorProps {
   onSelect: (runtime: Runtime) => void;
 }
 
-function RuntimeSelector(props: RuntimeSelectorProps) {
+function RuntimeSelection(props: RuntimeSelectorProps) {
   const {runtimes, onSelect, selectedRuntime} = props;
   console.log('runtimes' + runtimes);
   return (
@@ -51,5 +51,5 @@ function RuntimeSelector(props: RuntimeSelectorProps) {
   );
 }
 
-export default RuntimeSelector;
+export default RuntimeSelection;
 
