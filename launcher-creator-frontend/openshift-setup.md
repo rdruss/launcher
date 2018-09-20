@@ -4,7 +4,7 @@
 - Build env:
 ```
 YARN_ENABLED=true
-REACT_APP_CREATOR_API_URL=http://api-creator-backend.devtools-dev.ext.devshift.net
+REACT_APP_CREATOR_API_URL=https://api-creator-backend.devtools-dev.ext.devshift.net
 ```
 
 - Deploy env:

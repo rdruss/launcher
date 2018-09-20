@@ -1,15 +1,13 @@
 import * as React from 'react';
-import { Capability, WizardStepId } from '../../../states';
 import Wizard from '../../../../components/wizard';
 import CapabilitiesSelector from './CapabilitiesSelector';
+import Capability from '../../../models/Capability';
+import { StepProps } from '../StepProps';
+import { WizardStepId } from '../../../states/WizardState';
 
-interface CapabilitiesStepProps {
+interface CapabilitiesStepProps extends StepProps {
   capabilities: Capability[];
   selectedCapabilities: Set<Capability>;
-  valid: boolean;
-  current: boolean;
-  locked: boolean;
-  goToStep: (step?:WizardStepId) => void;
   onSelect: (capability: Capability) => void;
   fetchCapabilities: () => {};
   loading: boolean;
@@ -26,6 +24,7 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
 
   public render() {
     const { current, locked, valid, selectedCapabilities } = this.props;
+    const goToNextStep = () => this.props.goToStep(WizardStepId.DESTINATION_STEP);
     return (
       <Wizard.Step
         title={'Capabilities'}
@@ -45,7 +44,7 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
             </ul>
           </div>
         )}
-        <Wizard.Button type={'next'}/>
+        <Wizard.Button type={'next'} onClick={goToNextStep}/>
       </Wizard.Step>
     );
   }

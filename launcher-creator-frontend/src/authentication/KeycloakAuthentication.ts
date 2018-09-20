@@ -13,7 +13,7 @@ class StoredData {
   public readonly idToken: string;
 }
 
-export class KeycloakAuthenticationService  {
+export class KeycloakAuthentication  {
 
   private _user: OptionalUser;
 
@@ -31,7 +31,7 @@ export class KeycloakAuthenticationService  {
 
   public init = (): Promise<OptionalUser> => {
     return new Promise((resolve, reject) => {
-      const sessionKC = KeycloakAuthenticationService.getStoredData();
+      const sessionKC = KeycloakAuthentication.getStoredData();
       this.keycloak.init({ ...sessionKC })
         .error((e) => reject(e))
         .success(() => {
@@ -40,8 +40,6 @@ export class KeycloakAuthenticationService  {
         });
     });
   };
-
-
 
   public get user() {
     return this._user
@@ -52,8 +50,15 @@ export class KeycloakAuthenticationService  {
   };
 
   public logout = () => {
-    KeycloakAuthenticationService.clearStoredData();
+    KeycloakAuthentication.clearStoredData();
     this.keycloak.logout();
+  };
+
+  public openAccountManagement = () => {
+    if (!this._user) {
+      throw new Error('User is not connected.');
+    }
+    window.open(this.keycloak.createAccountUrl());
   };
 
   public refreshToken = (): Promise<User> => {
@@ -87,7 +92,7 @@ export class KeycloakAuthenticationService  {
       + clientId + provider;
     const shaObj = new jsSHA('SHA-256', 'TEXT');
     shaObj.update(hash);
-    const hashed = KeycloakAuthenticationService.base64ToUri(shaObj.getHash('B64'));
+    const hashed = KeycloakAuthentication.base64ToUri(shaObj.getHash('B64'));
     // tslint:disable-next-line
     const link = `${this.keycloak.authServerUrl}/realms/${this.config.realm}/broker/${provider}/link?nonce=${encodeURI(nonce)}&hash=${hashed}&client_id=${encodeURI(clientId)}&redirect_uri=${encodeURI(redirect || location.href)}`;
     this.user.accountLink[provider] = link;
@@ -96,7 +101,7 @@ export class KeycloakAuthenticationService  {
 
   private initUser() {
     if (this.keycloak.token) {
-      KeycloakAuthenticationService.setStoredData({
+      KeycloakAuthentication.setStoredData({
         token: this.keycloak.token,
         refreshToken: this.keycloak.refreshToken,
         idToken: this.keycloak.idToken,

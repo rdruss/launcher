@@ -10,7 +10,8 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  logout: () => dispatch(authenticationAction.logout())
+  logout: () => dispatch(authenticationAction.logout()),
+  openAccountManagement: () => dispatch(authenticationAction.openAccountManagement()),
 });
 
 const MainLayoutContainer = connect(

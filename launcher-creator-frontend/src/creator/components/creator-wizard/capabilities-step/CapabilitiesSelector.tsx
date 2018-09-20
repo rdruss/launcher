@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import * as Patternfly from 'patternfly-react';
-import { Capability } from '../../../states';
 import SectionLoader from '../../../../components/loader/SectionLoader';
 import classNames from 'classnames';
+import Capability from '../../../models/Capability';
 
 interface CapabilityCardProps {
   capability: Capability;

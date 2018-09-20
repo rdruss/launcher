@@ -11,6 +11,7 @@ const rootReducer = combineReducers<AppState>({
   globalState: globalReducer,
   capabilities: requestsReducer({ actionType: ApiAction.FETCH_CAPABILITIES }),
   runtimes: requestsReducer({ actionType: ApiAction.FETCH_RUNTIMES }),
+  clusters: requestsReducer({ actionType: ApiAction.FETCH_CLUSTERS }),
   wizard: wizardReducer,
 });
 

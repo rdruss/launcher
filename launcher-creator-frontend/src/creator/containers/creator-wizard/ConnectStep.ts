@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
-import { AppState, WizardStepId } from '../../states';
+import { AppState } from '../../states';
 import { wizardAction } from '../../actions';
+import { WizardStepId } from '../../states/WizardState';
 
 
 export default function connectStep(stepId: WizardStepId, mapStateToProps?:any, mapDispatchToProps?:any) {

@@ -1,7 +1,9 @@
-import { AppState, Runtime, WizardStepId } from '../../states';
-import RuntimeStep from '../../components/creator-wizard/runtime-step/RuntimeStep';
-import { apiAction, wizardAction } from '../../actions';
-import connectStep from './ConnectStep';
+import { AppState } from '../../../states/index';
+import RuntimeStep from '../../../components/creator-wizard/runtime-step/RuntimeStep';
+import { apiAction, wizardAction } from '../../../actions/index';
+import connectStep from '../ConnectStep';
+import Runtime from '../../../models/Runtime';
+import { WizardStepId } from '../../../states/WizardState';
 
 const mapStateToProps = (state: AppState) => ({
   runtimes: state.runtimes.data || [],

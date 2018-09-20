@@ -7,6 +7,7 @@ interface MainLayoutProps {
   authenticated: boolean;
   userName: string;
   logout: () => {};
+  openAccountManagement: () => void;
 }
 
 class MainLayout extends React.Component<MainLayoutProps, {}> {

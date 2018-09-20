@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import * as Patternfly from 'patternfly-react';
-import { Runtime } from '../../../states';
 import SectionLoader from '../../../../components/loader/SectionLoader';
+import Runtime from '../../../models/Runtime';
 
 interface RuntimeCardProps {
   selected?: boolean;

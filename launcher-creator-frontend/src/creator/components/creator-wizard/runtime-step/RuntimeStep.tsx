@@ -1,17 +1,15 @@
 import * as React from 'react';
 
 import './RuntimeStep.css';
-import { Runtime, WizardStepId } from '../../../states';
 import Wizard from '../../../../components/wizard';
 import RuntimeSelector from './RuntimeSelector';
+import Runtime from '../../../models/Runtime';
+import { WizardStepId } from '../../../states/WizardState';
+import { StepProps } from '../StepProps';
 
-interface RuntimeStepProps {
+interface RuntimeStepProps extends StepProps {
   runtimes: Runtime[];
   selectedRuntime?: Runtime;
-  valid: boolean;
-  current: boolean;
-  locked: boolean;
-  goToStep: (step?:WizardStepId) => void;
   fetchRuntimes: () => {};
   onSelect: (runtime: Runtime) => void;
   loading: boolean;

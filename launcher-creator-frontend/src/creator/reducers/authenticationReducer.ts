@@ -1,5 +1,5 @@
-import { AuthenticationState } from '../states';
 import { AuthenticationAction } from '../actions';
+import { AuthenticationState } from '../states/AuthenticationState';
 
 const INITIAL_STATE: AuthenticationState = {
   error: false,

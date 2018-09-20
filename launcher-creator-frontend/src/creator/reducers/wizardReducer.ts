@@ -1,11 +1,13 @@
-import { Capability, WizardStepId, WizardState, TITLE_REGEXP } from '../states';
 import { WizardAction } from '../actions';
+import { TITLE_REGEXP, WizardState, WizardStepId } from '../states/WizardState';
+import Capability from '../models/Capability';
 
 const INITIAL_STATE: WizardState = {
   current: WizardStepId.TITLE_STEP,
   titleStep: { valid: false },
   runtimeStep: { valid: false },
   capabilitiesStep: { capabilities: new Set<Capability>(), valid: false },
+  destinationStep: { valid: false },
   valid: false,
 };
 

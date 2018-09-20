@@ -1,7 +1,9 @@
-import { AppState, Capability, WizardStepId } from '../../states';
-import { apiAction, wizardAction } from '../../actions';
-import CapabilitiesStep from '../../components/creator-wizard/capabilities-step/CapabilitiesStep';
-import connectStep from './ConnectStep';
+import { AppState } from '../../../states/index';
+import { apiAction, wizardAction } from '../../../actions/index';
+import CapabilitiesStep from '../../../components/creator-wizard/capabilities-step/CapabilitiesStep';
+import connectStep from '../ConnectStep';
+import Capability from '../../../models/Capability';
+import { WizardStepId } from '../../../states/WizardState';
 
 const mapStateToProps = (state: AppState) => ({
   capabilities: state.capabilities.data || [],

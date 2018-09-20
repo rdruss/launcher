@@ -1,7 +1,8 @@
-import { AppState, WizardStepId } from '../../states';
-import { wizardAction } from '../../actions';
-import TitleStep from '../../components/creator-wizard/title-step/TitleStep';
-import connectStep from './ConnectStep';
+import { AppState } from '../../../states/index';
+import { wizardAction } from '../../../actions/index';
+import TitleStep from '../../../components/creator-wizard/title-step/TitleStep';
+import connectStep from '../ConnectStep';
+import { WizardStepId } from '../../../states/WizardState';
 
 const mapStateToProps = (state: AppState) => ({
   title: state.wizard.titleStep.title,

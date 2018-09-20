@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import LoginPageContainer from '../containers/pages/LoginPageContainer';
-import HomePageContainer from '../containers/pages/HomePageContainer';
+import WizardPageContainer from '../containers/pages/WizardPageContainer';
 
 class AppRouterProps {
   public readonly authenticated: boolean;
@@ -24,8 +24,8 @@ const AppRouter = ({ authenticated }: AppRouterProps) => {
     <BrowserRouter>
       <Route path="/">
         <Switch>
-          <Route exact={true} path="/" component={HomePageContainer} />
-          <Redirect from="/" to="/" />
+          <Route exact={true} path="/wizard" component={WizardPageContainer} />
+          <Redirect from="/" to="/wizard" />
         </Switch>
       </Route>
     </BrowserRouter>

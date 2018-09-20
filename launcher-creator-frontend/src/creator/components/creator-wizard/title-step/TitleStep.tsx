@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import Wizard from '../../../../components/wizard';
-import { TITLE_REGEXP, WizardStepId } from '../../../states';
+import { TITLE_REGEXP, WizardStepId } from '../../../states/WizardState';
 
 interface TitleStepProps {
   onTitleChange: (title: string) => void

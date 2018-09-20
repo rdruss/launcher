@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { AppState } from '../../states/index';
-import HomePage from '../../components/pages/HomePage';
+import WizardPage from '../../components/pages/HomePage';
 
 const mapStateToProps = (state: AppState) => ({
 });
@@ -8,9 +8,9 @@ const mapStateToProps = (state: AppState) => ({
 const mapDispatchToProps = (dispatch) => ({
 });
 
-const HomePageContainer = connect(
+const WizardPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(HomePage);
+)(WizardPage);
 
-export default HomePageContainer;
+export default WizardPageContainer;

@@ -7,7 +7,8 @@ interface TopNavProps {
   inProgress: boolean;
   authenticated: boolean;
   userName: string;
-  logout: () => {};
+  logout: () => void;
+  openAccountManagement: () => void;
 }
 
 const TopNav = (props: TopNavProps) => (
@@ -29,6 +30,7 @@ const TopNav = (props: TopNavProps) => (
             </span>,
             ]}
           >
+            <MenuItem onSelect={props.openAccountManagement}>Manage</MenuItem>
             <MenuItem onSelect={props.logout}>Logout</MenuItem>
           </Masthead.Dropdown>
         )}
