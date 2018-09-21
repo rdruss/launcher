@@ -12,6 +12,7 @@ interface CapabilitiesStepProps extends StepProps {
   onUnselect: (capability: Capability) => void;
   fetchCapabilities: () => {};
   loading: boolean;
+  error?: string;
 }
 
 class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { CapabilitiesStepState }> {

@@ -8,6 +8,7 @@ import ListSingleSelection from '../../../../components/selection/ListSingleSele
 interface DeploymentStepProps extends StepProps {
   clusters: OpenShiftCluster[];
   loading: boolean;
+  error?: string;
   fetchClusters: () => {};
   fetchRepository: () => {};
   selectedCluster?: OpenShiftCluster;
@@ -22,7 +23,7 @@ class DeploymentStep extends Component<DeploymentStepProps> {
   }
 
   public render() {
-    const { clusters, loading, onSelectCluster, selectedCluster } = this.props;
+    const { clusters, loading, onSelectCluster, selectedCluster, error } = this.props;
     return (
       <Wizard.Step
         title={'OpenShift Deployment'}
@@ -31,7 +32,7 @@ class DeploymentStep extends Component<DeploymentStepProps> {
         onClick={this.props.goToStep}
         locked={this.props.locked}
       >
-        <ListSingleSelection  items={clusters} loading={loading} onSelect={onSelectCluster} selectedItem={selectedCluster}>
+        <ListSingleSelection  items={clusters} loading={loading} onSelect={onSelectCluster} selectedItem={selectedCluster} error={error}>
           Here you can choose a destination OpenShift cluster. It will be in charge of building and serving your new Application.
         </ListSingleSelection>
         <Wizard.Button type={'launch'} title={'GO GO GO !'} disabled={!this.props.valid}/>

@@ -8,6 +8,7 @@ import { WizardStepId } from '../../../states/WizardState';
 const mapStateToProps = (state: AppState) => ({
   runtimes: ApiRuntimesSelector.runtimes(state),
   loading: ApiRuntimesSelector.loading(state),
+  error: ApiRuntimesSelector.error(state),
   selectedRuntime: state.wizard.runtimeStep.runtime,
   locked: !state.wizard.titleStep.valid,
 });

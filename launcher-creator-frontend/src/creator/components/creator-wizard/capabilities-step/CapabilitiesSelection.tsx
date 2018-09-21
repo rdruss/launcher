@@ -26,6 +26,7 @@ function CapabilityCard(props: CapabilityCardProps) {
 
 interface CapabilitiesSelectorProps {
   loading: boolean;
+  error?: string;
   selectedCapabilities: Set<Capability>;
   capabilities: Capability[];
   onSelect: (capability: Capability) => void;
@@ -33,10 +34,10 @@ interface CapabilitiesSelectorProps {
 }
 
 function CapabilitiesSelection(props: CapabilitiesSelectorProps) {
-  const {capabilities, onSelect, loading, selectedCapabilities, onUnselect} = props;
+  const {capabilities, onSelect, loading, selectedCapabilities, onUnselect, error } = props;
   return (
     <div className={'capabilities-selector'}>
-      <SectionLoader loading={loading}>
+      <SectionLoader loading={loading} error={error}>
         <p>Here you can choose a set of capabilities for your new application/service.</p>
         <Patternfly.ListView>
           {

@@ -33,6 +33,7 @@ function ListItem(props: ListItemProps) {
 
 interface ListSingleSelectionProps<T> {
   loading: boolean;
+  error?: string;
   selectedItem?: T;
   items?: T[];
   onSelect: (item: T) => void;
@@ -52,7 +53,7 @@ function ListSingleSelection<T>(props: ListSingleSelectionProps<T>) {
   const selectedViewItem: ViewItem | undefined = selectedItem && mapToViewItem(selectedItem);
   return (
     <div className={'runtime-selector'}>
-      <SectionLoader loading={props.loading}>
+      <SectionLoader loading={props.loading} error={props.error}>
         <p>{children}</p>
         <Patternfly.ListView>
           {

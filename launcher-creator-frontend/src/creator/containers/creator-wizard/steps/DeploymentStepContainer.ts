@@ -8,6 +8,7 @@ import DeploymentStep from '../../../components/creator-wizard/destination-step/
 const mapStateToProps = (state: AppState) => ({
   clusters: ApiClustersSelector.clusters(state),
   loading: ApiClustersSelector.loading(state),
+  error: ApiClustersSelector.error(state),
   locked: !state.wizard.capabilitiesStep.valid,
   selectedCluster: state.wizard.deploymentStep.cluster,
   valid: state.wizard.deploymentStep.cluster

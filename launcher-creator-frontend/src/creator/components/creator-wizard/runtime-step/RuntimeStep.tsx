@@ -12,6 +12,7 @@ interface RuntimeStepProps extends StepProps {
   selectedRuntime?: Runtime;
   fetchRuntimes: () => {};
   onSelect: (runtime: Runtime) => void;
+  error?: string;
   loading: boolean;
 }
 
@@ -22,7 +23,7 @@ class RuntimeStep extends React.Component<RuntimeStepProps, {}> {
   }
 
   public render() {
-    const { current, locked, valid, selectedRuntime, runtimes, loading, onSelect } = this.props;
+    const { current, locked, valid, selectedRuntime, runtimes, loading, onSelect, error } = this.props;
     const summary = selectedRuntime && `➡️ Your future application will use «${selectedRuntime.name}»`;
     const goToNextStep = () => this.props.goToStep(WizardStepId.CAPABILITIES_STEP);
     return (
@@ -34,7 +35,7 @@ class RuntimeStep extends React.Component<RuntimeStepProps, {}> {
           complete={valid}
           onClick={this.props.goToStep}
       >
-        <ListSingleSelection  items={runtimes} loading={loading} onSelect={onSelect} selectedItem={selectedRuntime}>
+        <ListSingleSelection  items={runtimes} loading={loading} onSelect={onSelect} selectedItem={selectedRuntime} error={error}>
           Here you can choose a runtime for a specific programming language
         </ListSingleSelection>
         <Wizard.Button type={'next'} title={'Let\'s select capabilities'} disabled={!valid} onClick={goToNextStep}/>

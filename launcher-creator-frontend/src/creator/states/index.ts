@@ -9,7 +9,7 @@ export interface GlobalState {
 
 export interface FetchState<T> {
   data: T;
-  error: string;
+  error?: string;
   pending: number;
 }
 
@@ -38,14 +38,17 @@ export const ApiCapabilitiesSelector = {
     return state.capabilities.data;
   },
   loading: (state: AppState): boolean => state.capabilities.pending > 0,
+  error: (state: AppState): string | undefined => state.capabilities.error,
 };
 
 export const ApiRuntimesSelector = {
   runtimes: (state: AppState): Runtime[] => state.runtimes.data,
   loading: (state: AppState): boolean => state.runtimes.pending > 0,
+  error: (state: AppState): string | undefined => state.runtimes.error,
 };
 
 export const ApiClustersSelector = {
   clusters: (state: AppState): OpenShiftCluster[] => state.clusters.data,
   loading: (state: AppState): boolean => state.clusters.pending > 0,
+  error: (state: AppState): string | undefined => state.clusters.error,
 };
