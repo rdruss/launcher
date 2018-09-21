@@ -4,13 +4,13 @@ import { createRequestInstance, RequestAction, watchRequests } from 'redux-saga-
 
 import mockDriver from './driver/MockDriver';
 import axiosDriver from './driver/AxiosDriver';
-import { AuthenticationSelector } from '../states';
 import { AxiosRequestConfig } from 'axios';
 import { checkNotNull } from '../../utils/Preconditions';
+import { getToken } from '../reducers/authenticationReducer';
 
 const driver = checkNotNull(process.env.REACT_APP_API_DRIVER, 'process.env.REACT_APP_API_DRIVER') === 'mock' ? mockDriver : axiosDriver;
 function* onRequest(request: AxiosRequestConfig, action: RequestAction) {
-  const token = yield select(AuthenticationSelector.token);
+  const token = yield select(getToken);
   request.headers = {
     ...request.headers,
     'Authorization': `Bearer ${token}`,

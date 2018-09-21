@@ -1,6 +1,8 @@
 import { WizardAction } from '../actions';
 import { TITLE_REGEXP, WizardState, WizardStepId } from '../states/WizardState';
 import Capability from '../models/Capability';
+import { createSelector } from 'reselect';
+import { AppState } from '../states';
 
 const INITIAL_STATE: WizardState = {
   current: WizardStepId.TITLE_STEP,
@@ -41,5 +43,8 @@ const wizardReducer = (state: WizardState = INITIAL_STATE, action) => {
   }
   return newState;
 };
+
+const getWizardState = (state:AppState) => state.wizard;
+export const getSelectedRuntime = createSelector([getWizardState], res => res.runtimeStep.runtime);
 
 export default wizardReducer;

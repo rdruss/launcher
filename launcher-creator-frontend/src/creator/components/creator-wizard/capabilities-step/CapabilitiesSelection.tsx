@@ -3,6 +3,7 @@ import * as React from 'react';
 import * as Patternfly from 'patternfly-react';
 import SectionLoader from '../../../../components/loader/SectionLoader';
 import Capability from '../../../models/Capability';
+import { ApiCollection } from '../../../states';
 
 interface CapabilityCardProps {
   capability: Capability;
@@ -25,23 +26,21 @@ function CapabilityCard(props: CapabilityCardProps) {
 }
 
 interface CapabilitiesSelectorProps {
-  loading: boolean;
-  error?: string;
+  capabilityCollection: ApiCollection<Capability>;
   selectedCapabilities: Set<Capability>;
-  capabilities: Capability[];
   onSelect: (capability: Capability) => void;
   onUnselect: (capability: Capability) => void;
 }
 
 function CapabilitiesSelection(props: CapabilitiesSelectorProps) {
-  const {capabilities, onSelect, loading, selectedCapabilities, onUnselect, error } = props;
+  const {capabilityCollection, onSelect, selectedCapabilities, onUnselect } = props;
   return (
     <div className={'capabilities-selector'}>
-      <SectionLoader loading={loading} error={error}>
+      <SectionLoader loading={capabilityCollection.loading} error={capabilityCollection.error}>
         <p>Here you can choose a set of capabilities for your new application/service.</p>
         <Patternfly.ListView>
           {
-            capabilities.map((cap, i) => (
+            capabilityCollection.collection.map((cap, i) => (
               <CapabilityCard
                 key={i}
                 capability={cap}

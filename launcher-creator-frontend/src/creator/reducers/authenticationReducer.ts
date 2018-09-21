@@ -1,5 +1,7 @@
 import { AuthenticationAction } from '../actions';
 import { AuthenticationState } from '../states/AuthenticationState';
+import { createSelector } from 'reselect';
+import { AppState } from '../states';
 
 const INITIAL_STATE: AuthenticationState = {
   error: false,
@@ -41,5 +43,9 @@ const authenticationReducer = (state: AuthenticationState = INITIAL_STATE, actio
       return state;
   }
 };
+
+const getAuthenticationState = (state:AppState) => state.authentication;
+
+export const getToken = createSelector([getAuthenticationState], a => a.token);
 
 export default authenticationReducer;

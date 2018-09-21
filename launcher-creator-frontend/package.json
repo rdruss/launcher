@@ -40,6 +40,7 @@
     "redux-saga-requests-axios": "^0.7.1",
     "redux-saga-requests-mock": "^0.1.0",
     "regenerator-runtime": "^0.12.1",
+    "reselect": "^3.0.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

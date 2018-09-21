@@ -6,14 +6,14 @@ import Runtime from '../../../models/Runtime';
 import { WizardStepId } from '../../../states/WizardState';
 import { StepProps } from '../StepProps';
 import ListSingleSelection from '../../../../components/selection/ListSingleSelection';
+import SectionLoader from '../../../../components/loader/SectionLoader';
+import { ApiCollection } from '../../../states';
 
 interface RuntimeStepProps extends StepProps {
-  runtimes: Runtime[];
+  runtimeCollection: ApiCollection<Runtime>;
   selectedRuntime?: Runtime;
   fetchRuntimes: () => {};
   onSelect: (runtime: Runtime) => void;
-  error?: string;
-  loading: boolean;
 }
 
 class RuntimeStep extends React.Component<RuntimeStepProps, {}> {
@@ -23,7 +23,7 @@ class RuntimeStep extends React.Component<RuntimeStepProps, {}> {
   }
 
   public render() {
-    const { current, locked, valid, selectedRuntime, runtimes, loading, onSelect, error } = this.props;
+    const { current, locked, valid, selectedRuntime, runtimeCollection, onSelect } = this.props;
     const summary = selectedRuntime && `➡️ Your future application will use «${selectedRuntime.name}»`;
     const goToNextStep = () => this.props.goToStep(WizardStepId.CAPABILITIES_STEP);
     return (
@@ -35,9 +35,11 @@ class RuntimeStep extends React.Component<RuntimeStepProps, {}> {
           complete={valid}
           onClick={this.props.goToStep}
       >
-        <ListSingleSelection  items={runtimes} loading={loading} onSelect={onSelect} selectedItem={selectedRuntime} error={error}>
-          Here you can choose a runtime for a specific programming language
-        </ListSingleSelection>
+        <SectionLoader loading={runtimeCollection.loading} error={runtimeCollection.error}>
+          <ListSingleSelection  items={runtimeCollection.collection} onSelect={onSelect} selectedItem={selectedRuntime}>
+            Here you can choose a runtime for a specific programming language
+          </ListSingleSelection>
+        </SectionLoader>
         <Wizard.Button type={'next'} title={'Let\'s select capabilities'} disabled={!valid} onClick={goToNextStep}/>
       </Wizard.Step>
     );

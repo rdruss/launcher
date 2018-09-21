@@ -1,14 +1,13 @@
-import { ApiRuntimesSelector, AppState } from '../../../states/index';
+import { AppState } from '../../../states';
 import RuntimeStep from '../../../components/creator-wizard/runtime-step/RuntimeStep';
-import { apiAction, wizardAction } from '../../../actions/index';
+import { apiAction, wizardAction } from '../../../actions';
 import connectStep from '../ConnectStep';
 import Runtime from '../../../models/Runtime';
 import { WizardStepId } from '../../../states/WizardState';
+import { getRuntimeCollection } from '../../../reducers/apiReducer';
 
 const mapStateToProps = (state: AppState) => ({
-  runtimes: ApiRuntimesSelector.runtimes(state),
-  loading: ApiRuntimesSelector.loading(state),
-  error: ApiRuntimesSelector.error(state),
+  runtimeCollection: getRuntimeCollection(state),
   selectedRuntime: state.wizard.runtimeStep.runtime,
   locked: !state.wizard.titleStep.valid,
 });

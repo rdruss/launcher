@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import * as Patternfly from 'patternfly-react';
-import SectionLoader from '../loader/SectionLoader';
 
 export interface ViewItem {
   id: string;
@@ -32,8 +31,6 @@ function ListItem(props: ListItemProps) {
 }
 
 interface ListSingleSelectionProps<T> {
-  loading: boolean;
-  error?: string;
   selectedItem?: T;
   items?: T[];
   onSelect: (item: T) => void;
@@ -53,17 +50,15 @@ function ListSingleSelection<T>(props: ListSingleSelectionProps<T>) {
   const selectedViewItem: ViewItem | undefined = selectedItem && mapToViewItem(selectedItem);
   return (
     <div className={'runtime-selector'}>
-      <SectionLoader loading={props.loading} error={props.error}>
-        <p>{children}</p>
-        <Patternfly.ListView>
-          {
-            items.map(mapToViewItem).map((viewItem, i) => (
-              <ListItem key={i} viewItem={viewItem} onSelect={onSelect}
-                           selected={selectedViewItem && selectedViewItem.id === viewItem.id}/>)
-            )
-          }
-        </Patternfly.ListView>
-      </SectionLoader>
+      <p>{children}</p>
+      <Patternfly.ListView>
+        {
+          items.map(mapToViewItem).map((viewItem, i) => (
+            <ListItem key={i} viewItem={viewItem} onSelect={onSelect}
+                         selected={selectedViewItem && selectedViewItem.id === viewItem.id}/>)
+          )
+        }
+      </Patternfly.ListView>
     </div>
   );
 }

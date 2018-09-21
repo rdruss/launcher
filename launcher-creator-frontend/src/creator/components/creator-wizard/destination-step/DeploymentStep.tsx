@@ -2,13 +2,13 @@ import * as React from 'react';
 import { Component } from 'react';
 import Wizard from '../../../../components/wizard';
 import { StepProps } from '../StepProps';
-import OpenShiftCluster  from '../../../models/OpenShiftCluster';
+import OpenShiftCluster from '../../../models/OpenShiftCluster';
 import ListSingleSelection from '../../../../components/selection/ListSingleSelection';
+import { ApiCollection } from '../../../states';
+import SectionLoader from '../../../../components/loader/SectionLoader';
 
 interface DeploymentStepProps extends StepProps {
-  clusters: OpenShiftCluster[];
-  loading: boolean;
-  error?: string;
+  clusterCollection: ApiCollection<OpenShiftCluster>;
   fetchClusters: () => {};
   fetchRepository: () => {};
   selectedCluster?: OpenShiftCluster;
@@ -23,7 +23,7 @@ class DeploymentStep extends Component<DeploymentStepProps> {
   }
 
   public render() {
-    const { clusters, loading, onSelectCluster, selectedCluster, error } = this.props;
+    const { clusterCollection, onSelectCluster, selectedCluster } = this.props;
     return (
       <Wizard.Step
         title={'OpenShift Deployment'}
@@ -32,9 +32,12 @@ class DeploymentStep extends Component<DeploymentStepProps> {
         onClick={this.props.goToStep}
         locked={this.props.locked}
       >
-        <ListSingleSelection  items={clusters} loading={loading} onSelect={onSelectCluster} selectedItem={selectedCluster} error={error}>
-          Here you can choose a destination OpenShift cluster. It will be in charge of building and serving your new Application.
-        </ListSingleSelection>
+        <SectionLoader loading={clusterCollection.loading} error={clusterCollection.error}>
+          <ListSingleSelection  items={clusterCollection.collection}  onSelect={onSelectCluster} selectedItem={selectedCluster}>
+            Here you can choose a destination OpenShift cluster. It will be in charge of building and serving your new Application.
+          </ListSingleSelection>
+        </SectionLoader>
+
         <Wizard.Button type={'launch'} title={'GO GO GO !'} disabled={!this.props.valid}/>
       </Wizard.Step>
     );

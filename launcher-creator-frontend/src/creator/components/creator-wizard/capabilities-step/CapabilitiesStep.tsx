@@ -4,15 +4,14 @@ import CapabilitiesSelection from './CapabilitiesSelection';
 import Capability from '../../../models/Capability';
 import { StepProps } from '../StepProps';
 import { WizardStepId } from '../../../states/WizardState';
+import { ApiCollection } from '../../../states';
 
 interface CapabilitiesStepProps extends StepProps {
-  capabilities: Capability[];
+  capabilityCollection: ApiCollection<Capability>;
   selectedCapabilities: Set<Capability>;
   onSelect: (capability: Capability) => void;
   onUnselect: (capability: Capability) => void;
   fetchCapabilities: () => {};
-  loading: boolean;
-  error?: string;
 }
 
 class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { CapabilitiesStepState }> {

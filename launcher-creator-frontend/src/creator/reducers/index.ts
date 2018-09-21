@@ -5,7 +5,6 @@ import globalReducer from './globalReducer';
 import wizardReducer from './wizardReducer';
 import { capabilitiesReducer, clustersReducer, runtimesReducer } from './apiReducer';
 
-
 const rootReducer = combineReducers<AppState>({
   authentication: authenticationReducer,
   globalState: globalReducer,
@@ -14,5 +13,7 @@ const rootReducer = combineReducers<AppState>({
   clusters: clustersReducer,
   wizard: wizardReducer,
 });
+
+
 
 export default rootReducer;
