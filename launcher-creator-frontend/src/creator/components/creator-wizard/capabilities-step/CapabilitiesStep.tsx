@@ -25,7 +25,7 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
 
   public render() {
     const { current, locked, valid } = this.props;
-    const goToNextStep = () => this.props.goToStep(WizardStepId.DESTINATION_STEP);
+    const goToNextStep = () => this.props.goToStep(WizardStepId.DEPLOYMENT_STEP);
     return (
       <Wizard.Step
         title={'Capabilities'}

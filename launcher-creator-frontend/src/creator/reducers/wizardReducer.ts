@@ -7,7 +7,7 @@ const INITIAL_STATE: WizardState = {
   titleStep: { valid: false },
   runtimeStep: { valid: false },
   capabilitiesStep: { capabilities: new Set<Capability>(), valid: false },
-  destinationStep: { valid: false },
+  deploymentStep: { valid: false },
   valid: false,
 };
 
@@ -21,8 +21,11 @@ const wizardReducer = (state: WizardState = INITIAL_STATE, action) => {
     case WizardAction.SELECT_RUNTIME:
       newState = { ...state, runtimeStep: { runtime: action.runtime, valid: true } };
       break;
+    case WizardAction.SELECT_CLUSTER:
+      newState = { ...state, deploymentStep: { cluster: action.cluster, valid: true } };
+      break;
     case WizardAction.ADD_CAPABILITY:
-      capabilities.add(action.capability)
+      capabilities.add(action.capability);
       newState = { ...state, capabilitiesStep: { capabilities, valid: capabilities.size > 0 } };
       break;
     case WizardAction.REMOVE_CAPABILITY:

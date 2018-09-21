@@ -33,14 +33,19 @@ function isCapabilityCompatibleWithRuntime(c: Capability, r: Runtime): boolean {
 export const ApiCapabilitiesSelector = {
   capabilities: (state: AppState, runtime?: Runtime): Capability[] => {
     if (runtime) {
-      return state.capabilities.data.filter(c => isCapabilityCompatibleWithRuntime(c, runtime)) || [];
+      return state.capabilities.data.filter(c => isCapabilityCompatibleWithRuntime(c, runtime));
     }
-    return state.capabilities.data ||[];
+    return state.capabilities.data;
   },
-  loading: (state: AppState): boolean => !state.capabilities.data || state.capabilities.pending > 0,
+  loading: (state: AppState): boolean => state.capabilities.pending > 0,
 };
 
 export const ApiRuntimesSelector = {
-  runtimes: (state: AppState): Runtime[] => state.runtimes.data || [],
-  loading: (state: AppState): boolean => !state.runtimes.data || state.runtimes.pending > 0,
+  runtimes: (state: AppState): Runtime[] => state.runtimes.data,
+  loading: (state: AppState): boolean => state.runtimes.pending > 0,
+};
+
+export const ApiClustersSelector = {
+  clusters: (state: AppState): OpenShiftCluster[] => state.clusters.data,
+  loading: (state: AppState): boolean => state.clusters.pending > 0,
 };

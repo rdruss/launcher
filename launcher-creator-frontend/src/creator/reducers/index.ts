@@ -2,16 +2,16 @@ import { combineReducers } from 'redux';
 import { AppState } from '../states';
 import authenticationReducer from './authenticationReducer';
 import globalReducer from './globalReducer';
-import { requestsReducer } from 'redux-saga-requests';
-import { ApiAction } from '../actions';
 import wizardReducer from './wizardReducer';
+import { capabilitiesReducer, clustersReducer, runtimesReducer } from './apiReducer';
+
 
 const rootReducer = combineReducers<AppState>({
   authentication: authenticationReducer,
   globalState: globalReducer,
-  capabilities: requestsReducer({ actionType: ApiAction.FETCH_CAPABILITIES }),
-  runtimes: requestsReducer({ actionType: ApiAction.FETCH_RUNTIMES }),
-  clusters: requestsReducer({ actionType: ApiAction.FETCH_CLUSTERS }),
+  capabilities: capabilitiesReducer,
+  runtimes: runtimesReducer,
+  clusters: clustersReducer,
   wizard: wizardReducer,
 });
 

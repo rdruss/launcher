@@ -1,11 +1,12 @@
 import Capability from '../models/Capability';
 import Runtime from '../models/Runtime';
+import OpenShiftCluster from '../models/OpenShiftCluster';
 
 export enum WizardStepId {
   TITLE_STEP = 'titleStep',
   RUNTIME_STEP = 'runtimeStep',
   CAPABILITIES_STEP = 'capabilitiesStep',
-  DESTINATION_STEP = 'destinationStep',
+  DEPLOYMENT_STEP = 'deploymentStep',
 }
 
 export interface TitleStepState {
@@ -25,7 +26,8 @@ export interface CapabilitiesStepState {
   valid: boolean;
 }
 
-export interface DestinationStepState {
+export interface DeployementStepState {
+  cluster?: OpenShiftCluster;
   valid: boolean;
 }
 
@@ -34,6 +36,6 @@ export interface WizardState {
   titleStep: TitleStepState;
   runtimeStep: RuntimeStepState;
   capabilitiesStep: CapabilitiesStepState;
-  destinationStep: DestinationStepState;
+  deploymentStep: DeployementStepState;
   valid: boolean;
 }

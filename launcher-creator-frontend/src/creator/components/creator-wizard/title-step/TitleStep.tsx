@@ -34,7 +34,7 @@ class TitleStep extends Component<TitleStepProps, TitleStepState> {
   public render() {
     return (
       <Wizard.Step
-        title={'Title'}
+        title={'Application name'}
         summary={`➡️ Your future application will be named «${this.props.title}»`}
         current={this.props.current}
         complete={this.props.valid}

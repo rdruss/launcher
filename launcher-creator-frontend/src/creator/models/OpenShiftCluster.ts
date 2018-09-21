@@ -3,13 +3,9 @@ enum ClusterType {
   STARTER = 'starter',
 }
 
-export interface Cluster {
+export default interface OpenShiftCluster {
   id: string;
   name: string;
   type: ClusterType;
-}
-
-export default interface OpenShiftCluster {
   connected: boolean;
-  cluster: Cluster;
 }
