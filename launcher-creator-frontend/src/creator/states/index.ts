@@ -26,10 +26,14 @@ export const AuthenticationSelector = {
   token: (state: AppState) => state.authentication.token,
 };
 
+function isCapabilityCompatibleWithRuntime(c: Capability, r: Runtime): boolean {
+  return Boolean(c.props.runtime && c.props.runtime.values.find(p => p.id === r.id));
+}
+
 export const ApiCapabilitiesSelector = {
   capabilities: (state: AppState, runtime?: Runtime): Capability[] => {
     if (runtime) {
-      return state.capabilities.data.filter(c => Boolean(c.props.runtime.values.find(p => p.id === runtime.id))) || [];
+      return state.capabilities.data.filter(c => isCapabilityCompatibleWithRuntime(c, runtime)) || [];
     }
     return state.capabilities.data ||[];
   },
@@ -37,6 +41,6 @@ export const ApiCapabilitiesSelector = {
 };
 
 export const ApiRuntimesSelector = {
-  runtimes: (state: AppState): Runtime[] => state.runtimes.data,
+  runtimes: (state: AppState): Runtime[] => state.runtimes.data || [],
   loading: (state: AppState): boolean => !state.runtimes.data || state.runtimes.pending > 0,
 };

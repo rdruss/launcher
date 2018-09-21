@@ -9,8 +9,8 @@ export type OptionalUser = User | undefined;
 
 class StoredData {
   public readonly token: string;
-  public readonly refreshToken: string;
-  public readonly idToken: string;
+  public readonly refreshToken?: string;
+  public readonly idToken?: string;
 }
 
 export class KeycloakAuthentication  {
@@ -124,7 +124,8 @@ export class KeycloakAuthentication  {
     localStorage.setItem('kc', JSON.stringify(data));
   }
 
-  private static getStoredData(): StoredData {
-    return JSON.parse(localStorage.getItem('kc'));
+  private static getStoredData(): StoredData | undefined {
+    const item = localStorage.getItem('kc');
+    return item && JSON.parse(item);
   }
 }

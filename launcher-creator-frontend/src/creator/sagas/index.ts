@@ -8,7 +8,7 @@ import { AuthenticationSelector } from '../states';
 import { AxiosRequestConfig } from 'axios';
 import { checkNotNull } from '../../utils/Preconditions';
 
-const driver = checkNotNull(process.env.REACT_APP_API_DRIVER) === 'mock' ? mockDriver : axiosDriver;
+const driver = checkNotNull(process.env.REACT_APP_API_DRIVER, 'process.env.REACT_APP_API_DRIVER') === 'mock' ? mockDriver : axiosDriver;
 function* onRequest(request: AxiosRequestConfig, action: RequestAction) {
   const token = yield select(AuthenticationSelector.token);
   request.headers = {

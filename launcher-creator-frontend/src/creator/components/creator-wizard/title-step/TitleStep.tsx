@@ -18,13 +18,16 @@ interface TitleStepState {
 }
 
 class TitleStep extends Component<TitleStepProps, TitleStepState> {
+  public static defaultProps = {
+    title: ''
+  };
 
   constructor(props) {
     super(props);
-
+    const title = this.props.title || '';
     this.state = {
-      title: this.props.title || '',
-      valid: this.isTitleValid(this.props.title),
+      title,
+      valid: this.isTitleValid(title),
     };
   }
 
@@ -56,7 +59,7 @@ class TitleStep extends Component<TitleStepProps, TitleStepState> {
   }
 
   private isTitleValid(title: string): boolean {
-    return title && TITLE_REGEXP.test(title);
+    return TITLE_REGEXP.test(title);
   }
 }
 
