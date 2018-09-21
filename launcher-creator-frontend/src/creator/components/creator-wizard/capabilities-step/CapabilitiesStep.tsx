@@ -24,11 +24,12 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
   }
 
   public render() {
-    const { current, locked, valid } = this.props;
+    const { current, locked, valid, selectedCapabilities } = this.props;
     const goToNextStep = () => this.props.goToStep(WizardStepId.DEPLOYMENT_STEP);
     return (
       <Wizard.Step
         title={'Capabilities'}
+        summary={`➡️ Your future application will feature «${Array.from(selectedCapabilities).map(c => c.name).join(', ')}»`}
         current={current}
         locked={locked}
         complete={valid}
