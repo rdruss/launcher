@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { Component } from 'react';
+import * as Patternfly from 'patternfly-react';
+
 import Wizard from '../../../../components/wizard';
 import { StepProps } from '../StepProps';
 import OpenShiftCluster from '../../../models/OpenShiftCluster';
-import ListSingleSelection from '../../../../components/selection/ListSingleSelection';
-import { ApiCollection } from '../../../states';
+import { FetchedData } from '../../../states';
 import SectionLoader from '../../../../components/loader/SectionLoader';
 
-interface DeploymentStepProps extends StepProps {
-  clusterCollection: ApiCollection<OpenShiftCluster>;
+export interface DeploymentStepProps extends StepProps {
+  clustersData: FetchedData<OpenShiftCluster[]>;
   fetchClusters: () => {};
-  fetchRepository: () => {};
   selectedCluster?: OpenShiftCluster;
   onSelectCluster: (cluster: OpenShiftCluster) => void;
 }
@@ -18,29 +18,42 @@ interface DeploymentStepProps extends StepProps {
 class DeploymentStep extends Component<DeploymentStepProps> {
 
   public componentDidMount() {
-    this.props.fetchRepository();
     this.props.fetchClusters();
   }
 
+  public componentDidUpdate() {
+    if (this.props.current && !this.props.selectedCluster && this.props.clustersData.data.length > 0) {
+      this.onClusterChange([this.props.clustersData.data[0]]);
+    }
+  }
+
   public render() {
-    const { clusterCollection, onSelectCluster, selectedCluster } = this.props;
+    const { clustersData, selectedCluster } = this.props;
+    const selected = selectedCluster ? [selectedCluster] : [];
     return (
       <Wizard.Step
         title={'OpenShift Deployment'}
+        summary={`➡️ Your future application will built/deployed by «${selectedCluster && selectedCluster.name}»`}
         current={this.props.current}
         complete={this.props.valid}
         onClick={this.props.goToStep}
         locked={this.props.locked}
       >
-        <SectionLoader loading={clusterCollection.loading} error={clusterCollection.error}>
-          <ListSingleSelection  items={clusterCollection.collection}  onSelect={onSelectCluster} selectedItem={selectedCluster}>
-            Here you can choose a destination OpenShift cluster. It will be in charge of building and serving your new Application.
-          </ListSingleSelection>
+        <SectionLoader loading={clustersData.loading} error={clustersData.error}>
+          <Patternfly.TypeAheadSelect
+            options={clustersData.data}
+            labelKey={'name'}
+            onChange={this.onClusterChange}
+            selected={selected}
+          />
         </SectionLoader>
-
         <Wizard.Button type={'launch'} title={'GO GO GO !'} disabled={!this.props.valid}/>
       </Wizard.Step>
     );
+  }
+
+  public onClusterChange = ([cluster]: OpenShiftCluster[]) => {
+    this.props.onSelectCluster(cluster);
   }
 }
 

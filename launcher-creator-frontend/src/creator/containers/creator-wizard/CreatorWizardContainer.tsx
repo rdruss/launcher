@@ -7,6 +7,7 @@ import RuntimeStepContainer from './steps/RuntimeStepContainer';
 import CapabilitiesStepContainer from './steps/CapabilitiesStepContainer';
 import { WizardStepId } from '../../states/WizardState';
 import DeploymentStepContainer from './steps/DeploymentStepContainer';
+import RepositoryStepContainer from './steps/RepositoryStepContainer';
 
 interface CreatorWizardProps {
   current: WizardStepId;
@@ -19,6 +20,7 @@ function CreatorWizard({ current }: CreatorWizardProps) {
       <TitleStepContainer/>
       <RuntimeStepContainer/>
       <CapabilitiesStepContainer/>
+      <RepositoryStepContainer />
       <DeploymentStepContainer />
       <Wizard.Step title={'What\'s next...'} locked>
         Now that your application has been set up, here is what you can do...

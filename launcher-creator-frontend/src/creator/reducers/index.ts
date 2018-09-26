@@ -3,7 +3,7 @@ import { AppState } from '../states';
 import authenticationReducer from './authenticationReducer';
 import globalReducer from './globalReducer';
 import wizardReducer from './wizardReducer';
-import { capabilitiesReducer, clustersReducer, runtimesReducer } from './apiReducer';
+import { capabilitiesReducer, clustersReducer, gitUserReducer, runtimesReducer } from './apiReducer';
 
 const rootReducer = combineReducers<AppState>({
   authentication: authenticationReducer,
@@ -11,6 +11,7 @@ const rootReducer = combineReducers<AppState>({
   capabilities: capabilitiesReducer,
   runtimes: runtimesReducer,
   clusters: clustersReducer,
+  gitUser: gitUserReducer,
   wizard: wizardReducer,
 });
 

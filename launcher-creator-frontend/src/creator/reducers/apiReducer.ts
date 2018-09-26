@@ -1,11 +1,12 @@
 import { requestsReducer } from 'redux-saga-requests';
 import { ApiAction } from '../actions';
 import Runtime from '../models/Runtime';
-import { ApiCollection, AppState } from '../states';
+import { FetchedData, AppState } from '../states';
 import { createSelector } from 'reselect';
 import Capability from '../models/Capability';
 import { getSelectedRuntime } from './wizardReducer';
 import OpenShiftCluster from '../models/OpenShiftCluster';
+import GitUser from '../models/GitUser';
 
 export const capabilitiesReducer = requestsReducer({ actionType: ApiAction.FETCH_CAPABILITIES, multiple: true });
 
@@ -15,27 +16,27 @@ function createCapabilityFilterForRuntime(r?: Runtime): (Capability) => boolean 
 
 const getCapabilitiesState = (state:AppState) => state.capabilities;
 
-export const getCapabilityCollection = createSelector([getCapabilitiesState], (f) => ({
-  collection: f.data,
+export const getCapabilitiesData = createSelector([getCapabilitiesState], (f) => ({
+  data: f.data,
   loading: f.pending > 0,
   error: f.error,
-} as ApiCollection<Capability>));
+} as FetchedData<Capability[]>));
 
-export const getCapabilityCollectionForSelectedRuntime = createSelector([getCapabilityCollection, getSelectedRuntime], (c, r) => ({
-  collection: c.collection.filter(createCapabilityFilterForRuntime(r)),
+export const getCapabilitiesDataForSelectedRuntime = createSelector([getCapabilitiesData, getSelectedRuntime], (c, r) => ({
+  data: c.data.filter(createCapabilityFilterForRuntime(r)),
   loading: c.loading,
   error: c.error,
-} as ApiCollection<Capability>));
+} as FetchedData<Capability[]>));
 
 export const runtimesReducer = requestsReducer({ actionType: ApiAction.FETCH_RUNTIMES, multiple: true });
 
 const getRuntimesState = (state:AppState) => state.runtimes;
 
-export const getRuntimeCollection = createSelector([getRuntimesState], (f) => ({
-  collection: f.data,
+export const getRuntimesData = createSelector([getRuntimesState], (f) => ({
+  data: f.data,
   loading: f.pending > 0,
   error: f.error,
-} as ApiCollection<Runtime>));
+} as FetchedData<Runtime[]>));
 
 export const clustersReducer = requestsReducer({
   actionType: ApiAction.FETCH_CLUSTERS,
@@ -48,8 +49,23 @@ export const clustersReducer = requestsReducer({
 
 const getClustersState = (state:AppState) => state.clusters;
 
-export const getClusterCollection = createSelector([getClustersState], (f) => ({
-  collection: f.data,
+export const getClustersData = createSelector([getClustersState], (f) => ({
+  data: f.data,
   loading: f.pending > 0,
   error: f.error,
-} as ApiCollection<OpenShiftCluster>));
+} as FetchedData<OpenShiftCluster[]>));
+
+export const getConnectedClustersData = createSelector([getClustersData], (d) => ({
+  ...d,
+  data: d.data.filter(c => c.connected),
+} as FetchedData<OpenShiftCluster[]>));
+
+export const gitUserReducer = requestsReducer({ actionType: ApiAction.FETCH_GIT_USER });
+
+const getGitUserState = (state:AppState) => state.gitUser;
+
+export const getGitUserData = createSelector([getGitUserState], (f) => ({
+  data: f.data,
+  loading: !f.data || f.pending > 0,
+  error: f.error,
+} as FetchedData<GitUser>));

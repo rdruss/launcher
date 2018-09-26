@@ -4,6 +4,7 @@ import { ApiAction } from '../../actions';
 import * as capabilities from '../../../mocks/capabilities.json';
 import * as runtimes from '../../../mocks/runtimes.json';
 import * as clusters from '../../../mocks/clusters.json';
+import * as gitUser from '../../../mocks/gitUser.json';
 
 const toData = (content) => ({ data: content });
 
@@ -19,6 +20,9 @@ const mockCreateApi  = {
 const mockLauncherApi  = {
   [ApiAction.FETCH_CLUSTERS]: (requestConfig, requestAction) => {
     return toData(clusters);
+  },
+  [ApiAction.FETCH_GIT_USER]: (requestConfig, requestAction) => {
+    return toData(gitUser);
   },
 };
 const mockDriver = {

@@ -6,6 +6,7 @@ export enum WizardStepId {
   TITLE_STEP = 'titleStep',
   RUNTIME_STEP = 'runtimeStep',
   CAPABILITIES_STEP = 'capabilitiesStep',
+  REPOSITORY_STEP = 'repositoryStep',
   DEPLOYMENT_STEP = 'deploymentStep',
 }
 
@@ -26,8 +27,15 @@ export interface CapabilitiesStepState {
   valid: boolean;
 }
 
-export interface DeployementStepState {
+export interface DeploymentStepState {
   cluster?: OpenShiftCluster;
+  valid: boolean;
+}
+
+export const REPOSITORY_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}/[a-z][a-z0-9-.]{3,63}$');
+
+export interface RepositoryStepState {
+  repository?: string;
   valid: boolean;
 }
 
@@ -36,6 +44,7 @@ export interface WizardState {
   titleStep: TitleStepState;
   runtimeStep: RuntimeStepState;
   capabilitiesStep: CapabilitiesStepState;
-  deploymentStep: DeployementStepState;
+  deploymentStep: DeploymentStepState;
+  repositoryStep: RepositoryStepState;
   valid: boolean;
 }

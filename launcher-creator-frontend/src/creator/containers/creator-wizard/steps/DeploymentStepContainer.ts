@@ -4,18 +4,16 @@ import { WizardStepId } from '../../../states/WizardState';
 import { apiAction, wizardAction } from '../../../actions';
 import OpenShiftCluster from '../../../models/OpenShiftCluster';
 import DeploymentStep from '../../../components/creator-wizard/destination-step/DeploymentStep';
-import { getClusterCollection } from '../../../reducers/apiReducer';
+import { getConnectedClustersData } from '../../../reducers/apiReducer';
 
 const mapStateToProps = (state: AppState) => ({
-  clusterCollection: getClusterCollection(state),
-  locked: !state.wizard.capabilitiesStep.valid,
+  clustersData: getConnectedClustersData(state),
+  locked: !state.wizard.repositoryStep.valid,
   selectedCluster: state.wizard.deploymentStep.cluster,
-  valid: state.wizard.deploymentStep.cluster
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchClusters: () => dispatch(apiAction.fetchClusters()),
-  fetchRepository: () => dispatch(apiAction.fetchRepository()),
   onSelectCluster: (cluster: OpenShiftCluster) => dispatch(wizardAction.selectCluster(cluster)),
 });
 

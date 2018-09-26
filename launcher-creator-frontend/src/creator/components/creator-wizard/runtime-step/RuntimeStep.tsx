@@ -7,10 +7,10 @@ import { WizardStepId } from '../../../states/WizardState';
 import { StepProps } from '../StepProps';
 import ListSingleSelection from '../../../../components/selection/ListSingleSelection';
 import SectionLoader from '../../../../components/loader/SectionLoader';
-import { ApiCollection } from '../../../states';
+import { FetchedData } from '../../../states';
 
 interface RuntimeStepProps extends StepProps {
-  runtimeCollection: ApiCollection<Runtime>;
+  runtimesData: FetchedData<Runtime[]>;
   selectedRuntime?: Runtime;
   fetchRuntimes: () => {};
   onSelect: (runtime: Runtime) => void;
@@ -23,7 +23,7 @@ class RuntimeStep extends React.Component<RuntimeStepProps, {}> {
   }
 
   public render() {
-    const { current, locked, valid, selectedRuntime, runtimeCollection, onSelect } = this.props;
+    const { current, locked, valid, selectedRuntime, runtimesData, onSelect } = this.props;
     const summary = selectedRuntime && `➡️ Your future application will use «${selectedRuntime.name}»`;
     const goToNextStep = () => this.props.goToStep(WizardStepId.CAPABILITIES_STEP);
     return (
@@ -35,8 +35,8 @@ class RuntimeStep extends React.Component<RuntimeStepProps, {}> {
           complete={valid}
           onClick={this.props.goToStep}
       >
-        <SectionLoader loading={runtimeCollection.loading} error={runtimeCollection.error}>
-          <ListSingleSelection  items={runtimeCollection.collection} onSelect={onSelect} selectedItem={selectedRuntime}>
+        <SectionLoader loading={runtimesData.loading} error={runtimesData.error}>
+          <ListSingleSelection items={runtimesData.data} onSelect={onSelect} selectedItem={selectedRuntime}>
             Here you can choose a runtime for a specific programming language
           </ListSingleSelection>
         </SectionLoader>

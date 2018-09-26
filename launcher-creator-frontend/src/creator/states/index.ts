@@ -3,17 +3,18 @@ import { WizardState } from './WizardState';
 import Capability from '../models/Capability';
 import Runtime from '../models/Runtime';
 import OpenShiftCluster from '../models/OpenShiftCluster';
+import GitUser from '../models/GitUser';
 
 export interface GlobalState {
 }
 
-export interface ApiCollection<T> {
-  collection: T[];
+export interface FetchedData<T> {
+  data: T;
   loading: boolean;
   error?: string;
 }
 
-export interface FetchState<T> {
+export interface FetchedState<T> {
   data: T;
   error?: string;
   pending: number;
@@ -22,8 +23,9 @@ export interface FetchState<T> {
 export interface AppState {
   globalState: GlobalState;
   authentication: AuthenticationState;
-  capabilities: FetchState<[Capability]>;
-  runtimes: FetchState<[Runtime]>;
-  clusters: FetchState<[OpenShiftCluster]>;
+  capabilities: FetchedState<Capability[]>;
+  runtimes: FetchedState<Runtime[]>;
+  clusters: FetchedState<OpenShiftCluster[]>;
+  gitUser: FetchedState<GitUser>;
   wizard: WizardState;
 }

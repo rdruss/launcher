@@ -28,22 +28,27 @@ export enum ApiAction {
   FETCH_CAPABILITIES = 'API_FETCH_CAPABILITIES',
   FETCH_RUNTIMES = 'API_FETCH_RUNTIMES',
   FETCH_CLUSTERS = 'API_FETCH_CLUSTERS',
-  FETCH_REPOSITORY = 'API_FETCH_REPOSITORY',
+  FETCH_GIT_USER = 'API_FETCH_GIT_USER',
 }
 
 export const apiAction = {
   fetchCapabilities: () => action(ApiAction.FETCH_CAPABILITIES, { request: { url: `/capabilities` } }),
   fetchRuntimes: () => action(ApiAction.FETCH_RUNTIMES, { request: { url: `/runtimes` } }),
   fetchClusters: () => action(ApiAction.FETCH_CLUSTERS, {
-    request: { url: `/services/openshift/clusters`, headers: {'X-App': 'launcher'} }, meta: { driver: 'launcher' }
+    request: { url: `/services/openshift/clusters`, headers: {'X-App': 'launcher'} },
+    meta: { driver: 'launcher' },
   }),
-  fetchRepository: () => action(ApiAction.FETCH_REPOSITORY, { }),
+  fetchGitUser: () => action(ApiAction.FETCH_GIT_USER, {
+    request: { url: `/services/git/user`, headers: {'X-App': 'launcher', 'X-Git-Provider': 'GitHub'} },
+    meta: { driver: 'launcher' },
+  }),
 };
 
 export enum WizardAction {
   SELECT_TITLE = 'WIZARD_SELECT_TITLE',
   SELECT_RUNTIME = 'WIZARD_SELECT_RUNTIME',
   SELECT_CLUSTER = 'WIZARD_SELECT_CLUSTER',
+  SELECT_REPOSITORY = 'WIZARD_SELECT_REPOSITORY',
   ADD_CAPABILITY = 'WIZARD_ADD_CAPABILITY',
   REMOVE_CAPABILITY = 'WIZARD_REMOVE_CAPABILITY',
   GO_TO_STEP = 'WIZARD_GO_TO_STEP',
@@ -53,6 +58,7 @@ export const wizardAction = {
   selectTitle: (title: string) => action(WizardAction.SELECT_TITLE, {title}),
   selectRuntime: (runtime: Runtime) => action(WizardAction.SELECT_RUNTIME, {runtime}),
   selectCluster: (cluster: OpenShiftCluster) => action(WizardAction.SELECT_CLUSTER, {cluster}),
+  selectRepository: (repository: string) => action(WizardAction.SELECT_REPOSITORY, {repository}),
   addCapability: (capability: Capability) => action(WizardAction.ADD_CAPABILITY, {capability}),
   removeCapability: (capability: Capability) => action(WizardAction.REMOVE_CAPABILITY, {capability}),
   goToStep: (stepId: WizardStepId) => action(WizardAction.GO_TO_STEP, {stepId}),

@@ -4,10 +4,10 @@ import { apiAction, wizardAction } from '../../../actions';
 import connectStep from '../ConnectStep';
 import Runtime from '../../../models/Runtime';
 import { WizardStepId } from '../../../states/WizardState';
-import { getRuntimeCollection } from '../../../reducers/apiReducer';
+import { getRuntimesData } from '../../../reducers/apiReducer';
 
 const mapStateToProps = (state: AppState) => ({
-  runtimeCollection: getRuntimeCollection(state),
+  runtimesData: getRuntimesData(state),
   selectedRuntime: state.wizard.runtimeStep.runtime,
   locked: !state.wizard.titleStep.valid,
 });

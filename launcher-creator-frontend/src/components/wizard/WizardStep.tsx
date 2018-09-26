@@ -26,10 +26,10 @@ class WizardStep extends Component<LizardStepProps> {
             <i className={classNames('ico fa', {'fa-check ico-green': complete, 'fa-lock ico-muted': locked})}/>
           )}
         </a>
-        {!current && summary && (
+        {!locked && complete && !current && summary && (
           <span className="summary">{summary}</span>
         )}
-        {current && (
+        {!locked && current && (
           <span className="content">{children}</span>
         )}
       </li>
