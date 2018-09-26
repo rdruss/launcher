@@ -20,6 +20,19 @@ function* authenticationRequest(action) {
   }
 }
 
+export function* refreshTokenRequest(action) {
+  try {
+    const user:OptionalUser = yield call(keycloakService.refreshToken, action.payload);
+    if (user) {
+      yield put(authenticationAction.userConnected(user));
+    } else {
+      yield put(authenticationAction.userNotConnected());
+    }
+  } catch (e) {
+    yield put(authenticationAction.authenticationFailure(e));
+  }
+}
+
 function* loginRequest(action) {
   try {
     yield call(keycloakService.login, action.payload);

@@ -7,6 +7,7 @@ import RepositoryStep from '../../../components/creator-wizard/repository-step/R
 
 const mapStateToProps = (state: AppState) => ({
   gitUserData: getGitUserData(state),
+  applicationName: state.wizard.titleStep.title,
   locked: !state.wizard.capabilitiesStep.valid,
   selectedRepository: state.wizard.repositoryStep.repository,
 });

@@ -11,6 +11,7 @@ import GitUser from '../../../models/GitUser';
 import { WizardStepId } from '../../../states/WizardState';
 
 export interface RepositoryStepProps extends StepProps {
+  applicationName?: string;
   gitUserData: FetchedData<GitUser>;
   fetchGitUser: () => {};
   selectedRepository?: string;
@@ -25,8 +26,10 @@ class RepositoryStep extends Component<RepositoryStepProps> {
 
   public componentDidUpdate() {
     if (this.props.current && !this.props.selectedRepository && this.props.gitUserData.data) {
-      this.onOrganizationChange([this.props.gitUserData.data.login]);
+      const repository = { organization: this.props.gitUserData.data.login, name: this.props.applicationName } as GitRepository;
+      this.props.onSelectRepository(RepositoryStep.toRepositoryString(repository))
     }
+
   }
 
   public render() {

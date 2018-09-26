@@ -66,6 +66,6 @@ const getGitUserState = (state:AppState) => state.gitUser;
 
 export const getGitUserData = createSelector([getGitUserState], (f) => ({
   data: f.data,
-  loading: !f.data || f.pending > 0,
+  loading: (!f.data && !f.error) || f.pending > 0,
   error: f.error,
 } as FetchedData<GitUser>));
