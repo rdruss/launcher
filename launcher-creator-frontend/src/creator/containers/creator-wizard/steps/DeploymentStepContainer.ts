@@ -4,7 +4,7 @@ import { WizardStepId } from '../../../states/WizardState';
 import { apiAction, wizardAction } from '../../../actions';
 import OpenShiftCluster from '../../../models/OpenShiftCluster';
 import DeploymentStep from '../../../components/creator-wizard/destination-step/DeploymentStep';
-import { getConnectedClustersData } from '../../../reducers/apiReducer';
+import { getConnectedClustersData } from '../../../reducers/api/gitReducer';
 
 const mapStateToProps = (state: AppState) => ({
   clustersData: getConnectedClustersData(state),

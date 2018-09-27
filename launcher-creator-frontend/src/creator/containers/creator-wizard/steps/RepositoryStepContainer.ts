@@ -2,8 +2,8 @@ import { AppState } from '../../../states';
 import connectStep from '../ConnectStep';
 import { WizardStepId } from '../../../states/WizardState';
 import { apiAction, wizardAction } from '../../../actions';
-import { getGitUserData } from '../../../reducers/apiReducer';
 import RepositoryStep from '../../../components/creator-wizard/repository-step/RepositoryStep';
+import { getGitUserData } from '../../../reducers/api/clustersReducer';
 
 const mapStateToProps = (state: AppState) => ({
   gitUserData: getGitUserData(state),

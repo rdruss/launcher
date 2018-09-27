@@ -4,7 +4,7 @@ import { apiAction, wizardAction } from '../../../actions';
 import connectStep from '../ConnectStep';
 import Runtime from '../../../models/Runtime';
 import { WizardStepId } from '../../../states/WizardState';
-import { getRuntimesData } from '../../../reducers/apiReducer';
+import { getRuntimesData } from '../../../reducers/api/runtimesReducer';
 
 const mapStateToProps = (state: AppState) => ({
   runtimesData: getRuntimesData(state),

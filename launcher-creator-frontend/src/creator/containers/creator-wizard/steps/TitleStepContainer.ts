@@ -1,5 +1,5 @@
-import { AppState } from '../../../states/index';
-import { wizardAction } from '../../../actions/index';
+import { AppState } from '../../../states';
+import { wizardAction } from '../../../actions';
 import TitleStep from '../../../components/creator-wizard/title-step/TitleStep';
 import connectStep from '../ConnectStep';
 import { WizardStepId } from '../../../states/WizardState';

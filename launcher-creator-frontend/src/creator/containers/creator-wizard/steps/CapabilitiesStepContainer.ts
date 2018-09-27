@@ -4,7 +4,7 @@ import CapabilitiesStep from '../../../components/creator-wizard/capabilities-st
 import connectStep from '../ConnectStep';
 import Capability from '../../../models/Capability';
 import { WizardStepId } from '../../../states/WizardState';
-import { getCapabilitiesDataForSelectedRuntime } from '../../../reducers/apiReducer';
+import { getCapabilitiesDataForSelectedRuntime } from '../../../reducers/api/capabilitiesReducer';
 
 const mapStateToProps = (state: AppState) => ({
   capabilitiesData: getCapabilitiesDataForSelectedRuntime(state),
