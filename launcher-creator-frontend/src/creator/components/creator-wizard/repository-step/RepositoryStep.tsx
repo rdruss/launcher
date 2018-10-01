@@ -10,6 +10,8 @@ import { GitRepository } from '../../../models/GitRepository';
 import GitUser from '../../../models/GitUser';
 import { WizardStepId } from '../../../states/WizardState';
 
+const REPOSITORY_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}/[a-z][a-z0-9-.]{3,63}$');
+
 export interface RepositoryStepContext {
   repository?: string;
 }
@@ -71,20 +73,18 @@ class RepositoryStep extends Component<RepositoryStepProps> {
       return;
     }
     const repo = RepositoryStep.toGitRepository(this.props.context.repository);
-    this.updateStepContext(RepositoryStep.toRepositoryString({ organization, name: repo.name }));
+    this.updateStepContext({ organization, name: repo.name });
   }
 
   public onNameChange = (event) => {
     const name = event.target.value;
-    if (!name) {
-      return;
-    }
     const repo = RepositoryStep.toGitRepository(this.props.context.repository);
-    this.updateStepContext(RepositoryStep.toRepositoryString({ name, organization: repo.organization }));
+    this.updateStepContext({ name, organization: repo.organization });
   }
 
   private updateStepContext(repository) {
-    this.props.updateStepContext({context: {repository: RepositoryStep.toRepositoryString(repository)}, valid: true});
+    const repositoryString = RepositoryStep.toRepositoryString(repository);
+    this.props.updateStepContext({context: {repository: repositoryString}, valid: REPOSITORY_REGEXP.test(repositoryString)});
   }
 
   private static toGitRepository(repository?: string):GitRepository {

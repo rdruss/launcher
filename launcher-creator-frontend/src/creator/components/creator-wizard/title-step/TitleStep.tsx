@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Component } from 'react';
 import Wizard from '../../../../components/wizard';
-import { TITLE_REGEXP, WizardStepId } from '../../../states/WizardState';
+import { WizardStepId } from '../../../states/WizardState';
 import { StepProps } from '../StepProps';
+
+const TITLE_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
 
 interface TitleStepContext {
   title?: string;

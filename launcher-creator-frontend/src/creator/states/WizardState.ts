@@ -10,9 +10,6 @@ export enum WizardStepId {
 
 export const WizardStepIds = _.values(WizardStepId);
 
-export const TITLE_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
-export const REPOSITORY_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}/[a-z][a-z0-9-.]{3,63}$');
-
 export interface StepState<T> {
   valid: boolean;
   context?: T;
