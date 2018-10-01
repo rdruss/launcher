@@ -1,6 +1,4 @@
-import Capability from '../models/Capability';
-import Runtime from '../models/Runtime';
-import OpenShiftCluster from '../models/OpenShiftCluster';
+import * as _ from 'lodash';
 
 export enum WizardStepId {
   TITLE_STEP = 'titleStep',
@@ -10,41 +8,18 @@ export enum WizardStepId {
   DEPLOYMENT_STEP = 'deploymentStep',
 }
 
-export interface TitleStepState {
-  title?: string;
-  valid: boolean;
-}
+export const WizardStepIds = _.values(WizardStepId);
 
 export const TITLE_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
-
-export interface RuntimeStepState {
-  runtime?: Runtime;
-  valid: boolean;
-}
-
-export interface CapabilitiesStepState {
-  capabilities: Set<Capability>;
-  valid: boolean;
-}
-
-export interface DeploymentStepState {
-  cluster?: OpenShiftCluster;
-  valid: boolean;
-}
-
 export const REPOSITORY_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}/[a-z][a-z0-9-.]{3,63}$');
 
-export interface RepositoryStepState {
-  repository?: string;
+export interface StepState<T> {
   valid: boolean;
+  context?: T;
 }
 
 export interface WizardState {
   current: WizardStepId;
-  titleStep: TitleStepState;
-  runtimeStep: RuntimeStepState;
-  capabilitiesStep: CapabilitiesStepState;
-  deploymentStep: DeploymentStepState;
-  repositoryStep: RepositoryStepState;
+  steps: {[s: string]: StepState<any>;};
   valid: boolean;
 }

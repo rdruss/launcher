@@ -17,11 +17,11 @@ interface CreatorWizardProps {
 function CreatorWizard({ current }: CreatorWizardProps) {
   return (
     <Wizard>
-      <TitleStepContainer/>
-      <RuntimeStepContainer/>
-      <CapabilitiesStepContainer/>
-      <RepositoryStepContainer />
-      <DeploymentStepContainer />
+      <TitleStepContainer stepId={WizardStepId.TITLE_STEP}/>
+      <RuntimeStepContainer stepId={WizardStepId.RUNTIME_STEP}/>
+      <CapabilitiesStepContainer stepId={WizardStepId.CAPABILITIES_STEP}/>
+      <RepositoryStepContainer stepId={WizardStepId.REPOSITORY_STEP}/>
+      <DeploymentStepContainer stepId={WizardStepId.DEPLOYMENT_STEP}/>
       <Wizard.Step title={'What\'s next...'} locked>
         Now that your application has been set up, here is what you can do...
       </Wizard.Step>

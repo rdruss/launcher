@@ -1,27 +1,25 @@
 import { AppState } from '../../../states';
-import { apiAction, wizardAction } from '../../../actions';
-import CapabilitiesStep from '../../../components/creator-wizard/capabilities-step/CapabilitiesStep';
-import connectStep from '../ConnectStep';
-import Capability from '../../../models/Capability';
-import { WizardStepId } from '../../../states/WizardState';
+import { apiAction } from '../../../actions';
 import { getCapabilitiesDataForSelectedRuntime } from '../../../reducers/api/capabilitiesReducer';
+import { compose } from 'redux';
+import { connect, ConnectedComponentClass } from 'react-redux';
+import CapabilitiesStep from '../../../components/creator-wizard/capabilities-step/CapabilitiesStep';
+import connectWizardStep from '../connectWizardStep';
+import { getStepState } from '../../../reducers/wizardReducer';
+import { WizardStepId } from '../../../states/WizardState';
+import * as _ from 'lodash';
 
-const mapStateToProps = (state: AppState) => ({
-  capabilitiesData: getCapabilitiesDataForSelectedRuntime(state),
-  selectedCapabilities: state.wizard.capabilitiesStep.capabilities,
-  locked: !state.wizard.runtimeStep.valid,
+const mapStateToRuntimeStepProps = (state:AppState, props) => ({
+  selectedRuntime: _.get(getStepState(WizardStepId.RUNTIME_STEP)(state), 'context.runtime'),
+  capabilitiesData: getCapabilitiesDataForSelectedRuntime(state, props),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCapabilities: () => dispatch(apiAction.fetchCapabilities()),
-  onSelect: (capability: Capability) => dispatch(wizardAction.addCapability(capability)),
-  onUnselect: (capability: Capability) => dispatch(wizardAction.removeCapability(capability)),
 });
 
-const CapabilitiesStepContainer = connectStep(
-  WizardStepId.CAPABILITIES_STEP,
-  mapStateToProps,
-  mapDispatchToProps,
-)(CapabilitiesStep);
+const connectData = connect(mapStateToRuntimeStepProps, mapDispatchToProps);
+
+const CapabilitiesStepContainer: ConnectedComponentClass<any, any> = compose(connectWizardStep, connectData)(CapabilitiesStep);
 
 export default CapabilitiesStepContainer;

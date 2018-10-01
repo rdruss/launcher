@@ -1,8 +1,4 @@
 import { action } from '../../utils/Actions';
-import Runtime from '../models/Runtime';
-import Capability from '../models/Capability';
-import { WizardStepId } from '../states/WizardState';
-import OpenShiftCluster from '../models/OpenShiftCluster';
 
 export enum AuthenticationAction {
   AUTHENTICATE = 'AUTHENTICATE',
@@ -45,23 +41,13 @@ export const apiAction = {
 };
 
 export enum WizardAction {
-  SELECT_TITLE = 'WIZARD_SELECT_TITLE',
-  SELECT_RUNTIME = 'WIZARD_SELECT_RUNTIME',
-  SELECT_CLUSTER = 'WIZARD_SELECT_CLUSTER',
-  SELECT_REPOSITORY = 'WIZARD_SELECT_REPOSITORY',
-  ADD_CAPABILITY = 'WIZARD_ADD_CAPABILITY',
-  REMOVE_CAPABILITY = 'WIZARD_REMOVE_CAPABILITY',
+  UPDATE_STEP_CONTEXT = 'UPDATE_STEP_CONTEXT',
   GO_TO_STEP = 'WIZARD_GO_TO_STEP',
 }
 
 export const wizardAction = {
-  selectTitle: (title: string) => action(WizardAction.SELECT_TITLE, {title}),
-  selectRuntime: (runtime: Runtime) => action(WizardAction.SELECT_RUNTIME, {runtime}),
-  selectCluster: (cluster: OpenShiftCluster) => action(WizardAction.SELECT_CLUSTER, {cluster}),
-  selectRepository: (repository: string) => action(WizardAction.SELECT_REPOSITORY, {repository}),
-  addCapability: (capability: Capability) => action(WizardAction.ADD_CAPABILITY, {capability}),
-  removeCapability: (capability: Capability) => action(WizardAction.REMOVE_CAPABILITY, {capability}),
-  goToStep: (stepId: WizardStepId) => action(WizardAction.GO_TO_STEP, {stepId}),
+  updateStepContext: (stepId: string, payload) => action(WizardAction.UPDATE_STEP_CONTEXT, {stepId, payload}),
+  goToStep: (stepId: string) => action(WizardAction.GO_TO_STEP, {stepId}),
 };
 
 

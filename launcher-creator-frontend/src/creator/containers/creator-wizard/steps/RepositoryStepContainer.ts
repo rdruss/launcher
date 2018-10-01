@@ -1,26 +1,25 @@
 import { AppState } from '../../../states';
-import connectStep from '../ConnectStep';
-import { WizardStepId } from '../../../states/WizardState';
-import { apiAction, wizardAction } from '../../../actions';
+import { apiAction } from '../../../actions';
 import RepositoryStep from '../../../components/creator-wizard/repository-step/RepositoryStep';
 import { getGitUserData } from '../../../reducers/api/clustersReducer';
+import { compose } from 'redux';
+import { connect, ConnectedComponentClass } from 'react-redux';
+import connectWizardStep from '../connectWizardStep';
+import * as _ from 'lodash';
+import { getStepState } from '../../../reducers/wizardReducer';
+import { WizardStepId } from '../../../states/WizardState';
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToRuntimeStepProps = (state:AppState, props) => ({
+  applicationName: _.get(getStepState(WizardStepId.TITLE_STEP)(state), 'context.title'),
   gitUserData: getGitUserData(state),
-  applicationName: state.wizard.titleStep.title,
-  locked: !state.wizard.capabilitiesStep.valid,
-  selectedRepository: state.wizard.repositoryStep.repository,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchGitUser: () => dispatch(apiAction.fetchGitUser()),
-  onSelectRepository: (repository: string) => dispatch(wizardAction.selectRepository(repository)),
 });
 
-const RepositoryStepContainer = connectStep(
-  WizardStepId.REPOSITORY_STEP,
-  mapStateToProps,
-  mapDispatchToProps,
-)(RepositoryStep);
+const connectData = connect(mapStateToRuntimeStepProps, mapDispatchToProps);
+
+const RepositoryStepContainer: ConnectedComponentClass<any, any> = compose(connectWizardStep, connectData)(RepositoryStep);
 
 export default RepositoryStepContainer;

@@ -1,26 +1,20 @@
 import { AppState } from '../../../states';
-import connectStep from '../ConnectStep';
-import { WizardStepId } from '../../../states/WizardState';
-import { apiAction, wizardAction } from '../../../actions';
-import OpenShiftCluster from '../../../models/OpenShiftCluster';
+import { apiAction } from '../../../actions';
 import DeploymentStep from '../../../components/creator-wizard/destination-step/DeploymentStep';
 import { getConnectedClustersData } from '../../../reducers/api/gitReducer';
+import { compose } from 'redux';
+import { connect, ConnectedComponentClass } from 'react-redux';
+import connectWizardStep from '../connectWizardStep';
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToRuntimeStepProps = (state:AppState, props) => ({
   clustersData: getConnectedClustersData(state),
-  locked: !state.wizard.repositoryStep.valid,
-  selectedCluster: state.wizard.deploymentStep.cluster,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchClusters: () => dispatch(apiAction.fetchClusters()),
-  onSelectCluster: (cluster: OpenShiftCluster) => dispatch(wizardAction.selectCluster(cluster)),
 });
 
-const DeploymentStepContainer = connectStep(
-  WizardStepId.DEPLOYMENT_STEP,
-  mapStateToProps,
-  mapDispatchToProps,
-)(DeploymentStep);
+const connectData = connect(mapStateToRuntimeStepProps, mapDispatchToProps);
+const DeploymentStepContainer: ConnectedComponentClass<any, any> = compose(connectWizardStep, connectData)(DeploymentStep);
 
 export default DeploymentStepContainer;

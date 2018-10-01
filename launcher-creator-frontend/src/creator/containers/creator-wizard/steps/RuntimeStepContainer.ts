@@ -1,27 +1,22 @@
+import { connect, ConnectedComponentClass } from 'react-redux';
 import { AppState } from '../../../states';
 import RuntimeStep from '../../../components/creator-wizard/runtime-step/RuntimeStep';
-import { apiAction, wizardAction } from '../../../actions';
-import connectStep from '../ConnectStep';
-import Runtime from '../../../models/Runtime';
-import { WizardStepId } from '../../../states/WizardState';
+import { apiAction } from '../../../actions';
 import { getRuntimesData } from '../../../reducers/api/runtimesReducer';
+import { compose } from 'redux';
+import connectWizardStep from '../connectWizardStep';
 
-const mapStateToProps = (state: AppState) => ({
+
+const mapStateToRuntimeStepProps = (state:AppState) => ({
   runtimesData: getRuntimesData(state),
-  selectedRuntime: state.wizard.runtimeStep.runtime,
-  locked: !state.wizard.titleStep.valid,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchRuntimes: () => dispatch(apiAction.fetchRuntimes()),
-  onSelect: (runtime: Runtime) => dispatch(wizardAction.selectRuntime(runtime)),
 });
 
-const RuntimeStepContainer = connectStep(
-  WizardStepId.RUNTIME_STEP,
-  mapStateToProps,
-  mapDispatchToProps,
-)(RuntimeStep);
+const connectData = connect(mapStateToRuntimeStepProps, mapDispatchToProps);
 
+const RuntimeStepContainer: ConnectedComponentClass<any, any> = compose(connectWizardStep, connectData)(RuntimeStep);
 
 export default RuntimeStepContainer;

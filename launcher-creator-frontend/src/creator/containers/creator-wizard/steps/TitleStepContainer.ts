@@ -1,21 +1,7 @@
-import { AppState } from '../../../states';
-import { wizardAction } from '../../../actions';
 import TitleStep from '../../../components/creator-wizard/title-step/TitleStep';
-import connectStep from '../ConnectStep';
-import { WizardStepId } from '../../../states/WizardState';
+import connectWizardStep from '../connectWizardStep';
+import { ConnectedComponentClass } from 'react-redux';
 
-const mapStateToProps = (state: AppState) => ({
-  title: state.wizard.titleStep.title,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onTitleChange: (title) => dispatch(wizardAction.selectTitle(title))
-});
-
-const TitleStepContainer = connectStep(
-  WizardStepId.TITLE_STEP,
-  mapStateToProps,
-  mapDispatchToProps,
-)(TitleStep);
+const TitleStepContainer: ConnectedComponentClass<any, any> = connectWizardStep(TitleStep);
 
 export default TitleStepContainer;

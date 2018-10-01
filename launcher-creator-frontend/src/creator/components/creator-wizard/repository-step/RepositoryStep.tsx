@@ -10,36 +10,42 @@ import { GitRepository } from '../../../models/GitRepository';
 import GitUser from '../../../models/GitUser';
 import { WizardStepId } from '../../../states/WizardState';
 
-export interface RepositoryStepProps extends StepProps {
+export interface RepositoryStepContext {
+  repository?: string;
+}
+
+export interface RepositoryStepProps extends StepProps<RepositoryStepContext> {
   applicationName?: string;
   gitUserData: FetchedData<GitUser>;
   fetchGitUser: () => {};
-  selectedRepository?: string;
-  onSelectRepository: (repository: string) => void;
 }
 
 class RepositoryStep extends Component<RepositoryStepProps> {
+
+  public static defaultProps = {
+    stepId: WizardStepId.REPOSITORY_STEP,
+    context: {},
+  };
 
   public componentDidMount() {
     this.props.fetchGitUser();
   }
 
   public componentDidUpdate() {
-    if (this.props.current && !this.props.selectedRepository && this.props.gitUserData.data) {
+    if (this.props.current && !this.props.context.repository && this.props.gitUserData.data) {
       const repository = { organization: this.props.gitUserData.data.login, name: this.props.applicationName } as GitRepository;
-      this.props.onSelectRepository(RepositoryStep.toRepositoryString(repository))
+      this.updateStepContext(repository);
     }
-
   }
 
   public render() {
     const { gitUserData } = this.props;
-    const {organization, name} = RepositoryStep.toGitRepository(this.props.selectedRepository);
+    const {organization, name} = RepositoryStep.toGitRepository(this.props.context.repository);
     const goToNextStep = () => this.props.goToStep(WizardStepId.DEPLOYMENT_STEP);
     return (
       <Wizard.Step
         title={'Source Code Repository'}
-        summary={`➡️ Your future application source code will be in «${this.props.selectedRepository}»`}
+        summary={`➡️ Your future application source code will be in «${this.props.context.repository}»`}
         current={this.props.current}
         complete={this.props.valid}
         onClick={this.props.goToStep}
@@ -60,21 +66,12 @@ class RepositoryStep extends Component<RepositoryStepProps> {
     );
   }
 
-  private static toGitRepository(repository?: string):GitRepository {
-    const [organization = '', name = ''] = repository ? repository.split('/') : [];
-    return {organization, name};
-  }
-
-  private static toRepositoryString(rep: GitRepository):string {
-    return `${rep.organization}/${rep.name}`;
-  }
-
   public onOrganizationChange = ([organization]: string[]) => {
     if (!organization) {
       return;
     }
-    const repo = RepositoryStep.toGitRepository(this.props.selectedRepository);
-    this.props.onSelectRepository(RepositoryStep.toRepositoryString({ organization, name: repo.name }));
+    const repo = RepositoryStep.toGitRepository(this.props.context.repository);
+    this.updateStepContext(RepositoryStep.toRepositoryString({ organization, name: repo.name }));
   }
 
   public onNameChange = (event) => {
@@ -82,8 +79,21 @@ class RepositoryStep extends Component<RepositoryStepProps> {
     if (!name) {
       return;
     }
-    const repo = RepositoryStep.toGitRepository(this.props.selectedRepository);
-    this.props.onSelectRepository(RepositoryStep.toRepositoryString({ name, organization: repo.organization }));
+    const repo = RepositoryStep.toGitRepository(this.props.context.repository);
+    this.updateStepContext(RepositoryStep.toRepositoryString({ name, organization: repo.organization }));
+  }
+
+  private updateStepContext(repository) {
+    this.props.updateStepContext({context: {repository: RepositoryStep.toRepositoryString(repository)}, valid: true});
+  }
+
+  private static toGitRepository(repository?: string):GitRepository {
+    const [organization = '', name = ''] = repository ? repository.split('/') : [];
+    return {organization, name};
+  }
+
+  private static toRepositoryString(rep: GitRepository):string {
+    return `${rep.organization}/${rep.name}`;
   }
 }
 

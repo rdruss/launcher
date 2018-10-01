@@ -2,14 +2,10 @@ import * as React from 'react';
 import { Component } from 'react';
 import Wizard from '../../../../components/wizard';
 import { TITLE_REGEXP, WizardStepId } from '../../../states/WizardState';
+import { StepProps } from '../StepProps';
 
-interface TitleStepProps {
-  onTitleChange: (title: string) => void
-  title: string;
-  valid: boolean;
-  current: boolean;
-  locked: boolean;
-  goToStep: (step?: string) => void;
+interface TitleStepContext {
+  title?: string;
 }
 
 interface TitleStepState {
@@ -17,14 +13,15 @@ interface TitleStepState {
   valid: boolean;
 }
 
-class TitleStep extends Component<TitleStepProps, TitleStepState> {
+class TitleStep extends Component<StepProps<TitleStepContext>, TitleStepState> {
   public static defaultProps = {
-    title: ''
+    stepId: WizardStepId.TITLE_STEP,
+    context: { title: '' },
   };
 
   constructor(props) {
     super(props);
-    const title = this.props.title || '';
+    const title = this.props.context.title || '';
     this.state = {
       title,
       valid: this.isTitleValid(title),
@@ -35,7 +32,7 @@ class TitleStep extends Component<TitleStepProps, TitleStepState> {
     return (
       <Wizard.Step
         title={'Application name'}
-        summary={`➡️ Your future application will be named «${this.props.title}»`}
+        summary={`➡️ Your future application will be named «${this.props.context.title}»`}
         current={this.props.current}
         complete={this.props.valid}
         onClick={this.props.goToStep}
@@ -49,7 +46,7 @@ class TitleStep extends Component<TitleStepProps, TitleStepState> {
   }
 
   private goToNextStep = () => {
-    this.props.onTitleChange(this.state.title);
+    this.props.updateStepContext({context: { title: this.state.title }, valid: this.state.valid });
     this.props.goToStep(WizardStepId.RUNTIME_STEP)
   }
 

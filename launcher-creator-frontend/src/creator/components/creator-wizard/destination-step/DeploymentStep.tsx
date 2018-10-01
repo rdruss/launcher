@@ -7,33 +7,42 @@ import { StepProps } from '../StepProps';
 import OpenShiftCluster from '../../../models/OpenShiftCluster';
 import { FetchedData } from '../../../states';
 import SectionLoader from '../../../../components/loader/SectionLoader';
+import { WizardStepId } from '../../../states/WizardState';
 
-export interface DeploymentStepProps extends StepProps {
+
+export interface DeploymentStepContext {
+  cluster?: OpenShiftCluster;
+}
+
+export interface DeploymentStepProps extends StepProps<DeploymentStepContext> {
   clustersData: FetchedData<OpenShiftCluster[]>;
   fetchClusters: () => {};
-  selectedCluster?: OpenShiftCluster;
-  onSelectCluster: (cluster: OpenShiftCluster) => void;
 }
 
 class DeploymentStep extends Component<DeploymentStepProps> {
+
+  public static defaultProps = {
+    stepId: WizardStepId.DEPLOYMENT_STEP,
+    context: {},
+  };
 
   public componentDidMount() {
     this.props.fetchClusters();
   }
 
   public componentDidUpdate() {
-    if (this.props.current && !this.props.selectedCluster && this.props.clustersData.data.length > 0) {
+    if (this.props.current && !this.props.context.cluster && this.props.clustersData.data.length > 0) {
       this.onClusterChange([this.props.clustersData.data[0]]);
     }
   }
 
   public render() {
-    const { clustersData, selectedCluster } = this.props;
-    const selected = selectedCluster ? [selectedCluster] : [];
+    const { clustersData, context } = this.props;
+    const selected = context.cluster ? [context.cluster] : [];
     return (
       <Wizard.Step
         title={'OpenShift Deployment'}
-        summary={`➡️ Your future application will built/deployed by «${selectedCluster && selectedCluster.name}»`}
+        summary={`➡️ Your future application will built/deployed by «${context.cluster && context.cluster.name}»`}
         current={this.props.current}
         complete={this.props.valid}
         onClick={this.props.goToStep}
@@ -53,7 +62,7 @@ class DeploymentStep extends Component<DeploymentStepProps> {
   }
 
   public onClusterChange = ([cluster]: OpenShiftCluster[]) => {
-    this.props.onSelectCluster(cluster);
+    this.props.updateStepContext({ context: { cluster }, valid: true });
   }
 }
 
