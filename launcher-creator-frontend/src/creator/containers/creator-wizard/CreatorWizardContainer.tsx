@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../../states';
-import TitleStepContainer from './steps/TitleStepContainer';
+import NameStepContainer from './steps/NameStepContainer';
 import Wizard from '../../../components/wizard/index';
 import RuntimeStepContainer from './steps/RuntimeStepContainer';
 import CapabilitiesStepContainer from './steps/CapabilitiesStepContainer';
@@ -17,7 +17,7 @@ interface CreatorWizardProps {
 function CreatorWizard({ current }: CreatorWizardProps) {
   return (
     <Wizard>
-      <TitleStepContainer stepId={WizardStepId.TITLE_STEP}/>
+      <NameStepContainer stepId={WizardStepId.NAME_STEP}/>
       <RuntimeStepContainer stepId={WizardStepId.RUNTIME_STEP}/>
       <CapabilitiesStepContainer stepId={WizardStepId.CAPABILITIES_STEP}/>
       <RepositoryStepContainer stepId={WizardStepId.REPOSITORY_STEP}/>

@@ -6,7 +6,7 @@ import { AppState } from '../states';
 // Reducer
 
 const INITIAL_STATE: WizardState = {
-  current: WizardStepId.TITLE_STEP,
+  current: WizardStepId.NAME_STEP,
   steps: {},
   valid: false,
 };

@@ -10,7 +10,7 @@ import { getStepState } from '../../../reducers/wizardReducer';
 import { WizardStepId } from '../../../states/WizardState';
 
 const mapStateToRuntimeStepProps = (state:AppState, props) => ({
-  applicationName: _.get(getStepState(WizardStepId.TITLE_STEP)(state), 'context.title'),
+  applicationName: _.get(getStepState(WizardStepId.NAME_STEP)(state), 'context.title'),
   gitUserData: getGitUserData(state),
 });
 

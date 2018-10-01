@@ -4,20 +4,20 @@ import Wizard from '../../../../components/wizard';
 import { WizardStepId } from '../../../states/WizardState';
 import { StepProps } from '../StepProps';
 
-const TITLE_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
+const NAME_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
 
-interface TitleStepContext {
+interface NameStepContext {
   title?: string;
 }
 
-interface TitleStepState {
+interface NameStepState {
   title: string;
   valid: boolean;
 }
 
-class TitleStep extends Component<StepProps<TitleStepContext>, TitleStepState> {
+class NameStep extends Component<StepProps<NameStepContext>, NameStepState> {
   public static defaultProps = {
-    stepId: WizardStepId.TITLE_STEP,
+    stepId: WizardStepId.NAME_STEP,
     context: { title: '' },
   };
 
@@ -58,8 +58,8 @@ class TitleStep extends Component<StepProps<TitleStepContext>, TitleStepState> {
   }
 
   private isTitleValid(title: string): boolean {
-    return TITLE_REGEXP.test(title);
+    return NAME_REGEXP.test(title);
   }
 }
 
-export default TitleStep;
+export default NameStep;

@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 
 export enum WizardStepId {
-  TITLE_STEP = 'titleStep',
+  NAME_STEP = 'nameStep',
   RUNTIME_STEP = 'runtimeStep',
   CAPABILITIES_STEP = 'capabilitiesStep',
   REPOSITORY_STEP = 'repositoryStep',
