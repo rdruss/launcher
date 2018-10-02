@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import Wizard from '../../../../components/wizard';
-import { WizardStepId } from '../../../states/WizardState';
 import { StepProps } from '../StepProps';
 
 const NAME_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
@@ -17,7 +16,6 @@ interface NameStepState {
 
 class NameStep extends Component<StepProps<NameStepContext>, NameStepState> {
   public static defaultProps = {
-    stepId: WizardStepId.NAME_STEP,
     context: { title: '' },
   };
 
@@ -35,21 +33,21 @@ class NameStep extends Component<StepProps<NameStepContext>, NameStepState> {
       <Wizard.Step
         title={'Application name'}
         summary={`➡️ Your future application will be named «${this.props.context.title}»`}
-        current={this.props.current}
-        complete={this.props.valid}
-        onClick={this.props.goToStep}
+        selected={this.props.current}
+        completed={this.props.valid}
+        onClick={this.props.select}
       >
         <p>
           <input type="text" value={this.state.title} onChange={this.onTitleChange}/>
         </p>
-        <Wizard.Button type={'next'} title={'Let\'s select Language and Runtime'} onClick={this.goToNextStep} disabled={!this.state.valid}/>
+        <Wizard.Button type={'next'} onClick={this.goToNextStep} disabled={!this.state.valid}/>
       </Wizard.Step>
     );
   }
 
   private goToNextStep = () => {
     this.props.updateStepContext({context: { title: this.state.title }, valid: this.state.valid });
-    this.props.goToStep(WizardStepId.RUNTIME_STEP)
+    this.props.submit();
   }
 
   private onTitleChange = (e) => {

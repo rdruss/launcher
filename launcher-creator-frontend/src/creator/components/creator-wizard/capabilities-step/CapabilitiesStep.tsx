@@ -3,7 +3,6 @@ import Wizard from '../../../../components/wizard';
 import CapabilitiesSelection from './CapabilitiesSelection';
 import Capability from '../../../models/Capability';
 import { StepProps } from '../StepProps';
-import { WizardStepId } from '../../../states/WizardState';
 import { FetchedData } from '../../../states';
 import Runtime from '../../../models/Runtime';
 
@@ -20,7 +19,6 @@ interface CapabilitiesStepProps extends StepProps<CapabilitiesStepContext> {
 class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { CapabilitiesStepState }> {
 
   public static defaultProps = {
-    stepId: WizardStepId.CAPABILITIES_STEP,
     context: {
       capabilities: new Set(),
     },
@@ -35,8 +33,7 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
   }
 
   public render() {
-    const { current, locked, valid, context, capabilitiesData, updateStepContext } = this.props;
-    const goToNextStep = () => this.props.goToStep(WizardStepId.REPOSITORY_STEP);
+    const { context, capabilitiesData, updateStepContext } = this.props;
     const onSelect = (capability:Capability) => {
       const capabilities = new Set(this.props.context.capabilities);
       capabilities.add(capability);
@@ -51,10 +48,10 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
       <Wizard.Step
         title={'Capabilities'}
         summary={`➡️ Your future application will feature «${Array.from(context.capabilities).map(c => c.name).join(', ')}»`}
-        current={current}
-        locked={locked}
-        complete={valid}
-        onClick={this.props.goToStep}
+        selected={this.props.current}
+        locked={this.props.locked}
+        completed={this.props.valid}
+        onClick={this.props.select}
       >
         <CapabilitiesSelection
           capabilitiesData={capabilitiesData}
@@ -62,7 +59,7 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
           onUnselect={onUnSelect}
           selectedCapabilities={context.capabilities}
         />
-        <Wizard.Button type={'next'} onClick={goToNextStep}/>
+        <Wizard.Button type={'next'} onClick={this.props.submit} disabled={!this.props.valid}/>
       </Wizard.Step>
     );
   }

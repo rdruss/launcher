@@ -1,13 +1,13 @@
 import { WizardAction } from '../actions';
-import { StepState, WizardState, WizardStepId, WizardStepIds } from '../states/WizardState';
+import { StepState, WizardState } from '../states/WizardState';
 import { createSelector } from 'reselect';
 import { AppState } from '../states';
 
 // Reducer
 
 const INITIAL_STATE: WizardState = {
-  current: WizardStepId.NAME_STEP,
-  steps: {},
+  stepStates: {},
+  steps: [],
   valid: false,
 };
 
@@ -17,14 +17,17 @@ const wizardReducer = (state: WizardState = INITIAL_STATE, action) => {
     case WizardAction.UPDATE_STEP_CONTEXT:
       const payload = action.payload;
       newState = {...state,
-        steps: {...state.steps, [action.stepId]: { valid: payload.valid, context: payload.context}},
+        stepStates: {...state.stepStates, [action.stepId]: { valid: payload.valid, context: payload.context}},
       };
       break;
     case WizardAction.GO_TO_STEP:
       newState = { ...state, current: action.stepId };
       break;
+    case WizardAction.SET_STEPS:
+      newState = { ...state, steps: action.steps, current: action.current };
+      break;
   }
-  if (WizardStepIds.map(stepId => Boolean(newState.steps[stepId] && newState.steps[stepId].valid)).every(v => v)) {
+  if (state.steps.map(stepId => Boolean(newState.stepStates[stepId] && newState.stepStates[stepId].valid)).every(v => v)) {
     newState.valid = true;
   }
   return newState;
@@ -41,7 +44,7 @@ const getWizardState = (state:AppState) => state.wizard;
 const getStepId =  (_, { stepId }: PropsWithStepId) => stepId;
 
 function getWizardStepState(wizardState, stepId): StepState<any> {
-  return wizardState.steps[stepId] || { valid: false };
+  return wizardState.stepStates[stepId] || { valid: false };
 }
 
 export function getStepState(stepId) {
@@ -69,20 +72,30 @@ export const isThisCurrentStep = createSelector(
   (wizardState, stepId) => wizardState.current === stepId
 );
 
+export function findPrevStep(steps: string[], stepId: string): string | undefined {
+  const index = steps.indexOf(stepId);
+  if(index < 0) {
+    throw new Error(`Invalid step: ${stepId}`);
+  }
+  if (index === 0) {
+    return undefined;
+  }
+  return steps[index - 1];
+}
+
 function isPreviousStepValid(wizardState: WizardState, stepId: string) {
-  const index = WizardStepIds.indexOf(stepId);
-  if (index <= 0) {
+  const prevStep = findPrevStep(wizardState.steps, stepId);
+  if (!prevStep) {
     return true;
   }
-  const prevStep = wizardState.steps[WizardStepIds[index - 1]];
-  return prevStep && prevStep.valid;
+  const prevStepState = wizardState.stepStates[prevStep];
+  return prevStepState && prevStepState.valid;
 }
 
 export const isThisStepLocked = createSelector(
   [getWizardState, getStepId],
   (s, id) => !isPreviousStepValid(s, id)
 );
-
 
 
 

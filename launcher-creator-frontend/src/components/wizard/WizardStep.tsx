@@ -5,9 +5,9 @@ import { Component } from 'react';
 
 interface LizardStepProps {
   title: string;
-  complete?: boolean;
+  completed?: boolean;
   summary?:string;
-  current?:boolean;
+  selected?:boolean;
   locked?: boolean;
   children?: React.ReactNode;
   onClick?: () => void;
@@ -17,19 +17,19 @@ class WizardStep extends Component<LizardStepProps> {
   public static defaultProps = {complete: false, current: false, locked: false};
 
   public render() {
-    const {title, complete, summary, current, locked, onClick, children} = this.props;
+    const {title, completed, summary, selected, locked, onClick, children} = this.props;
     const linkOnClick = locked || !onClick ? () => {} : () => onClick();
     return (
-      <li className={classNames({'complete': complete, current, locked})}>
+      <li className={classNames({'completed': completed, selected, locked})}>
         <a href="#" onClick={linkOnClick}>{title}
-          {(complete || locked) && (
-            <i className={classNames('ico fa', {'fa-check ico-green': complete, 'fa-lock ico-muted': locked})}/>
+          {(completed || locked) && (
+            <i className={classNames('ico fa', {'fa-check ico-green': completed, 'fa-lock ico-muted': locked})}/>
           )}
         </a>
-        {!locked && complete && !current && summary && (
+        {!locked && completed && !selected && summary && (
           <span className="summary">{summary}</span>
         )}
-        {!locked && current && (
+        {!locked && selected && (
           <span className="content">{children}</span>
         )}
       </li>

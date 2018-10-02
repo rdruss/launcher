@@ -6,8 +6,8 @@ import { connect, ConnectedComponentClass } from 'react-redux';
 import CapabilitiesStep from '../../../components/creator-wizard/capabilities-step/CapabilitiesStep';
 import connectWizardStep from '../connectWizardStep';
 import { getStepState } from '../../../reducers/wizardReducer';
-import { WizardStepId } from '../../../states/WizardState';
 import * as _ from 'lodash';
+import { WizardStepId } from '../CreatorWizardContainer';
 
 const mapStateToRuntimeStepProps = (state:AppState, props) => ({
   selectedRuntime: _.get(getStepState(WizardStepId.RUNTIME_STEP)(state), 'context.runtime'),

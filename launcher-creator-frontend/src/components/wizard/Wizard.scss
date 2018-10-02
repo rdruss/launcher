@@ -60,7 +60,7 @@
         font-weight: 400;
         letter-spacing: .8px;
       }
-      &.complete > a {
+      &.completed > a {
         &:before {
           background-color: #5cb85c;
           opacity: 1;
@@ -74,7 +74,7 @@
       &.locked > a:after, &:last-child > a:before {
         display: none;
       }
-      &.complete > a .ico {
+      &.completed > a .ico {
         left: 8px;
       }
       > a .ico {
@@ -85,7 +85,7 @@
           color: #bdc2ce;
         }
       }
-      &.current {
+      &.selected {
         background-color: #fff;
         > a {
           &:before {

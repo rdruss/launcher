@@ -41,6 +41,7 @@ export const apiAction = {
 };
 
 export enum WizardAction {
+  SET_STEPS = 'SET_STEPS',
   UPDATE_STEP_CONTEXT = 'UPDATE_STEP_CONTEXT',
   GO_TO_STEP = 'WIZARD_GO_TO_STEP',
 }
@@ -48,6 +49,7 @@ export enum WizardAction {
 export const wizardAction = {
   updateStepContext: (stepId: string, payload) => action(WizardAction.UPDATE_STEP_CONTEXT, {stepId, payload}),
   goToStep: (stepId: string) => action(WizardAction.GO_TO_STEP, {stepId}),
+  setSteps: (steps: string[], current: string) => action(WizardAction.SET_STEPS, {steps, current}),
 };
 
 

@@ -7,7 +7,6 @@ import { StepProps } from '../StepProps';
 import OpenShiftCluster from '../../../models/OpenShiftCluster';
 import { FetchedData } from '../../../states';
 import SectionLoader from '../../../../components/loader/SectionLoader';
-import { WizardStepId } from '../../../states/WizardState';
 
 
 export interface DeploymentStepContext {
@@ -22,7 +21,6 @@ export interface DeploymentStepProps extends StepProps<DeploymentStepContext> {
 class DeploymentStep extends Component<DeploymentStepProps> {
 
   public static defaultProps = {
-    stepId: WizardStepId.DEPLOYMENT_STEP,
     context: {},
   };
 
@@ -43,9 +41,9 @@ class DeploymentStep extends Component<DeploymentStepProps> {
       <Wizard.Step
         title={'OpenShift Deployment'}
         summary={`➡️ Your future application will built/deployed by «${context.cluster && context.cluster.name}»`}
-        current={this.props.current}
-        complete={this.props.valid}
-        onClick={this.props.goToStep}
+        selected={this.props.current}
+        completed={this.props.valid}
+        onClick={this.props.select}
         locked={this.props.locked}
       >
         <SectionLoader loading={clustersData.loading} error={clustersData.error}>

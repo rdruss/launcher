@@ -8,7 +8,6 @@ import { FetchedData } from '../../../states';
 import SectionLoader from '../../../../components/loader/SectionLoader';
 import { GitRepository } from '../../../models/GitRepository';
 import GitUser from '../../../models/GitUser';
-import { WizardStepId } from '../../../states/WizardState';
 
 const REPOSITORY_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}/[a-z][a-z0-9-.]{3,63}$');
 
@@ -25,7 +24,6 @@ export interface RepositoryStepProps extends StepProps<RepositoryStepContext> {
 class RepositoryStep extends Component<RepositoryStepProps> {
 
   public static defaultProps = {
-    stepId: WizardStepId.REPOSITORY_STEP,
     context: {},
   };
 
@@ -42,15 +40,14 @@ class RepositoryStep extends Component<RepositoryStepProps> {
 
   public render() {
     const { gitUserData } = this.props;
-    const {organization, name} = RepositoryStep.toGitRepository(this.props.context.repository);
-    const goToNextStep = () => this.props.goToStep(WizardStepId.DEPLOYMENT_STEP);
+    const { organization, name} = RepositoryStep.toGitRepository(this.props.context.repository);
     return (
       <Wizard.Step
         title={'Source Code Repository'}
         summary={`➡️ Your future application source code will be in «${this.props.context.repository}»`}
-        current={this.props.current}
-        complete={this.props.valid}
-        onClick={this.props.goToStep}
+        selected={this.props.current}
+        completed={this.props.valid}
+        onClick={this.props.select}
         locked={this.props.locked}
       >
         <SectionLoader loading={gitUserData.loading} error={gitUserData.error}>
@@ -63,7 +60,7 @@ class RepositoryStep extends Component<RepositoryStepProps> {
           )}
           <input type="text" value={name} onChange={this.onNameChange}/>
         </SectionLoader>
-        <Wizard.Button type={'next'} onClick={goToNextStep}/>
+        <Wizard.Button type={'next'} onClick={this.props.submit} disabled={!this.props.valid}/>
       </Wizard.Step>
     );
   }
