@@ -62,9 +62,9 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
         />
         <Wizard.Button
           type={'next'}
-          title="Deploy this app on OpenShift"
+          title="Deploy this app on OpenShift (Available Soon)"
           onClick={submitOpenShift}
-          disabled={!this.props.status.completed}
+          disabled={true}
         />
         {this.props.showZipButton && (
           <Wizard.Button
