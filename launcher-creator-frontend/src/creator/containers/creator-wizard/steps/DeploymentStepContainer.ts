@@ -1,6 +1,6 @@
 import { AppState } from '../../../states';
 import { apiAction } from '../../../actions';
-import DeploymentStep from '../../../components/creator-wizard/destination-step/DeploymentStep';
+import DeploymentStep from '../../../components/creator-wizard/deployment-step/DeploymentStep';
 import { getConnectedClustersData } from '../../../reducers/api/gitReducer';
 import { compose } from 'redux';
 import { connect, ConnectedComponentClass } from 'react-redux';

@@ -5,6 +5,6 @@ export interface StepProps<T> {
   current: boolean;
   locked: boolean;
   select: () => void;
-  submit: () => void;
+  submit: (name?: string) => void;
   updateStepContext: (payload: {context: T; valid: boolean}) => void;
 }

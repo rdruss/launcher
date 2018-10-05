@@ -54,7 +54,7 @@ class DeploymentStep extends Component<DeploymentStepProps> {
             selected={selected}
           />
         </SectionLoader>
-        <Wizard.Button type={'launch'} title={'GO GO GO !'} disabled={!this.props.valid}/>
+        <Wizard.Button type={'launch'} title={'GO GO GO !'} onClick={this.props.submit} disabled={!this.props.valid}/>
       </Wizard.Step>
     );
   }

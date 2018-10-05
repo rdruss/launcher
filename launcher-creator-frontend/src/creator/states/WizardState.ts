@@ -3,9 +3,20 @@ export interface StepState<T> {
   context?: T;
 }
 
+export interface StepStateMap {
+  [s: string]: StepState<any>;
+}
+
 export interface WizardState {
   current?: string;
-  stepStates: {[s: string]: StepState<any>;};
+  stepStates: StepStateMap;
   steps: string[];
+  submission: {
+    payload?: any;
+    result?: any;
+    error?: string;
+    completed: boolean;
+    loading: boolean;
+  };
   valid: boolean;
 }

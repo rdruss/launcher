@@ -14,6 +14,7 @@ interface CapabilitiesStepProps extends StepProps<CapabilitiesStepContext> {
   capabilitiesData: FetchedData<Capability[]>;
   fetchCapabilities: () => {};
   selectedRuntime?: Runtime;
+  showZipButton: boolean;
 }
 
 class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { CapabilitiesStepState }> {
@@ -44,6 +45,8 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
       capabilities.delete(capability);
       updateStepContext({ valid: true, context: { capabilities }});
     };
+    const submitOpenShift = () => this.props.submit('openshift');
+    const submitZip = () => this.props.submit('zip');
     return (
       <Wizard.Step
         title={'Capabilities'}
@@ -59,7 +62,10 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
           onUnselect={onUnSelect}
           selectedCapabilities={context.capabilities}
         />
-        <Wizard.Button type={'next'} onClick={this.props.submit} disabled={!this.props.valid}/>
+        <Wizard.Button type={'next'} title="Deploy this app on OpenShift" onClick={submitOpenShift} disabled={!this.props.valid}/>
+        {this.props.showZipButton && (
+          <Wizard.Button type={'launch'} title="Download this app as a ZIP" onClick={submitZip} disabled={!this.props.valid}/>
+        )}
       </Wizard.Step>
     );
   }

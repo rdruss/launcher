@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery, throttle } from 'redux-saga/effects';
 
 import { authenticationAction, AuthenticationAction } from '../actions';
 import { KeycloakAuthentication, OptionalUser } from '../../authentication/KeycloakAuthentication';
@@ -60,6 +60,7 @@ function* logoutRequest(action) {
 export default function* authenticationSaga() {
   yield takeEvery(AuthenticationAction.AUTHENTICATE, authenticationRequest);
   yield takeEvery(AuthenticationAction.OPEN_ACCOUNT_MANAGEMENT, openAccountManagementRequest);
+  yield throttle(10000, AuthenticationAction.REFRESH_TOKEN, refreshTokenRequest);
   yield takeEvery(AuthenticationAction.LOGIN, loginRequest);
   yield takeEvery(AuthenticationAction.LOGOUT, logoutRequest);
 }

@@ -2,12 +2,17 @@ import { WizardAction } from '../actions';
 import { StepState, WizardState } from '../states/WizardState';
 import { createSelector } from 'reselect';
 import { AppState } from '../states';
+import * as _ from 'lodash';
 
 // Reducer
 
 const INITIAL_STATE: WizardState = {
   stepStates: {},
   steps: [],
+  submission: {
+    loading: false,
+    completed: false,
+  },
   valid: false,
 };
 
@@ -26,6 +31,25 @@ const wizardReducer = (state: WizardState = INITIAL_STATE, action) => {
     case WizardAction.SET_STEPS:
       newState = { ...state, steps: action.steps, current: action.current };
       break;
+    case WizardAction.SUBMIT:
+      newState = { ...state, submission: { loading: true, completed: false, payload: action.payload } };
+      break;
+    case WizardAction.SUBMIT_SUCCESS:
+      newState = { ...state, submission: { ...state.submission,
+          loading: false,
+          completed: true,
+          result: action.result,
+          error: undefined
+      }};
+      break;
+    case WizardAction.SUBMIT_FAILURE:
+      newState = { ...state, submission: { ...state.submission,
+          loading: false,
+          completed: true,
+          error: action.error,
+          result: undefined
+      }};
+      break;
   }
   if (state.steps.map(stepId => Boolean(newState.stepStates[stepId] && newState.stepStates[stepId].valid)).every(v => v)) {
     newState.valid = true;
@@ -39,9 +63,13 @@ export interface PropsWithStepId {
   stepId: string;
 }
 
-const getWizardState = (state:AppState) => state.wizard;
+export const getWizardState = (state:AppState) => state.wizard;
 
-const getStepId =  (_, { stepId }: PropsWithStepId) => stepId;
+export function getStepContextValue(state: AppState, stepId: string, key: string, defaultValue?: any) {
+  return _.get(getWizardState(state).stepStates, `${stepId}.context.${key}`, defaultValue);
+}
+
+const getStepId =  (state, { stepId }: PropsWithStepId) => stepId;
 
 function getWizardStepState(wizardState, stepId): StepState<any> {
   return wizardState.stepStates[stepId] || { valid: false };
@@ -62,6 +90,11 @@ export const getThisStepState = createSelector(
 export const getThisStepStateContext = createSelector(
   [getThisStepState],
   (stepState) => stepState.context
+);
+
+export const getSteps = createSelector(
+  [getWizardState],
+  (wizardState) => wizardState.steps
 );
 
 

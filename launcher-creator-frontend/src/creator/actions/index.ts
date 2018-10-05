@@ -5,6 +5,7 @@ export enum AuthenticationAction {
   USER_CONNECTED = 'AUTHENTICATION_USER_CONNECTED',
   USER_NOT_CONNECTED = 'AUTHENTICATION_USER_NOT_CONNECTED',
   AUTHENTICATION_FAILURE = 'AUTHENTICATION_FAILURE',
+  REFRESH_TOKEN = 'AUTHENTICATION_REFRESH_TOKEN',
   LOGIN = 'LOGIN',
   LOGOUT = 'LOGOUT',
   OPEN_ACCOUNT_MANAGEMENT = 'OPEN_ACCOUNT_MANAGEMENT',
@@ -16,6 +17,7 @@ export const authenticationAction = {
   userConnected: (response) => action(AuthenticationAction.USER_CONNECTED, {response}),
   userNotConnected: () => action(AuthenticationAction.USER_NOT_CONNECTED, {}),
   authenticationFailure: (error) => action(AuthenticationAction.AUTHENTICATION_FAILURE, {error}),
+  refreshToken: () => action(AuthenticationAction.REFRESH_TOKEN, {}),
   logout: () => action(AuthenticationAction.LOGOUT, {}),
   openAccountManagement: () => action(AuthenticationAction.OPEN_ACCOUNT_MANAGEMENT, {}),
 };
@@ -41,15 +43,21 @@ export const apiAction = {
 };
 
 export enum WizardAction {
-  SET_STEPS = 'SET_STEPS',
-  UPDATE_STEP_CONTEXT = 'UPDATE_STEP_CONTEXT',
+  SUBMIT_SUCCESS = 'WIZARD_SUBMIT_SUCCESS',
+  SUBMIT_FAILURE = 'WIZARD_SUBMIT_FAILURE',
+  SET_STEPS = 'WIZARD_SET_STEPS',
+  UPDATE_STEP_CONTEXT = 'WIZARD_UPDATE_STEP_CONTEXT',
   GO_TO_STEP = 'WIZARD_GO_TO_STEP',
+  SUBMIT = 'WIZARD_SUBMIT',
 }
 
 export const wizardAction = {
   updateStepContext: (stepId: string, payload) => action(WizardAction.UPDATE_STEP_CONTEXT, {stepId, payload}),
   goToStep: (stepId: string) => action(WizardAction.GO_TO_STEP, {stepId}),
   setSteps: (steps: string[], current: string) => action(WizardAction.SET_STEPS, {steps, current}),
+  submit: (payload) => action(WizardAction.SUBMIT, {payload}),
+  submitSuccess: (result) => action(WizardAction.SUBMIT_SUCCESS, {result}),
+  submitFailure: (error) => action(WizardAction.SUBMIT_FAILURE, {error}),
 };
 
 
