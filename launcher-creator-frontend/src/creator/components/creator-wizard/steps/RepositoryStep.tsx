@@ -32,7 +32,7 @@ class RepositoryStep extends Component<RepositoryStepProps> {
   }
 
   public componentDidUpdate() {
-    if (this.props.current && !this.props.context.repository && this.props.gitUserData.data) {
+    if (this.props.status.selected && !this.props.context.repository && this.props.gitUserData.data) {
       const repository = { organization: this.props.gitUserData.data.login, name: this.props.applicationName } as GitRepository;
       this.updateStepContext(repository);
     }
@@ -45,10 +45,8 @@ class RepositoryStep extends Component<RepositoryStepProps> {
       <Wizard.Step
         title={'Source Code Repository'}
         summary={`➡️ Your future application source code will be in «${this.props.context.repository}»`}
-        selected={this.props.current}
-        completed={this.props.valid}
         onClick={this.props.select}
-        locked={this.props.locked}
+        {...this.props.status}
       >
         <SectionLoader loading={gitUserData.loading} error={gitUserData.error}>
           {gitUserData.data && (
@@ -60,7 +58,7 @@ class RepositoryStep extends Component<RepositoryStepProps> {
           )}
           <input type="text" value={name} onChange={this.onNameChange}/>
         </SectionLoader>
-        <Wizard.Button type={'next'} onClick={this.props.submit} disabled={!this.props.valid}/>
+        <Wizard.Button type={'next'} onClick={this.props.submit} disabled={!this.props.status.completed}/>
       </Wizard.Step>
     );
   }
@@ -81,7 +79,7 @@ class RepositoryStep extends Component<RepositoryStepProps> {
 
   private updateStepContext(repository) {
     const repositoryString = RepositoryStep.toRepositoryString(repository);
-    this.props.updateStepContext({context: {repository: repositoryString}, valid: REPOSITORY_REGEXP.test(repositoryString)});
+    this.props.updateStepContext({context: {repository: repositoryString}, completed: REPOSITORY_REGEXP.test(repositoryString)});
   }
 
   private static toGitRepository(repository?: string):GitRepository {

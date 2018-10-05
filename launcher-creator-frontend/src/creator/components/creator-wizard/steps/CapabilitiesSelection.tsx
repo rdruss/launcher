@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as Patternfly from 'patternfly-react';
 import SectionLoader from '../../../../components/loader/SectionLoader';
 import Capability from '../../../models/Capability';
-import { FetchedData } from '../../../states';
+import { FetchedData } from '../../../states/index';
 
 interface CapabilityCardProps {
   capability: Capability;

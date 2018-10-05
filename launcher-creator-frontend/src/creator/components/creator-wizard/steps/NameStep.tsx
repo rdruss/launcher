@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import Wizard from '../../../../components/wizard';
+import Wizard from '../../../../components/wizard/index';
 import { StepProps } from '../StepProps';
 
 const NAME_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
@@ -11,7 +11,7 @@ interface NameStepContext {
 
 interface NameStepState {
   name: string;
-  valid: boolean;
+  completed: boolean;
 }
 
 class NameStep extends Component<StepProps<NameStepContext>, NameStepState> {
@@ -24,7 +24,7 @@ class NameStep extends Component<StepProps<NameStepContext>, NameStepState> {
     const name = this.props.context.name || '';
     this.state = {
       name,
-      valid: this.isNameValid(name),
+      completed: this.isNameValid(name),
     };
   }
 
@@ -33,26 +33,25 @@ class NameStep extends Component<StepProps<NameStepContext>, NameStepState> {
       <Wizard.Step
         title={'Application name'}
         summary={`➡️ Your future application will be named «${this.props.context.name}»`}
-        selected={this.props.current}
-        completed={this.props.valid}
         onClick={this.props.select}
+        {...this.props.status}
       >
         <p>
           <input type="text" value={this.state.name} onChange={this.onTitleChange}/>
         </p>
-        <Wizard.Button type={'next'} onClick={this.goToNextStep} disabled={!this.state.valid}/>
+        <Wizard.Button type={'next'} onClick={this.goToNextStep} disabled={!this.state.completed}/>
       </Wizard.Step>
     );
   }
 
   private goToNextStep = () => {
-    this.props.updateStepContext({context: { name: this.state.name }, valid: this.state.valid });
+    this.props.updateStepContext({context: { name: this.state.name }, completed: this.state.completed });
     this.props.submit();
   }
 
   private onTitleChange = (e) => {
     const newTitle =  e.target.value;
-    this.setState({ name: newTitle, valid: this.isNameValid(newTitle) });
+    this.setState({ name: newTitle, completed: this.isNameValid(newTitle) });
   }
 
   private isNameValid(name: string): boolean {

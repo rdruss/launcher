@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Wizard from '../../../../components/wizard';
+import Wizard from '../../../../components/wizard/index';
 import CapabilitiesSelection from './CapabilitiesSelection';
 import Capability from '../../../models/Capability';
 import { StepProps } from '../StepProps';
@@ -38,12 +38,12 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
     const onSelect = (capability:Capability) => {
       const capabilities = new Set(this.props.context.capabilities);
       capabilities.add(capability);
-      updateStepContext({ valid: true, context: { capabilities }});
+      updateStepContext({ completed: true, context: { capabilities }});
     };
     const onUnSelect = (capability:Capability) => {
       const capabilities = new Set(this.props.context.capabilities);
       capabilities.delete(capability);
-      updateStepContext({ valid: true, context: { capabilities }});
+      updateStepContext({ completed: true, context: { capabilities }});
     };
     const submitOpenShift = () => this.props.submit('openshift');
     const submitZip = () => this.props.submit('zip');
@@ -51,10 +51,8 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
       <Wizard.Step
         title={'Capabilities'}
         summary={`➡️ Your future application will feature «${Array.from(context.capabilities).map(c => c.name).join(', ')}»`}
-        selected={this.props.current}
-        locked={this.props.locked}
-        completed={this.props.valid}
         onClick={this.props.select}
+        {...this.props.status}
       >
         <CapabilitiesSelection
           capabilitiesData={capabilitiesData}
@@ -62,9 +60,19 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
           onUnselect={onUnSelect}
           selectedCapabilities={context.capabilities}
         />
-        <Wizard.Button type={'next'} title="Deploy this app on OpenShift" onClick={submitOpenShift} disabled={!this.props.valid}/>
+        <Wizard.Button
+          type={'next'}
+          title="Deploy this app on OpenShift"
+          onClick={submitOpenShift}
+          disabled={!this.props.status.completed}
+        />
         {this.props.showZipButton && (
-          <Wizard.Button type={'launch'} title="Download this app as a ZIP" onClick={submitZip} disabled={!this.props.valid}/>
+          <Wizard.Button
+            type={'launch'}
+            title="Download this app as a ZIP"
+            onClick={submitZip}
+            disabled={!this.props.status.completed}
+          />
         )}
       </Wizard.Step>
     );

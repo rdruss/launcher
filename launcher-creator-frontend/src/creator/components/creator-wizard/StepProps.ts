@@ -1,10 +1,14 @@
+export interface StepStatus {
+  completed: boolean;
+  locked: boolean;
+  selected: boolean;
+}
+
 export interface StepProps<T> {
   stepId: string;
   context: T;
-  valid: boolean;
-  current: boolean;
-  locked: boolean;
+  status: StepStatus;
   select: () => void;
   submit: (name?: string) => void;
-  updateStepContext: (payload: {context: T; valid: boolean}) => void;
+  updateStepContext: (payload: {context: T; completed: boolean}) => void;
 }

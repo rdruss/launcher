@@ -27,24 +27,22 @@ class RuntimeStep extends React.Component<RuntimeStepProps, {}> {
   }
 
   public render() {
-    const { current, locked, valid, context, runtimesData, updateStepContext } = this.props;
+    const { context, runtimesData, updateStepContext } = this.props;
     const summary = context.runtime && `➡️ Your future application will use «${context.runtime.name}»`;
-    const onSelect = (runtime:Runtime) => updateStepContext({ valid: true, context: { runtime }});
+    const onSelect = (runtime:Runtime) => updateStepContext({ completed: true, context: { runtime }});
     return (
       <Wizard.Step
         title={'Language & Runtime'}
         summary={summary}
-        selected={current}
-        locked={locked}
-        completed={valid}
         onClick={this.props.select}
+        {...this.props.status}
       >
         <SectionLoader loading={runtimesData.loading} error={runtimesData.error}>
           <ListSingleSelection items={runtimesData.data} onSelect={onSelect} selectedItem={context.runtime}>
             Here you can choose a runtime for a specific programming language
           </ListSingleSelection>
         </SectionLoader>
-        <Wizard.Button type={'next'} disabled={!valid} onClick={this.props.submit}/>
+        <Wizard.Button type={'next'} disabled={!this.props.status.completed} onClick={this.props.submit}/>
       </Wizard.Step>
     );
   }

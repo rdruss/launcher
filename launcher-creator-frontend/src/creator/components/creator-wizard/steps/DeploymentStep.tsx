@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import * as Patternfly from 'patternfly-react';
 
-import Wizard from '../../../../components/wizard';
+import Wizard from '../../../../components/wizard/index';
 import { StepProps } from '../StepProps';
 import OpenShiftCluster from '../../../models/OpenShiftCluster';
 import { FetchedData } from '../../../states';
@@ -29,7 +29,7 @@ class DeploymentStep extends Component<DeploymentStepProps> {
   }
 
   public componentDidUpdate() {
-    if (this.props.current && !this.props.context.cluster && this.props.clustersData.data.length > 0) {
+    if (this.props.status.selected && !this.props.context.cluster && this.props.clustersData.data.length > 0) {
       this.onClusterChange([this.props.clustersData.data[0]]);
     }
   }
@@ -41,10 +41,8 @@ class DeploymentStep extends Component<DeploymentStepProps> {
       <Wizard.Step
         title={'OpenShift Deployment'}
         summary={`➡️ Your future application will built/deployed by «${context.cluster && context.cluster.name}»`}
-        selected={this.props.current}
-        completed={this.props.valid}
         onClick={this.props.select}
-        locked={this.props.locked}
+        {...this.props.status}
       >
         <SectionLoader loading={clustersData.loading} error={clustersData.error}>
           <Patternfly.TypeAheadSelect
@@ -54,13 +52,13 @@ class DeploymentStep extends Component<DeploymentStepProps> {
             selected={selected}
           />
         </SectionLoader>
-        <Wizard.Button type={'launch'} title={'GO GO GO !'} onClick={this.props.submit} disabled={!this.props.valid}/>
+        <Wizard.Button type={'launch'} title={'GO GO GO !'} onClick={this.props.submit} disabled={!this.props.status.completed}/>
       </Wizard.Step>
     );
   }
 
   public onClusterChange = ([cluster]: OpenShiftCluster[]) => {
-    this.props.updateStepContext({ context: { cluster }, valid: true });
+    this.props.updateStepContext({ context: { cluster }, completed: true });
   }
 }
 

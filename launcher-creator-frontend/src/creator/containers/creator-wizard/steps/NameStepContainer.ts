@@ -1,7 +1,11 @@
-import NameStep from '../../../components/creator-wizard/name-step/NameStep';
-import connectWizardStep from '../connectWizardStep';
-import { ConnectedComponentClass } from 'react-redux';
+import NameStep from '../../../components/creator-wizard/steps/NameStep';
+import { connect } from 'react-redux';
+import { AppState } from '../../../states';
 
-const NameStepContainer: ConnectedComponentClass<any, any> = connectWizardStep(NameStep);
+const mapStateToRuntimeStepProps = (state:AppState, props) => ({});
+
+const mapDispatchToProps = (dispatch) => ({});
+
+const NameStepContainer = connect(mapStateToRuntimeStepProps, mapDispatchToProps)(NameStep);
 
 export default NameStepContainer;

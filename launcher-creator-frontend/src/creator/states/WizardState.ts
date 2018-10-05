@@ -1,5 +1,5 @@
 export interface StepState<T> {
-  valid: boolean;
+  completed: boolean;
   context?: T;
 }
 

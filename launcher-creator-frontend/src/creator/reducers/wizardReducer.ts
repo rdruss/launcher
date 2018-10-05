@@ -1,6 +1,5 @@
 import { WizardAction } from '../actions';
 import { StepState, WizardState } from '../states/WizardState';
-import { createSelector } from 'reselect';
 import { AppState } from '../states';
 import * as _ from 'lodash';
 
@@ -22,7 +21,7 @@ const wizardReducer = (state: WizardState = INITIAL_STATE, action) => {
     case WizardAction.UPDATE_STEP_CONTEXT:
       const payload = action.payload;
       newState = {...state,
-        stepStates: {...state.stepStates, [action.stepId]: { valid: payload.valid, context: payload.context}},
+        stepStates: {...state.stepStates, [action.stepId]: { completed: payload.completed, context: payload.context}},
       };
       break;
     case WizardAction.GO_TO_STEP:
@@ -51,7 +50,7 @@ const wizardReducer = (state: WizardState = INITIAL_STATE, action) => {
       }};
       break;
   }
-  if (state.steps.map(stepId => Boolean(newState.stepStates[stepId] && newState.stepStates[stepId].valid)).every(v => v)) {
+  if (state.steps.map(stepId => Boolean(newState.stepStates[stepId] && newState.stepStates[stepId].completed)).every(v => v)) {
     newState.valid = true;
   }
   return newState;
@@ -59,79 +58,14 @@ const wizardReducer = (state: WizardState = INITIAL_STATE, action) => {
 
 // Selectors
 
-export interface PropsWithStepId {
-  stepId: string;
-}
-
 export const getWizardState = (state:AppState) => state.wizard;
 
-export function getStepContextValue(state: AppState, stepId: string, key: string, defaultValue?: any) {
-  return _.get(getWizardState(state).stepStates, `${stepId}.context.${key}`, defaultValue);
+export function getWizardStepContextValue(state: AppState, stepId: string, key: string, defaultValue?: any) {
+  return _.get(getWizardStepState(state, stepId), `context.${key}`, defaultValue);
 }
 
-const getStepId =  (state, { stepId }: PropsWithStepId) => stepId;
-
-function getWizardStepState(wizardState, stepId): StepState<any> {
-  return wizardState.stepStates[stepId] || { valid: false };
+export function getWizardStepState(state:AppState, stepId: string): StepState<any> {
+  return getWizardState(state).stepStates[stepId] || { valid: false };
 }
-
-export function getStepState(stepId) {
-  return createSelector(
-    [getWizardState],
-    (wizardState) => getWizardStepState(wizardState, stepId)
-  );
-}
-
-export const getThisStepState = createSelector(
-  [getWizardState, getStepId],
-  getWizardStepState
-);
-
-export const getThisStepStateContext = createSelector(
-  [getThisStepState],
-  (stepState) => stepState.context
-);
-
-export const getSteps = createSelector(
-  [getWizardState],
-  (wizardState) => wizardState.steps
-);
-
-
-export const isThisStepValid = createSelector([getThisStepState], state => state && state.valid);
-
-export const isThisCurrentStep = createSelector(
-  [getWizardState, getStepId],
-  (wizardState, stepId) => wizardState.current === stepId
-);
-
-export function findPrevStep(steps: string[], stepId: string): string | undefined {
-  const index = steps.indexOf(stepId);
-  if(index < 0) {
-    throw new Error(`Invalid step: ${stepId}`);
-  }
-  if (index === 0) {
-    return undefined;
-  }
-  return steps[index - 1];
-}
-
-function isPreviousStepValid(wizardState: WizardState, stepId: string) {
-  const prevStep = findPrevStep(wizardState.steps, stepId);
-  if (!prevStep) {
-    return true;
-  }
-  const prevStepState = wizardState.stepStates[prevStep];
-  return prevStepState && prevStepState.valid;
-}
-
-export const isThisStepLocked = createSelector(
-  [getWizardState, getStepId],
-  (s, id) => !isPreviousStepValid(s, id)
-);
-
-
-
-
 
 export default wizardReducer;

@@ -14,7 +14,7 @@ interface LizardStepProps {
 }
 
 class WizardStep extends Component<LizardStepProps> {
-  public static defaultProps = {complete: false, current: false, locked: false};
+  public static defaultProps = {completed: false, selected: false, locked: false};
 
   public render() {
     const {title, completed, summary, selected, locked, onClick, children} = this.props;
