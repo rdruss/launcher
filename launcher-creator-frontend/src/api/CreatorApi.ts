@@ -5,7 +5,6 @@ export const creatorApiAxios = axios.create({
   baseURL: checkNotNull(process.env.REACT_APP_CREATOR_API_URL, 'process.env.REACT_APP_CREATOR_API_URL'),
 });
 
-
 export interface ZipPayload {
   name: string;
   runtime: string;

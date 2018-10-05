@@ -43,10 +43,6 @@ interface Step {
 interface CreatorWizardProps {
   steps: Step[];
   projectile: Projectile;
-  updateStepContext: (stepId: string, payload: {context: any; completed: boolean}) => void;
-  selectStep: (stepId: string) => void;
-  setSteps: (steps: string[], current: string) => void;
-  submit: (payload) => void;
   submission: {
     payload?: any;
     loading: boolean;
@@ -54,6 +50,10 @@ interface CreatorWizardProps {
     error?: string;
     result?: any;
   };
+  updateStepContext: (stepId: string, payload: {context: any; completed: boolean}) => void;
+  selectStep: (stepId: string) => void;
+  setSteps: (steps: string[], current: string) => void;
+  submit: (payload) => void;
 }
 
 class CreatorWizard extends Component<CreatorWizardProps> {

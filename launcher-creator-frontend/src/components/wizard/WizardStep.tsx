@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Component } from 'react';
 
 
-interface LizardStepProps {
+interface WizardStepProps {
   title: string;
   completed?: boolean;
   summary?:string;
@@ -13,17 +13,18 @@ interface LizardStepProps {
   onClick?: () => void;
 }
 
-class WizardStep extends Component<LizardStepProps> {
+class WizardStep extends Component<WizardStepProps> {
   public static defaultProps = {completed: false, selected: false, locked: false};
 
   public render() {
     const {title, completed, summary, selected, locked, onClick, children} = this.props;
     const linkOnClick = locked || !onClick ? () => {} : () => onClick();
+    const completedAndNotLocked = !locked && completed;
     return (
-      <li className={classNames({'completed': completed, selected, locked})}>
+      <li className={classNames({'completed': completedAndNotLocked, selected, locked})}>
         <a href="#" onClick={linkOnClick}>{title}
-          {(completed || locked) && (
-            <i className={classNames('ico fa', {'fa-check ico-green': completed, 'fa-lock ico-muted': locked})}/>
+          {(completedAndNotLocked || locked) && (
+            <i className={classNames('ico fa', {'fa-check ico-green': completedAndNotLocked, 'fa-lock ico-muted': locked})}/>
           )}
         </a>
         {!locked && completed && !selected && summary && (
