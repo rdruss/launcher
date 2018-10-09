@@ -20,6 +20,7 @@ function CapabilityCard(props: CapabilityCardProps) {
       onClick={doOnSelect}
       checkboxInput={(<input type="checkbox" checked={selected} value={capability.module} readOnly/>)}
       heading={capability.name}
+      leftContent={capability.icon && (<img src={capability.icon} />)}
       description={capability.description}
     />
   );
