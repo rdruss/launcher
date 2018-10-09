@@ -60,7 +60,7 @@ const wizardReducer = (state: WizardState = INITIAL_STATE, action) => {
 
 export const getWizardState = (state:AppState) => state.wizard;
 
-export function getWizardStepContextValue(state: AppState, stepId: string, key: string, defaultValue?: any) {
+export function getWizardStepContextValue<T>(state: AppState, stepId: string, key: string, defaultValue?: any): T {
   return _.get(getWizardStepState(state, stepId), `context.${key}`, defaultValue);
 }
 

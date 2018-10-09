@@ -3,7 +3,7 @@ export interface Projectile {
   runtime: string;
   capabilities: [
     { module: string; }
-    ];
+  ];
   clusterId?: string;
   projectName?: string;
   gitOrganization?: string;

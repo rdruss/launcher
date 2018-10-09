@@ -144,8 +144,12 @@ const mapStateToProps = (state: AppState) => ({
   projectile: {
     name: getWizardStepContextValue(state, WizardStepId.NAME_STEP, 'name'),
     runtime: getWizardStepContextValue(state, WizardStepId.RUNTIME_STEP, 'runtime.id'),
-    capabilities: Array.from(getWizardStepContextValue(state, WizardStepId.CAPABILITIES_STEP, 'capabilities', []))
-  }
+    capabilities: Array.from(getWizardStepContextValue(state, WizardStepId.CAPABILITIES_STEP, 'capabilities', [])),
+    gitRepository: getWizardStepContextValue(state, WizardStepId.REPOSITORY_STEP, 'repository.name'),
+    gitOrganization: getWizardStepContextValue(state, WizardStepId.REPOSITORY_STEP, 'repository.organization'),
+    clusterId: getWizardStepContextValue(state, WizardStepId.DEPLOYMENT_STEP, 'cluster.organization.id'),
+    projectName: getWizardStepContextValue(state, WizardStepId.NAME_STEP, 'name'),
+  } as Projectile,
 });
 
 const mapDispatchToProps = (dispatch) => ({

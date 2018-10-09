@@ -22,7 +22,7 @@ class NextStepsZip extends React.Component<NextStepsZipProps, {}> {
                 as well as a README.md file that contains instructions on how to run and interact with your application.
               </p>
               <Patternfly.Button component="a" href={this.props.downloadLink}>
-                <Patternfly.Icon type="pf" name={'pficon-save'} /> Download as a ZIP
+                <Patternfly.Icon type="pf" name={'save'} /> Download as a ZIP
               </Patternfly.Button>
             </React.Fragment>
           )}

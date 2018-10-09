@@ -9,10 +9,16 @@ import { GitRepository } from '../../../models/GitRepository';
 import GitUser from '../../../models/GitUser';
 import { FetchedData } from '../../../models/FetchedData';
 
-const REPOSITORY_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}/[a-z][a-z0-9-.]{3,63}$');
+const REPOSITORY_VALUE_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
+
+function validateRepository(repository?:GitRepository): boolean {
+  return Boolean(repository
+    && REPOSITORY_VALUE_REGEXP.test(repository.organization)
+    && REPOSITORY_VALUE_REGEXP.test(repository.name));
+}
 
 export interface RepositoryStepContext {
-  repository?: string;
+  repository?: GitRepository;
 }
 
 export interface RepositoryStepProps extends StepProps<RepositoryStepContext> {
@@ -40,7 +46,7 @@ class RepositoryStep extends Component<RepositoryStepProps> {
 
   public render() {
     const { gitUserData } = this.props;
-    const { organization, name} = RepositoryStep.toGitRepository(this.props.context.repository);
+    const { organization, name} = this.props.context.repository || { name: '', organization: ''};
     return (
       <Wizard.Step
         title={'Source Code Repository'}
@@ -67,28 +73,18 @@ class RepositoryStep extends Component<RepositoryStepProps> {
     if (!organization) {
       return;
     }
-    const repo = RepositoryStep.toGitRepository(this.props.context.repository);
-    this.updateStepContext({ organization, name: repo.name });
+    const name = this.props.context.repository ? this.props.context.repository.name : '';
+    this.updateStepContext({ organization, name });
   }
 
   public onNameChange = (event) => {
     const name = event.target.value;
-    const repo = RepositoryStep.toGitRepository(this.props.context.repository);
-    this.updateStepContext({ name, organization: repo.organization });
+    const organization = this.props.context.repository ? this.props.context.repository.organization : '';
+    this.updateStepContext({ name, organization });
   }
 
-  private updateStepContext(repository) {
-    const repositoryString = RepositoryStep.toRepositoryString(repository);
-    this.props.updateStepContext({context: {repository: repositoryString}, completed: REPOSITORY_REGEXP.test(repositoryString)});
-  }
-
-  private static toGitRepository(repository?: string):GitRepository {
-    const [organization = '', name = ''] = repository ? repository.split('/') : [];
-    return {organization, name};
-  }
-
-  private static toRepositoryString(rep: GitRepository):string {
-    return `${rep.organization}/${rep.name}`;
+  private updateStepContext(repository: GitRepository) {
+    this.props.updateStepContext({context: {repository}, completed: validateRepository(repository)});
   }
 }
 
