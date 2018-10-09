@@ -8,11 +8,6 @@ import GitUser from '../models/GitUser';
 export interface GlobalState {
 }
 
-export interface FetchedData<T> {
-  data: T;
-  loading: boolean;
-  error?: string;
-}
 
 export interface FetchedState<T> {
   data: T;

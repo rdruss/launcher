@@ -6,7 +6,7 @@ import Runtime from '../../../models/Runtime';
 import { StepProps } from '../StepProps';
 import ListSingleSelection from '../../../../components/selection/ListSingleSelection';
 import SectionLoader from '../../../../components/loader/SectionLoader';
-import { FetchedData } from '../../../states';
+import { FetchedData } from '../../../models/FetchedData';
 
 export interface RuntimeStepContext {
   runtime?: Runtime;

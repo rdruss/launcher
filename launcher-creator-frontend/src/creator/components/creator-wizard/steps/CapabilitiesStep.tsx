@@ -3,8 +3,8 @@ import Wizard from '../../../../components/wizard/index';
 import CapabilitiesSelection from './CapabilitiesSelection';
 import Capability from '../../../models/Capability';
 import { StepProps } from '../StepProps';
-import { FetchedData } from '../../../states';
 import Runtime from '../../../models/Runtime';
+import { FetchedData } from '../../../models/FetchedData';
 
 export interface CapabilitiesStepContext {
   capabilities: Set<Capability>;

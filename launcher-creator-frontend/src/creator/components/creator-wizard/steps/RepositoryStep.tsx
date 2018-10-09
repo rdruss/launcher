@@ -4,10 +4,10 @@ import * as Patternfly from 'patternfly-react';
 import Wizard from '../../../../components/wizard/index';
 
 import { StepProps } from '../StepProps';
-import { FetchedData } from '../../../states';
 import SectionLoader from '../../../../components/loader/SectionLoader';
 import { GitRepository } from '../../../models/GitRepository';
 import GitUser from '../../../models/GitUser';
+import { FetchedData } from '../../../models/FetchedData';
 
 const REPOSITORY_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}/[a-z][a-z0-9-.]{3,63}$');
 

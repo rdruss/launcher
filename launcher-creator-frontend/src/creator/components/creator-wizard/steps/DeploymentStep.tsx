@@ -5,8 +5,8 @@ import * as Patternfly from 'patternfly-react';
 import Wizard from '../../../../components/wizard/index';
 import { StepProps } from '../StepProps';
 import OpenShiftCluster from '../../../models/OpenShiftCluster';
-import { FetchedData } from '../../../states';
 import SectionLoader from '../../../../components/loader/SectionLoader';
+import { FetchedData } from '../../../models/FetchedData';
 
 
 export interface DeploymentStepContext {
