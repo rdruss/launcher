@@ -10,3 +10,43 @@ describe('<Wizard />', () => {
 
 });
 
+describe('<Wizard.Step />', () => {
+  it('renders the step as completed', () => {
+    const component = shallow(<Wizard.Step title={'my first step'} completed={true} />);
+    expect(component).toMatchSnapshot();
+  });
+  it('renders the step as completed and locked', () => {
+    const component = shallow(<Wizard.Step title={'my first step'} completed={true} locked={true} />);
+    expect(component).toMatchSnapshot();
+  });
+
+});
+
+describe('<Wizard.Button />', () => {
+  it('renders the button with type next', () => {
+    const component = shallow(<Wizard.Button type={'next'} />);
+    expect(component.find('Button').contains('Next')).toBeTruthy();
+    expect(component.find('Button Icon').prop('name')).toBe('angle-right');
+    expect(component).toMatchSnapshot();
+  });
+
+  it('renders the button with type launch', () => {
+    const component = shallow(<Wizard.Button type={'launch'} />);
+    expect(component.find('Button').contains('Launch')).toBeTruthy();
+    expect(component.find('Button Icon').prop('name')).toBe('check');
+    expect(component).toMatchSnapshot();
+  });
+
+  it('renders the button disabled', () => {
+    const component = shallow(<Wizard.Button type={'launch'} disabled={true} />);
+    expect(component.find('Button').prop('disabled')).toBeTruthy();
+    expect(component).toMatchSnapshot();
+  });
+
+  it('call function when clicking', () => {
+    const mockCallBack = jest.fn();
+    const component = shallow(<Wizard.Button type={'launch'} onClick={mockCallBack} />);
+    component.find('Button').simulate('click');
+    expect(mockCallBack).toHaveBeenCalled();
+  });
+});
