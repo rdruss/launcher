@@ -55,6 +55,8 @@
   },
   "linterOptions": {
     "exclude": [
+      "styleguide.config.js",
+      "styleguide/**/*.js",
       "config/**/*.js",
       "node_modules/**/*.ts",
       "coverage/lcov-report/*.js"

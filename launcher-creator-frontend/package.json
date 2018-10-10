@@ -21,7 +21,8 @@
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "doc": "npx styleguidist server",
-    "build-doc": "styleguidist build"
+    "build-doc": "styleguidist build",
+    "deploy-doc": "git subtree push --prefix styleguide origin gh-pages"
   },
   "dependencies": {
     "axios": "^0.18.0",
