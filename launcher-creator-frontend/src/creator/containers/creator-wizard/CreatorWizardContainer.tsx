@@ -10,9 +10,9 @@ import DeploymentStepContainer from './steps/DeploymentStepContainer';
 import RepositoryStepContainer from './steps/RepositoryStepContainer';
 
 import { wizardAction } from '../../actions';
-import NextStepsZip from '../../components/creator-wizard/NextStepsZip';
-import NextStepsOpenShift from '../../components/creator-wizard/NextStepsOpenShift';
-import ProcessingApp from '../../components/creator-wizard/ProcessingApp';
+import NextStepsZip from '../../components/creator-wizard/next-steps/NextStepsZip';
+import NextStepsOpenShift from '../../components/creator-wizard/next-steps/NextStepsOpenShift';
+import ProcessingApp from '../../components/creator-wizard/next-steps/ProcessingApp';
 import { Projectile } from '../../models/Projectile';
 import { getWizardState, getWizardStepContextValue, getWizardStepState } from '../../reducers/wizardReducer';
 import { StepStatus } from '../../components/creator-wizard/StepProps';

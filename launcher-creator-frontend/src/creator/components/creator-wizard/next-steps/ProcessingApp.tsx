@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as Patternfly from 'patternfly-react';
-import SectionLoader from '../../../components/loader/SectionLoader';
+import SectionLoader from '../../../../components/loader/SectionLoader';
 
 
 interface ProcessingAppProps {
