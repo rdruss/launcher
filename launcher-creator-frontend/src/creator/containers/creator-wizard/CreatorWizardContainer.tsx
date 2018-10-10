@@ -77,7 +77,10 @@ class CreatorWizard extends Component<CreatorWizardProps> {
           error={Boolean(this.props.submission.error)}
           downloadLink={this.props.submission.result && this.props.submission.result.downloadLink}
         />
-        <NextStepsOpenShift show={this.props.submission.completed && this.props.submission.payload.target === 'openshift'}/>
+        <NextStepsOpenShift
+          show={this.props.submission.completed && this.props.submission.payload.target === 'openshift'}
+          error={Boolean(this.props.submission.error)}
+        />
       </React.Fragment>
     );
   }
@@ -147,7 +150,7 @@ const mapStateToProps = (state: AppState) => ({
     capabilities: Array.from(getWizardStepContextValue(state, WizardStepId.CAPABILITIES_STEP, 'capabilities', [])),
     gitRepository: getWizardStepContextValue(state, WizardStepId.REPOSITORY_STEP, 'repository.name'),
     gitOrganization: getWizardStepContextValue(state, WizardStepId.REPOSITORY_STEP, 'repository.organization'),
-    clusterId: getWizardStepContextValue(state, WizardStepId.DEPLOYMENT_STEP, 'cluster.organization.id'),
+    clusterId: getWizardStepContextValue(state, WizardStepId.DEPLOYMENT_STEP, 'cluster.id'),
     projectName: getWizardStepContextValue(state, WizardStepId.NAME_STEP, 'name'),
   } as Projectile,
 });

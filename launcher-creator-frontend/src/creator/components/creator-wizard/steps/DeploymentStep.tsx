@@ -21,7 +21,7 @@ export interface DeploymentStepProps extends StepProps<DeploymentStepContext> {
 class DeploymentStep extends Component<DeploymentStepProps> {
 
   public static defaultProps = {
-    context: {},
+    context: {}
   };
 
   public componentDidMount() {

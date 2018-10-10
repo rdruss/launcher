@@ -8,6 +8,7 @@ interface NextStepsOpenShiftProps {
   landingPageLink?: string;
   repositoryLink?: string;
   deploymentLink?: string;
+  children?: React.ReactNode;
 }
 
 class NextStepsOpenShift extends React.Component<NextStepsOpenShiftProps, {}> {
@@ -22,7 +23,7 @@ class NextStepsOpenShift extends React.Component<NextStepsOpenShiftProps, {}> {
           {!this.props.error && (
             <React.Fragment>
               <Patternfly.Alert type="success">We are delivering your new Application</Patternfly.Alert>
-              <h3>Openshift Console</h3>
+              <h3>Follow your application delivery</h3>
               <p>You can follow your application deployment in your OpenShift Console</p>
               <Patternfly.Button component="a" href={deploymentLink} target={'_blank'}>
                 <Patternfly.Icon type="fa" name={'cubes'} /> OpenShift Console
@@ -38,7 +39,7 @@ class NextStepsOpenShift extends React.Component<NextStepsOpenShiftProps, {}> {
               <p>We set up your application codebase in the GitHub repository you requested</p>
               <p>Your application is automatically configured to build and deploy on OpenShift with new commits.</p>
               <Patternfly.Button component="a" href={repositoryLink} target={'_blank'}>
-                <Patternfly.Icon type="pf" name={'repository'} /> Go clone you new codebase
+                <Patternfly.Icon type="pf" name={'repository'} /> Go clone your new codebase
               </Patternfly.Button>
             </React.Fragment>
           )}
@@ -48,6 +49,9 @@ class NextStepsOpenShift extends React.Component<NextStepsOpenShiftProps, {}> {
             </Patternfly.Alert>
           )}
         </Patternfly.Modal.Body>
+        <Patternfly.Modal.Footer>
+          {this.props.children}
+        </Patternfly.Modal.Footer>
       </Patternfly.Modal>
     );
   }
