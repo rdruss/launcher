@@ -12,6 +12,9 @@ You can try the demo there: http://launcher-creator-frontend.devtools-dev.ext.de
 
 ## Dev
 
+### Components documentation (style-guide)
+https://fabric8-launcher.github.io/launcher-creator-frontend/
+
 ### Use mock data
 ```bash
 $ yarn install
