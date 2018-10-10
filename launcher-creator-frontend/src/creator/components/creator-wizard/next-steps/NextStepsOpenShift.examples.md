@@ -1,4 +1,8 @@
 #### NextStepsOpenShift
 ```jsx
-<NextStepsOpenShift show={true} />
+initialState = { isOpen: false };
+<div>
+    <NextStepsOpenShift show={state.isOpen} />
+    <button onClick={() => setState({ isOpen: true })}>Open</button>
+</div>
 ```
