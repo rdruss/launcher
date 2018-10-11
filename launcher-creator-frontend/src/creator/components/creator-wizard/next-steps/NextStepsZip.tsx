@@ -6,8 +6,8 @@ interface NextStepsZipProps {
   isOpen: boolean;
   error?: boolean;
   downloadLink?: string;
-  onClose?: () => {};
   children?: React.ReactNode;
+  onClose?(): void;
 }
 
 class NextStepsZip extends React.Component<NextStepsZipProps, {}> {

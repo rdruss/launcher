@@ -34,6 +34,12 @@ const stepComponentById = new Map<string, ConnectedComponentClass<any, any>>([
   [WizardStepId.DEPLOYMENT_STEP.valueOf(), DeploymentStepContainer],
 ]);
 
+const INITIAL_STEPS = [
+  WizardStepId.NAME_STEP,
+  WizardStepId.RUNTIME_STEP,
+  WizardStepId.CAPABILITIES_STEP,
+];
+
 interface Step {
   id: string;
   context: any;
@@ -50,10 +56,16 @@ interface CreatorWizardProps {
     error?: string;
     result?: any;
   };
-  updateStepContext: (stepId: string, payload: {context: any; completed: boolean}) => void;
-  selectStep: (stepId: string) => void;
-  setSteps: (steps: string[], current: string) => void;
-  submit: (payload) => void;
+
+  updateStepContext(stepId: string, payload: { context: any; completed: boolean }): void;
+
+  selectStep(stepId: string): void;
+
+  setSteps(steps: string[], current: string): void;
+
+  submit(payload): void;
+
+  reset(steps: string[], current: string): void;
 }
 
 class CreatorWizard extends Component<CreatorWizardProps> {
@@ -76,21 +88,23 @@ class CreatorWizard extends Component<CreatorWizardProps> {
           isOpen={this.props.submission.completed && this.props.submission.payload.target === 'zip'}
           error={Boolean(this.props.submission.error)}
           downloadLink={this.props.submission.result && this.props.submission.result.downloadLink}
+          onClose={this.reset}
         />
         <NextStepsOpenShift
           isOpen={this.props.submission.completed && this.props.submission.payload.target === 'openshift'}
           error={Boolean(this.props.submission.error)}
+          onClose={this.reset}
         />
       </React.Fragment>
     );
   }
 
+  private reset = () => {
+    this.props.reset(INITIAL_STEPS, WizardStepId.NAME_STEP);
+  }
+
   private setInitialSteps() {
-    this.props.setSteps([
-      WizardStepId.NAME_STEP,
-      WizardStepId.RUNTIME_STEP,
-      WizardStepId.CAPABILITIES_STEP,
-    ], WizardStepId.NAME_STEP);
+    this.props.setSteps(INITIAL_STEPS, WizardStepId.NAME_STEP);
   }
 
   private setOpenShiftSteps() {
@@ -117,11 +131,11 @@ class CreatorWizard extends Component<CreatorWizardProps> {
           return;
         }
         if (step.id === WizardStepId.CAPABILITIES_STEP && name === 'zip') {
-          this.props.submit({ target: 'zip', projectile: this.props.projectile });
+          this.props.submit({target: 'zip', projectile: this.props.projectile});
           return;
         }
         if (step.id === WizardStepId.DEPLOYMENT_STEP) {
-          this.props.submit({ target: 'openshift', projectile: this.props.projectile});
+          this.props.submit({target: 'openshift', projectile: this.props.projectile});
           return;
         }
         const nextStep = findNextStep(this.props.steps.map(s => s.id), step.id);
@@ -160,6 +174,7 @@ const mapDispatchToProps = (dispatch) => ({
   selectStep: (stepId: string) => dispatch(wizardAction.goToStep(stepId)),
   setSteps: (steps: string[], current: string) => dispatch(wizardAction.setSteps(steps, current)),
   submit: (payload) => dispatch(wizardAction.submit(payload)),
+  reset: (steps: string[], current: string) => dispatch(wizardAction.reset(steps, current)),
 });
 
 const CreatorWizardContainer = connect(

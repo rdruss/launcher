@@ -49,6 +49,7 @@ export enum WizardAction {
   UPDATE_STEP_CONTEXT = 'WIZARD_UPDATE_STEP_CONTEXT',
   GO_TO_STEP = 'WIZARD_GO_TO_STEP',
   SUBMIT = 'WIZARD_SUBMIT',
+  RESET = 'WIZARD_RESET',
 }
 
 export const wizardAction = {
@@ -58,6 +59,7 @@ export const wizardAction = {
   submit: (payload) => action(WizardAction.SUBMIT, {payload}),
   submitSuccess: (result) => action(WizardAction.SUBMIT_SUCCESS, {result}),
   submitFailure: (error) => action(WizardAction.SUBMIT_FAILURE, {error}),
+  reset: (steps: string[], current: string) => action(WizardAction.RESET, {steps, current}),
 };
 
 

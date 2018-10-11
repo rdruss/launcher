@@ -17,7 +17,7 @@ interface NameStepState {
 
 class NameStep extends Component<StepProps<NameStepContext>, NameStepState> {
   public static defaultProps = {
-    context: {name: ''},
+    context: { name: '' },
   };
 
   constructor(props) {
@@ -27,6 +27,12 @@ class NameStep extends Component<StepProps<NameStepContext>, NameStepState> {
       name,
       completed: this.isNameValid(name),
     };
+  }
+
+  public componentDidUpdate(prevProps: StepProps<NameStepContext>, prevState: NameStepState) {
+    if (prevProps.context.name !== this.props.context.name) {
+      this.onNameChange(this.props.context.name);
+    }
   }
 
   public render() {
@@ -39,7 +45,7 @@ class NameStep extends Component<StepProps<NameStepContext>, NameStepState> {
       >
         <p>
           <TextInput value={this.state.name}
-                     onChange={this.onTitleChange}
+                     onChange={this.onNameChange}
                      isValid={this.state.name.length === 0 || this.state.completed}
                      aria-label="application-name"
           />
@@ -56,7 +62,7 @@ class NameStep extends Component<StepProps<NameStepContext>, NameStepState> {
     this.props.submit();
   }
 
-  private onTitleChange = (newTitle) => {
+  private onNameChange = (newTitle) => {
     this.setState({name: newTitle, completed: this.isNameValid(newTitle)});
   }
 

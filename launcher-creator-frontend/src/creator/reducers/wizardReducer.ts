@@ -49,6 +49,9 @@ const wizardReducer = (state: WizardState = INITIAL_STATE, action) => {
           result: undefined
       }};
       break;
+    case WizardAction.RESET:
+      newState = { ...INITIAL_STATE, steps: action.steps, current: action.current };
+      break;
   }
   if (state.steps.map(stepId => Boolean(newState.stepStates[stepId] && newState.stepStates[stepId].completed)).every(v => v)) {
     newState.valid = true;

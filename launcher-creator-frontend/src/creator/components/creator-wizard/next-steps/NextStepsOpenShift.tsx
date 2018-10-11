@@ -8,8 +8,8 @@ interface NextStepsOpenShiftProps {
   landingPageLink?: string;
   repositoryLink?: string;
   deploymentLink?: string;
-  onClose?: () => {};
   children?: React.ReactNode;
+  onClose?(): void;
 }
 
 class NextStepsOpenShift extends React.Component<NextStepsOpenShiftProps, {}> {
