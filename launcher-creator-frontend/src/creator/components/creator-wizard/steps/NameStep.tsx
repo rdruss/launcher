@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import Wizard from '../../../../components/wizard/index';
 import { StepProps } from '../StepProps';
+import { TextInput } from '@patternfly/react-core';
 
 const NAME_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
 
@@ -16,7 +17,7 @@ interface NameStepState {
 
 class NameStep extends Component<StepProps<NameStepContext>, NameStepState> {
   public static defaultProps = {
-    context: { name: '' },
+    context: {name: ''},
   };
 
   constructor(props) {
@@ -37,21 +38,22 @@ class NameStep extends Component<StepProps<NameStepContext>, NameStepState> {
         {...this.props.status}
       >
         <p>
-          <input type="text" value={this.state.name} onChange={this.onTitleChange}/>
+          <TextInput value={this.state.name} onChange={this.onTitleChange} aria-label="application-name"/>
         </p>
-        <Wizard.Button type={'next'} onClick={this.goToNextStep} disabled={!this.state.completed}/>
+        <Wizard.StepFooter>
+          <Wizard.Button type={'next'} onClick={this.goToNextStep} disabled={!this.state.completed}/>
+        </Wizard.StepFooter>
       </Wizard.Step>
     );
   }
 
   private goToNextStep = () => {
-    this.props.updateStepContext({context: { name: this.state.name }, completed: this.state.completed });
+    this.props.updateStepContext({context: {name: this.state.name}, completed: this.state.completed});
     this.props.submit();
   }
 
-  private onTitleChange = (e) => {
-    const newTitle =  e.target.value;
-    this.setState({ name: newTitle, completed: this.isNameValid(newTitle) });
+  private onTitleChange = (newTitle) => {
+    this.setState({name: newTitle, completed: this.isNameValid(newTitle)});
   }
 
   private isNameValid(name: string): boolean {

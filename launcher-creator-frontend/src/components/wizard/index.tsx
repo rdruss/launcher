@@ -1,11 +1,18 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as Patternfly from 'patternfly-react';
 import './Wizard.css';
 import classNames from 'classnames';
+import { Button, ButtonVariant } from '@patternfly/react-core';
+import { ArrowAltCircleRightIcon, CheckIcon } from '@patternfly/react-icons';
+
+const WizardStepFooter: React.StatelessComponent<{children?: React.ReactNode}> = (props) => (
+  <div className="wizard-step-footer">
+    {props.children}
+  </div>
+);
 
 interface WizardButtonProps {
-  type: 'next' | 'launch';
+  type: 'next' | 'launch' | 'alternate';
   title?: string;
   onClick?: () => void;
   disabled?: boolean;
@@ -13,18 +20,18 @@ interface WizardButtonProps {
 
 const WizardButton: React.StatelessComponent<WizardButtonProps> = ({ type, title, onClick, disabled = false }) => {
   let text = 'Launch';
-  let icon = 'check';
+  let variant: any = type === 'launch' ? ButtonVariant.primary : ButtonVariant.link;
   if (type === 'next') {
     text = 'Next';
-    icon = 'angle-right';
+    variant = ButtonVariant.secondary;
   }
   if (title) {
     text = title;
   }
   return (
-    <Patternfly.Button className={'wizard-button'} onClick={onClick} disabled={disabled}>
-      <Patternfly.Icon type="fa" name={icon} /> {text}
-    </Patternfly.Button>
+    <Button className={'wizard-button'} onClick={onClick} isDisabled={disabled} variant={variant}>
+      {type === 'next' ? <ArrowAltCircleRightIcon /> : <CheckIcon />} {text}
+    </Button>
   );
 }
 
@@ -66,6 +73,7 @@ class WizardStep extends Component<WizardStepProps> {
 class Wizard extends React.Component {
     public static Button = WizardButton;
     public static Step = WizardStep;
+    public static StepFooter = WizardStepFooter;
 
     public render() {
         return (

@@ -1,13 +1,14 @@
 import * as React from 'react';
-import * as Patternfly from 'patternfly-react';
-
+import { Alert, Button, Modal } from '@patternfly/react-core';
+import { ClusterIcon, CodeIcon, GiftIcon } from '@patternfly/react-icons';
 
 interface NextStepsOpenShiftProps {
-  show: boolean;
+  isOpen: boolean;
   error?: boolean;
   landingPageLink?: string;
   repositoryLink?: string;
   deploymentLink?: string;
+  onClose?: () => {};
   children?: React.ReactNode;
 }
 
@@ -17,42 +18,36 @@ class NextStepsOpenShift extends React.Component<NextStepsOpenShiftProps, {}> {
     const repositoryLink = this.props.repositoryLink || 'https://github.com/fabric8-launcher/launcher-creator-frontend';
     const deploymentLink = this.props.deploymentLink || 'https://manage.openshift.com/';
     return (
-      <Patternfly.Modal show={this.props.show} >
-        <Patternfly.Modal.Header><Patternfly.Modal.Title>Next steps...</Patternfly.Modal.Title></Patternfly.Modal.Header>
-        <Patternfly.Modal.Body>
-          {!this.props.error && (
-            <React.Fragment>
-              <Patternfly.Alert type="success">We are delivering your new Application</Patternfly.Alert>
-              <h3>Follow your application delivery</h3>
-              <p>You can follow your application deployment in your OpenShift Console</p>
-              <Patternfly.Button component="a" href={deploymentLink} target={'_blank'}>
-                <Patternfly.Icon type="fa" name={'cubes'} /> OpenShift Console
-              </Patternfly.Button>
-              <h3>As soon as deployment is done, go checkout your new application capabilities</h3>
-              <p>We prepared a set of examples to let you directly start playing with your new application.
-                Those examples are there to get you started,
-                soon it will be time for you to remove them and start developing your awesome application.</p>
-              <Patternfly.Button component="a" href={landingPageLink} target={'_blank'}>
-                <Patternfly.Icon type="pf" name={'applications'} /> Checkout your new Application
-              </Patternfly.Button>
-              <h3>Update your application using Continuous Delivery</h3>
-              <p>We set up your application codebase in the GitHub repository you requested</p>
-              <p>Your application is automatically configured to build and deploy on OpenShift with new commits.</p>
-              <Patternfly.Button component="a" href={repositoryLink} target={'_blank'}>
-                <Patternfly.Icon type="pf" name={'repository'} /> Go clone your new codebase
-              </Patternfly.Button>
-            </React.Fragment>
-          )}
-          {this.props.error && (
-            <Patternfly.Alert type="error">
-              Holy guacamole... something weird happened, please reload the page to try again.
-            </Patternfly.Alert>
-          )}
-        </Patternfly.Modal.Body>
-        <Patternfly.Modal.Footer>
-          {this.props.children}
-        </Patternfly.Modal.Footer>
-      </Patternfly.Modal>
+      <Modal title="Next steps..." isOpen={this.props.isOpen} onClose={this.props.onClose} actions={this.props.children} isLarge>
+        {!this.props.error && (
+          <React.Fragment>
+            <Alert variant="success">We are delivering your new Application</Alert>
+            <h2>Follow your application delivery</h2>
+            <p>You can follow your application deployment in your OpenShift Console</p>
+            <Button component="a" variant="link" href={deploymentLink} target={'_blank'}>
+              <ClusterIcon /> OpenShift Console
+            </Button>
+            <h2>As soon as deployment is done, go checkout your new application capabilities</h2>
+            <p>We prepared a set of examples to let you directly start playing with your new application.
+              Those examples are there to get you started,
+              soon it will be time for you to remove them and start developing your awesome application.</p>
+            <Button component="a" variant="link" href={landingPageLink} target={'_blank'}>
+              <GiftIcon /> Checkout your new Application
+            </Button>
+            <h2>Update your application using Continuous Delivery</h2>
+            <p>We set up your application codebase in the GitHub repository you requested</p>
+            <p>Your application is automatically configured to build and deploy on OpenShift with new commits.</p>
+            <Button component="a" variant="link" href={repositoryLink} target={'_blank'}>
+              <CodeIcon /> Go clone your new codebase
+            </Button>
+          </React.Fragment>
+        )}
+        {this.props.error && (
+          <Alert variant="danger">
+            Holy guacamole... something weird happened, please reload the page to try again.
+          </Alert>
+        )}
+      </Modal>
     );
   }
 }

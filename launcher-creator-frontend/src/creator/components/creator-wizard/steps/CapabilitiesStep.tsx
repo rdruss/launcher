@@ -34,16 +34,16 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
   }
 
   public render() {
-    const { context, capabilitiesData, updateStepContext } = this.props;
-    const onSelect = (capability:Capability) => {
+    const {context, capabilitiesData, updateStepContext} = this.props;
+    const onSelect = (capability: Capability) => {
       const capabilities = new Set(this.props.context.capabilities);
       capabilities.add(capability);
-      updateStepContext({ completed: true, context: { capabilities }});
+      updateStepContext({completed: capabilities.size > 0, context: {capabilities}});
     };
-    const onUnSelect = (capability:Capability) => {
+    const onUnSelect = (capability: Capability) => {
       const capabilities = new Set(this.props.context.capabilities);
       capabilities.delete(capability);
-      updateStepContext({ completed: true, context: { capabilities }});
+      updateStepContext({completed: capabilities.size > 0, context: {capabilities}});
     };
     const submitOpenShift = () => this.props.submit('openshift');
     const submitZip = () => this.props.submit('zip');
@@ -60,20 +60,32 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
           onUnselect={onUnSelect}
           selectedCapabilities={context.capabilities}
         />
-        <Wizard.Button
-          type={'next'}
-          title="Deploy this app on OpenShift"
-          onClick={submitOpenShift}
-          disabled={!this.props.status.completed}
-        />
-        {this.props.showZipButton && (
-          <Wizard.Button
-            type={'launch'}
-            title="Download this app as a ZIP"
-            onClick={submitZip}
-            disabled={!this.props.status.completed}
-          />
-        )}
+        <Wizard.StepFooter>
+          {!this.props.showZipButton && (
+            <Wizard.Button
+              type={'next'}
+              onClick={submitOpenShift}
+              disabled={!this.props.status.completed}
+            />
+          )}
+          {this.props.showZipButton && (
+            <React.Fragment>
+              <Wizard.Button
+                type={'next'}
+                title="Deploy this app on OpenShift"
+                onClick={submitOpenShift}
+                disabled={!this.props.status.completed}
+              />
+              <br/>
+              <Wizard.Button
+                type={'alternate'}
+                title="Download this app as a ZIP"
+                onClick={submitZip}
+                disabled={!this.props.status.completed}
+              />
+            </React.Fragment>
+          )}
+        </Wizard.StepFooter>
       </Wizard.Step>
     );
   }

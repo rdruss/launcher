@@ -1,23 +1,19 @@
 import * as React from 'react';
-import * as Patternfly from 'patternfly-react';
+import { Modal } from '@patternfly/react-core';
 import SectionLoader from '../../../../components/loader/SectionLoader';
 
 
 interface ProcessingAppProps {
-  show: boolean;
+  isOpen: boolean;
+  onClose?: () => {};
 }
 
 class ProcessingApp extends React.Component<ProcessingAppProps, {}> {
   public render(){
     return (
-      <Patternfly.Modal show={this.props.show} >
-        <Patternfly.Modal.Header>
-          <Patternfly.Modal.Title>Your application is getting created...</Patternfly.Modal.Title>
-        </Patternfly.Modal.Header>
-        <Patternfly.Modal.Body>
-          <SectionLoader loading={true} />
-        </Patternfly.Modal.Body>
-      </Patternfly.Modal>
+      <Modal isOpen={this.props.isOpen} onClose={this.props.onClose} title="Your application is getting created.." isLarge>
+        <SectionLoader loading={true} />
+      </Modal>
     );
   }
 }

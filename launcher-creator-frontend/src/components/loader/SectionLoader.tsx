@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import './SectionLoader.css';
 import paragraph from '../../assets/img/short-paragraph.png';
 
-import * as Patternfly from 'patternfly-react';
+import { Alert } from '@patternfly/react-core';
 
 interface LoaderProps {
   loading: boolean;
@@ -14,7 +14,7 @@ interface LoaderProps {
 const SectionLoader = (props: LoaderProps) => (
   <div className="section-loader-wrapper">
     {!props.loading && props.error && (
-      <Patternfly.Alert type="error">Holy guacamole... something weird happened, please reload the page to try again.</Patternfly.Alert>
+      <Alert variant="danger">Holy guacamole... something weird happened, please reload the page to try again.</Alert>
     )}
     {props.loading && (
       <div className="section-loader">

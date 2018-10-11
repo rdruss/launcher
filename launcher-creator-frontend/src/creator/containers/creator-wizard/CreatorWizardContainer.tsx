@@ -71,14 +71,14 @@ class CreatorWizard extends Component<CreatorWizardProps> {
             return comp && React.createElement(comp, this.getStepProps(step));
           })}
         </Wizard>
-        <ProcessingApp show={this.props.submission.loading}/>
+        <ProcessingApp isOpen={this.props.submission.loading}/>
         <NextStepsZip
-          show={this.props.submission.completed && this.props.submission.payload.target === 'zip'}
+          isOpen={this.props.submission.completed && this.props.submission.payload.target === 'zip'}
           error={Boolean(this.props.submission.error)}
           downloadLink={this.props.submission.result && this.props.submission.result.downloadLink}
         />
         <NextStepsOpenShift
-          show={this.props.submission.completed && this.props.submission.payload.target === 'openshift'}
+          isOpen={this.props.submission.completed && this.props.submission.payload.target === 'openshift'}
           error={Boolean(this.props.submission.error)}
         />
       </React.Fragment>
