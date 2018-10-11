@@ -38,7 +38,11 @@ class NameStep extends Component<StepProps<NameStepContext>, NameStepState> {
         {...this.props.status}
       >
         <p>
-          <TextInput value={this.state.name} onChange={this.onTitleChange} aria-label="application-name"/>
+          <TextInput value={this.state.name}
+                     onChange={this.onTitleChange}
+                     isValid={this.state.name.length === 0 || this.state.completed}
+                     aria-label="application-name"
+          />
         </p>
         <Wizard.StepFooter>
           <Wizard.Button type={'next'} onClick={this.goToNextStep} disabled={!this.state.completed}/>
