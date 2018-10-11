@@ -27,18 +27,18 @@ class NextStepsOpenShift extends React.Component<NextStepsOpenShiftProps, {}> {
             <Button component="a" variant="link" href={deploymentLink} target={'_blank'}>
               <ClusterIcon /> OpenShift Console
             </Button>
-            <h2>As soon as deployment is done, go checkout your new application capabilities</h2>
+            <h2>As soon as deployment is done, check out your new application capabilities</h2>
             <p>We prepared a set of examples to let you directly start playing with your new application.
               Those examples are there to get you started,
               soon it will be time for you to remove them and start developing your awesome application.</p>
             <Button component="a" variant="link" href={landingPageLink} target={'_blank'}>
-              <GiftIcon /> Checkout your new Application
+              <GiftIcon /> Check out your new Application
             </Button>
             <h2>Update your application using Continuous Delivery</h2>
             <p>We set up your application codebase in the GitHub repository you requested</p>
             <p>Your application is automatically configured to build and deploy on OpenShift with new commits.</p>
             <Button component="a" variant="link" href={repositoryLink} target={'_blank'}>
-              <CodeIcon /> Go clone your new codebase
+              <CodeIcon /> Clone your new codebase
             </Button>
           </React.Fragment>
         )}
