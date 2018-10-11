@@ -1,4 +1,4 @@
 export interface GitRepository {
-  organization: string;
+  organization?: string;
   name: string;
 }

@@ -13,7 +13,7 @@ const REPOSITORY_VALUE_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
 
 function validateRepository(repository?: GitRepository): boolean {
   return Boolean(repository
-    && REPOSITORY_VALUE_REGEXP.test(repository.organization)
+    && (!repository.organization || REPOSITORY_VALUE_REGEXP.test(repository.organization))
     && REPOSITORY_VALUE_REGEXP.test(repository.name));
 }
 
@@ -40,7 +40,7 @@ class RepositoryStep extends Component<RepositoryStepProps> {
 
   public componentDidUpdate() {
     if (this.props.status.selected && !this.props.context.repository && this.props.gitUserData.data) {
-      const repository = {organization: this.props.gitUserData.data.login, name: this.props.applicationName} as GitRepository;
+      const repository = {organization: undefined, name: this.props.applicationName} as GitRepository;
       this.updateStepContext(repository);
     }
   }
@@ -64,7 +64,7 @@ class RepositoryStep extends Component<RepositoryStepProps> {
               onChange={this.onOrganizationChange}
               onBlur={noop}
               onFocus={noop}
-              value={organization}
+              value={organization || gitUserData.data.login}
               aria-label="select-organization"
             >
               {options.map((option, index) => (
@@ -86,6 +86,10 @@ class RepositoryStep extends Component<RepositoryStepProps> {
       return;
     }
     const name = this.props.context.repository ? this.props.context.repository.name : '';
+    if (organization === this.props.gitUserData.data.login) {
+      this.updateStepContext({organization: undefined, name});
+      return;
+    }
     this.updateStepContext({organization, name});
   }
 
