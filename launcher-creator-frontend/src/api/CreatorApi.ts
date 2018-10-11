@@ -8,9 +8,7 @@ export const creatorApiAxios = axios.create({
 export interface ZipPayload {
   name: string;
   runtime: string;
-  capabilities: [
-    { module: string; }
-  ];
+  capabilities: Array<{ module: string; }>;
 }
 
 export interface ZipOutput {
@@ -23,6 +21,7 @@ export function zip(payload: ZipPayload, { authorizationToken }): Promise<ZipOut
       'Authorization': `Bearer ${authorizationToken}`,
     },
   };
+  payload.capabilities = payload.capabilities.map(c => ({ module: c.module }));
   return creatorApiAxios.post<{id: string}>('/zip', payload, config).then(r => ({
     downloadLink: `${creatorApiAxios.defaults.baseURL}/download?id=${r.data.id}`
   }));
@@ -31,9 +30,7 @@ export function zip(payload: ZipPayload, { authorizationToken }): Promise<ZipOut
 export interface LaunchPayload {
   name: string;
   runtime: string;
-  capabilities: [
-    { module: string; }
-  ];
+  capabilities: Array<{ module: string; }>;
   clusterId: string;
   projectName: string;
   gitOrganization: string;
@@ -49,5 +46,6 @@ export function launch(payload: LaunchPayload, { authorizationToken }): Promise<
       'Authorization': `Bearer ${authorizationToken}`,
     },
   };
+  payload.capabilities = payload.capabilities.map(c => ({ module: c.module }));
   return creatorApiAxios.post<{id: string}>('/launch', payload, config);
 }
