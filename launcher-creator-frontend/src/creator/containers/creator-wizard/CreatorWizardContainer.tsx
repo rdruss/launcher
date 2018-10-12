@@ -14,9 +14,10 @@ import NextStepsZip from '../../components/creator-wizard/next-steps/NextStepsZi
 import NextStepsOpenShift from '../../components/creator-wizard/next-steps/NextStepsOpenShift';
 import ProcessingApp from '../../components/creator-wizard/next-steps/ProcessingApp';
 import { Projectile } from '../../models/Projectile';
-import { getWizardState, getWizardStepContextValue, getWizardStepState } from '../../reducers/wizardReducer';
+import { getWizardState, getStepContextValue, getWizardStepState } from '../../reducers/wizardReducer';
 import { StepStatus } from '../../components/creator-wizard/StepProps';
-import { findNextStep, isPreviousStepCompleted } from './CreatorWizardHelper';
+import { createGitHubLink, findNextStep, isPreviousStepCompleted } from './CreatorWizardHelper';
+import idx from 'idx';
 
 export enum WizardStepId {
   NAME_STEP = 'nameStep',
@@ -75,6 +76,8 @@ class CreatorWizard extends Component<CreatorWizardProps> {
   }
 
   public render() {
+    const deploymentLink = idx(this.getStep(WizardStepId.DEPLOYMENT_STEP), step => step!.context!.cluster!.consoleUrl);
+    const repositoryLink = createGitHubLink(idx(this.getStep(WizardStepId.REPOSITORY_STEP), step => step!.context!.repository))
     return (
       <React.Fragment>
         <Wizard>
@@ -93,6 +96,9 @@ class CreatorWizard extends Component<CreatorWizardProps> {
         <NextStepsOpenShift
           isOpen={this.props.submission.completed && this.props.submission.payload.target === 'openshift'}
           error={Boolean(this.props.submission.error)}
+          deploymentLink={deploymentLink}
+          repositoryLink={repositoryLink}
+          landingPageLink={deploymentLink}
           onClose={this.reset}
         />
       </React.Fragment>
@@ -115,6 +121,10 @@ class CreatorWizard extends Component<CreatorWizardProps> {
       WizardStepId.REPOSITORY_STEP,
       WizardStepId.DEPLOYMENT_STEP,
     ], WizardStepId.REPOSITORY_STEP);
+  }
+
+  private getStep(stepId: WizardStepId): Step | undefined {
+    return this.props.steps.find(s => s.id === stepId.valueOf());
   }
 
   private getStepProps(step: Step) {
@@ -159,13 +169,13 @@ const mapStateToProps = (state: AppState) => ({
   })),
   submission: state.wizard.submission,
   projectile: {
-    name: getWizardStepContextValue(state, WizardStepId.NAME_STEP, 'name'),
-    runtime: getWizardStepContextValue(state, WizardStepId.RUNTIME_STEP, 'runtime.id'),
-    capabilities: Array.from(getWizardStepContextValue(state, WizardStepId.CAPABILITIES_STEP, 'capabilities', [])),
-    gitRepository: getWizardStepContextValue(state, WizardStepId.REPOSITORY_STEP, 'repository.name'),
-    gitOrganization: getWizardStepContextValue(state, WizardStepId.REPOSITORY_STEP, 'repository.organization'),
-    clusterId: getWizardStepContextValue(state, WizardStepId.DEPLOYMENT_STEP, 'cluster.id'),
-    projectName: getWizardStepContextValue(state, WizardStepId.NAME_STEP, 'name'),
+    name: getStepContextValue(state, WizardStepId.NAME_STEP, 'name'),
+    runtime: getStepContextValue(state, WizardStepId.RUNTIME_STEP, 'runtime.id'),
+    capabilities: Array.from(getStepContextValue(state, WizardStepId.CAPABILITIES_STEP, 'capabilities', [])),
+    gitRepository: getStepContextValue(state, WizardStepId.REPOSITORY_STEP, 'repository.name'),
+    gitOrganization: getStepContextValue(state, WizardStepId.REPOSITORY_STEP, 'repository.organization'),
+    clusterId: getStepContextValue(state, WizardStepId.DEPLOYMENT_STEP, 'cluster.id'),
+    projectName: getStepContextValue(state, WizardStepId.NAME_STEP, 'name'),
   } as Projectile,
 });
 

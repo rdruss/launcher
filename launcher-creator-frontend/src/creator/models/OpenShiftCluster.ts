@@ -8,4 +8,5 @@ export default interface OpenShiftCluster {
   name: string;
   type: ClusterType;
   connected: boolean;
+  consoleUrl: string;
 }

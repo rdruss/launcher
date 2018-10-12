@@ -40,7 +40,11 @@ class RepositoryStep extends Component<RepositoryStepProps> {
 
   public componentDidUpdate() {
     if (this.props.status.selected && !this.props.context.repository && this.props.gitUserData.data) {
-      const repository = {organization: undefined, name: this.props.applicationName} as GitRepository;
+      const repository = {
+        organization: undefined,
+        owner: this.props.gitUserData.data.login,
+        name: this.props.applicationName,
+      } as GitRepository;
       this.updateStepContext(repository);
     }
   }
@@ -86,16 +90,18 @@ class RepositoryStep extends Component<RepositoryStepProps> {
       return;
     }
     const name = this.props.context.repository ? this.props.context.repository.name : '';
-    if (organization === this.props.gitUserData.data.login) {
-      this.updateStepContext({organization: undefined, name});
+    const owner = this.props.gitUserData.data.login;
+    if (organization === owner) {
+      this.updateStepContext({name, owner});
       return;
     }
-    this.updateStepContext({organization, name});
+    this.updateStepContext({organization, name, owner});
   }
 
   public onNameChange = (name) => {
     const organization = this.props.context.repository ? this.props.context.repository.organization : '';
-    this.updateStepContext({name, organization});
+    const owner = this.props.gitUserData.data.login;
+    this.updateStepContext({name, organization, owner});
   }
 
   private updateStepContext(repository: GitRepository) {

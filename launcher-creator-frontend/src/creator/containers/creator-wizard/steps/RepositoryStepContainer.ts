@@ -3,11 +3,11 @@ import { apiAction } from '../../../actions';
 import RepositoryStep from '../../../components/creator-wizard/steps/RepositoryStep';
 import { getGitUserData } from '../../../reducers/api/clustersReducer';
 import { connect } from 'react-redux';
-import { getWizardStepContextValue } from '../../../reducers/wizardReducer';
+import { getStepContextValue } from '../../../reducers/wizardReducer';
 import { WizardStepId } from '../CreatorWizardContainer';
 
 const mapStateToRuntimeStepProps = (state:AppState, props) => ({
-  applicationName: getWizardStepContextValue(state, WizardStepId.NAME_STEP, 'name'),
+  applicationName: getStepContextValue(state, WizardStepId.NAME_STEP, 'name'),
   gitUserData: getGitUserData(state),
 });
 

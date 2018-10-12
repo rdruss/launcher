@@ -1,5 +1,6 @@
 import { AppState } from '../../states';
 import { getWizardState, getWizardStepState } from '../../reducers/wizardReducer';
+import { GitRepository } from '../../models/GitRepository';
 
 export function isPreviousStepCompleted(state: AppState, stepId: string) {
   const prevStep = findPrevStep(getWizardState(state).steps, stepId);
@@ -29,4 +30,8 @@ export function findNextStep(steps: string[], stepId: string): string | undefine
     return undefined;
   }
   return steps[index + 1];
+}
+
+export function createGitHubLink(repo?:GitRepository) {
+  return repo && `http://www.github.com/${repo.organization || repo.owner}/${repo.name}`;
 }
