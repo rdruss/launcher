@@ -1,6 +1,6 @@
 {
   "name": "launcher-creator-frontend",
-  "version": "1.10.1",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "copy-fonts": "ncp node_modules/patternfly/dist/fonts src/assets/patternfly/fonts",
