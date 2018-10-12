@@ -2,6 +2,7 @@ import { WizardAction } from '../actions';
 import { StepState, WizardState } from '../states/WizardState';
 import { AppState } from '../states';
 import * as _ from 'lodash';
+import { oc, OCType } from 'ts-optchain';
 
 // Reducer
 
@@ -63,8 +64,8 @@ const wizardReducer = (state: WizardState = INITIAL_STATE, action) => {
 
 export const getWizardState = (state:AppState) => state.wizard;
 
-export function getStepContextValue<T>(state: AppState, stepId: string, key: string, defaultValue?: any): T {
-  return _.get(getWizardStepState(state, stepId), `context.${key}`, defaultValue);
+export function getStepContext<T>(state: AppState, stepId: string): OCType<T> {
+  return oc(getWizardStepState(state, stepId)).context as OCType<T>;
 }
 
 export function getWizardStepState(state:AppState, stepId: string): StepState<any> {

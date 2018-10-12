@@ -14,10 +14,15 @@ import NextStepsZip from '../../components/creator-wizard/next-steps/NextStepsZi
 import NextStepsOpenShift from '../../components/creator-wizard/next-steps/NextStepsOpenShift';
 import ProcessingApp from '../../components/creator-wizard/next-steps/ProcessingApp';
 import { Projectile } from '../../models/Projectile';
-import { getWizardState, getStepContextValue, getWizardStepState } from '../../reducers/wizardReducer';
+import { getStepContext, getWizardState, getWizardStepState } from '../../reducers/wizardReducer';
 import { StepStatus } from '../../components/creator-wizard/StepProps';
 import { createGitHubLink, findNextStep, isPreviousStepCompleted } from './CreatorWizardHelper';
-import idx from 'idx';
+import { oc, OCType } from 'ts-optchain';
+import { DeploymentStepContext } from '../../components/creator-wizard/steps/DeploymentStep';
+import { RepositoryStepContext } from '../../components/creator-wizard/steps/RepositoryStep';
+import { NameStepContext } from '../../components/creator-wizard/steps/NameStep';
+import { RuntimeStepContext } from '../../components/creator-wizard/steps/RuntimeStep';
+import { CapabilitiesStepContext } from '../../components/creator-wizard/steps/CapabilitiesStep';
 
 export enum WizardStepId {
   NAME_STEP = 'nameStep',
@@ -76,8 +81,8 @@ class CreatorWizard extends Component<CreatorWizardProps> {
   }
 
   public render() {
-    const deploymentLink = idx(this.getStep(WizardStepId.DEPLOYMENT_STEP), step => step!.context!.cluster!.consoleUrl);
-    const repositoryLink = createGitHubLink(idx(this.getStep(WizardStepId.REPOSITORY_STEP), step => step!.context!.repository))
+    const deploymentLink = this.getStepContext<DeploymentStepContext>(WizardStepId.DEPLOYMENT_STEP).cluster.consoleUrl();
+    const repositoryLink = createGitHubLink(this.getStepContext<RepositoryStepContext>(WizardStepId.DEPLOYMENT_STEP).repository());
     return (
       <React.Fragment>
         <Wizard>
@@ -127,6 +132,10 @@ class CreatorWizard extends Component<CreatorWizardProps> {
     return this.props.steps.find(s => s.id === stepId.valueOf());
   }
 
+  private getStepContext<T>(stepId: WizardStepId): OCType<T> {
+    return oc(this.getStep(stepId)).context as OCType<T>;
+  }
+
   private getStepProps(step: Step) {
     return ({
       key: step.id,
@@ -169,13 +178,13 @@ const mapStateToProps = (state: AppState) => ({
   })),
   submission: state.wizard.submission,
   projectile: {
-    name: getStepContextValue(state, WizardStepId.NAME_STEP, 'name'),
-    runtime: getStepContextValue(state, WizardStepId.RUNTIME_STEP, 'runtime.id'),
-    capabilities: Array.from(getStepContextValue(state, WizardStepId.CAPABILITIES_STEP, 'capabilities', [])),
-    gitRepository: getStepContextValue(state, WizardStepId.REPOSITORY_STEP, 'repository.name'),
-    gitOrganization: getStepContextValue(state, WizardStepId.REPOSITORY_STEP, 'repository.organization'),
-    clusterId: getStepContextValue(state, WizardStepId.DEPLOYMENT_STEP, 'cluster.id'),
-    projectName: getStepContextValue(state, WizardStepId.NAME_STEP, 'name'),
+    name: getStepContext<NameStepContext>(state, WizardStepId.NAME_STEP).name(),
+    runtime: getStepContext<RuntimeStepContext>(state, WizardStepId.RUNTIME_STEP).runtime.id(),
+    capabilities: Array.from(getStepContext<CapabilitiesStepContext>(state, WizardStepId.CAPABILITIES_STEP).capabilities(new Set())),
+    gitRepository: getStepContext<RepositoryStepContext>(state, WizardStepId.REPOSITORY_STEP).repository.name(),
+    gitOrganization: getStepContext<RepositoryStepContext>(state, WizardStepId.REPOSITORY_STEP).repository.organization(),
+    clusterId: getStepContext<DeploymentStepContext>(state, WizardStepId.DEPLOYMENT_STEP).cluster.id(),
+    projectName: getStepContext<NameStepContext>(state, WizardStepId.NAME_STEP).name(),
   } as Projectile,
 });
 

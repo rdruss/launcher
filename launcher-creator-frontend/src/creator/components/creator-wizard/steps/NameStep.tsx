@@ -6,7 +6,7 @@ import { TextInput } from '@patternfly/react-core';
 
 const NAME_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
 
-interface NameStepContext {
+export interface NameStepContext {
   name?: string;
 }
 
