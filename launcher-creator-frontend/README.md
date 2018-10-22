@@ -1,7 +1,7 @@
 
 # Launcher Creator Frontend
 
-The quickest way to create and launch a full-featured service on the cloud.
+The quickest way to create and launch a full-featured service in the cloud.
 
 [![Build Status](https://semaphoreci.com/api/v1/fabric8-launcher/launcher-creator-frontend/branches/master/badge.svg)](https://semaphoreci.com/fabric8-launcher/launcher-creator-frontend)
 
@@ -33,7 +33,7 @@ $ yarn install
 $ yarn start:local
 ```
 
-Set those env to enable KeyCloak in local mode:
+By default KeyCloak authentication will be disabled in this mode. If you want to use KeyCloak set the following environment vars:
 ```
 REACT_APP_KEYCLOAK_CLIENT_ID=<clientId>
 REACT_APP_KEYCLOAK_REALM=<realm>
