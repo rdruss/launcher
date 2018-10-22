@@ -15,17 +15,31 @@ You can try the demo there: http://launcher-creator-frontend.devtools-dev.ext.de
 ### Components documentation (style-guide)
 https://fabric8-launcher.github.io/launcher-creator-frontend/
 
-### Use mock data
+### Use only mock data
 ```bash
 $ yarn install
 $ yarn start:mock
 ```
 
-### Use api (env: REACT_APP_CREATOR_API_URL)
+### Use staging backends
 ```bash
 $ yarn install
-$ yarn start:api
+$ yarn start:staging
 ```
+
+### Use local backends
+```bash
+$ yarn install
+$ yarn start:local
+```
+
+Set those env to enable KeyCloak in local mode:
+```
+REACT_APP_KEYCLOAK_CLIENT_ID=<clientId>
+REACT_APP_KEYCLOAK_REALM=<realm>
+REACT_APP_KEYCLOAK_URL=<url>
+```
+
 
 ## Test
 

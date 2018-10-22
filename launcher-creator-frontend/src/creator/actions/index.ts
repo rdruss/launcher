@@ -62,4 +62,3 @@ export const wizardAction = {
   reset: (steps: string[], current: string) => action(WizardAction.RESET, {steps, current}),
 };
 
-

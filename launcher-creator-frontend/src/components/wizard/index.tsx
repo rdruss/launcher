@@ -33,7 +33,7 @@ const WizardButton: React.StatelessComponent<WizardButtonProps> = ({ type, title
       {type === 'next' ? <ArrowAltCircleRightIcon /> : <CheckIcon />} {text}
     </Button>
   );
-}
+};
 
 interface WizardStepProps {
   title: string;

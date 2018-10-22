@@ -25,22 +25,20 @@ describe('<Wizard.Step />', () => {
 describe('<Wizard.Button />', () => {
   it('renders the button with type next', () => {
     const component = shallow(<Wizard.Button type={'next'} />);
-    expect(component.find('Button').contains('Next')).toBeTruthy();
-    expect(component.find('Button Icon').prop('name')).toBe('angle-right');
     expect(component).toMatchSnapshot();
+    expect(component.find('Button').contains('Next')).toBeTruthy();
   });
 
   it('renders the button with type launch', () => {
     const component = shallow(<Wizard.Button type={'launch'} />);
-    expect(component.find('Button').contains('Launch')).toBeTruthy();
-    expect(component.find('Button Icon').prop('name')).toBe('check');
     expect(component).toMatchSnapshot();
+    expect(component.find('Button').contains('Launch')).toBeTruthy();
   });
 
   it('renders the button disabled', () => {
     const component = shallow(<Wizard.Button type={'launch'} disabled={true} />);
-    expect(component.find('Button').prop('disabled')).toBeTruthy();
     expect(component).toMatchSnapshot();
+    expect(component.find('Button').prop('isDisabled')).toBeTruthy();
   });
 
   it('call function when clicking', () => {

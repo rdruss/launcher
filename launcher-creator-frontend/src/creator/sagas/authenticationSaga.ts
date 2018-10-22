@@ -1,15 +1,29 @@
 import { call, put, takeEvery, throttle } from 'redux-saga/effects';
 
 import { authenticationAction, AuthenticationAction } from '../actions';
-import { KeycloakAuthentication, OptionalUser } from '../../authentication/KeycloakAuthentication';
-import { KeycloakConfig } from '../../authentication/KeycloakConfig';
+import { KeycloakAuthentication, KeycloakConfig, OptionalUser } from '../../authentication/KeycloakAuthentication';
+import { checkNotNull } from '../../utils/Preconditions';
 
-const config = new KeycloakConfig();
+let config: KeycloakConfig;
+if (process.env.REACT_APP_KEYCLOAK_CLIENT_ID) {
+  config = {
+    enabled: true,
+    clientId: checkNotNull(process.env.REACT_APP_KEYCLOAK_CLIENT_ID, 'process.env.REACT_APP_KEYCLOAK_CLIENT_ID'),
+    realm: checkNotNull(process.env.REACT_APP_KEYCLOAK_REALM, 'process.env.REACT_APP_KEYCLOAK_REALM'),
+    url: checkNotNull(process.env.REACT_APP_KEYCLOAK_URL, 'process.env.REACT_APP_KEYCLOAK_URL'),
+  };
+} else {
+  config = {
+    enabled: false,
+  };
+}
+
+
 const keycloakService = new KeycloakAuthentication(config);
 
 function* authenticationRequest(action) {
   try {
-    const user:OptionalUser = yield call(keycloakService.init, action.payload);
+    const user: OptionalUser = yield call(keycloakService.init, action.payload);
     if (user) {
       yield put(authenticationAction.userConnected(user));
     } else {
@@ -22,7 +36,7 @@ function* authenticationRequest(action) {
 
 export function* refreshTokenRequest(action) {
   try {
-    const user:OptionalUser = yield call(keycloakService.refreshToken, action.payload);
+    const user: OptionalUser = yield call(keycloakService.refreshToken, action.payload);
     if (user) {
       yield put(authenticationAction.userConnected(user));
     } else {

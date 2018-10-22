@@ -112,7 +112,7 @@ class CreatorWizard extends Component<CreatorWizardProps> {
 
   private reset = () => {
     this.props.reset(INITIAL_STEPS, WizardStepId.NAME_STEP);
-  }
+  };
 
   private setInitialSteps() {
     this.props.setSteps(INITIAL_STEPS, WizardStepId.NAME_STEP);

@@ -20,7 +20,7 @@ function* onRequest(request: AxiosRequestConfig, action: RequestAction) {
     'Authorization': `Bearer ${token}`,
   };
   return request;
-};
+}
 
 
 export default function* sagas() {

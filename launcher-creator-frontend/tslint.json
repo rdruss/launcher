@@ -51,7 +51,8 @@
       "ban-keywords",
       "check-format"
     ],
-    "jsx-boolean-value": false
+    "jsx-boolean-value": false,
+    "semicolon": [true, "always", "ignore-bound-class-methods"]
   },
   "linterOptions": {
     "exclude": [
