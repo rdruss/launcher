@@ -40,6 +40,13 @@ REACT_APP_KEYCLOAK_REALM=<realm>
 REACT_APP_KEYCLOAK_URL=<url>
 ```
 
+### Use a custom environment
+
+Create a `.env.custom` file for your personal use (it will be gitignored)
+```bash
+$ yarn install
+$ yarn start:custom
+```
 
 ## Test
 
