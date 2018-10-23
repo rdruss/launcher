@@ -18,19 +18,19 @@ https://fabric8-launcher.github.io/launcher-creator-frontend/
 ### Use only mock data
 ```bash
 $ yarn install
-$ yarn start:mock
+$ yarn start:mock-api
 ```
 
 ### Use staging backends
 ```bash
 $ yarn install
-$ yarn start:staging
+$ yarn start:staging-api
 ```
 
 ### Use local backends
 ```bash
 $ yarn install
-$ yarn start:local
+$ yarn start:local-api
 ```
 
 By default KeyCloak authentication will be disabled in this mode. If you want to use KeyCloak set the following environment vars:
