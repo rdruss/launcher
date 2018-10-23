@@ -14,7 +14,7 @@ module.exports = {
         },
         {
             name: 'Creator Components',
-            components: 'src/creator/components/creator-wizard/**/*.tsx',
+            components: 'src/app/components/creator-wizard/**/*.tsx',
         }
     ],
 };
