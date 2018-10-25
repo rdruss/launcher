@@ -1,8 +1,9 @@
 import axios from 'axios';
-import { checkNotNull } from '../../shared/utils/Preconditions';
+import { creatorApiUrl } from './ApiConfig';
+
 
 export const creatorApiAxios = axios.create({
-  baseURL: checkNotNull(process.env.REACT_APP_CREATOR_API_URL, 'process.env.REACT_APP_CREATOR_API_URL'),
+  baseURL: creatorApiUrl,
 });
 
 export interface ZipPayload {
@@ -21,7 +22,6 @@ export function zip(payload: ZipPayload, { authorizationToken }): Promise<ZipOut
       'Authorization': `Bearer ${authorizationToken}`,
     },
   };
-  payload.capabilities = payload.capabilities.map(c => ({ module: c.module }));
   return creatorApiAxios.post<{id: string}>('/zip', payload, config).then(r => ({
     downloadLink: `${creatorApiAxios.defaults.baseURL}/download?id=${r.data.id}`
   }));
@@ -46,6 +46,5 @@ export function launch(payload: LaunchPayload, { authorizationToken }): Promise<
       'Authorization': `Bearer ${authorizationToken}`,
     },
   };
-  payload.capabilities = payload.capabilities.map(c => ({ module: c.module }));
   return creatorApiAxios.post<{id: string}>('/launch', payload, config);
 }

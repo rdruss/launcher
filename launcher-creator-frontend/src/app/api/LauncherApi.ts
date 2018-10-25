@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { checkNotNull } from '../../shared/utils/Preconditions';
+import { launcherApiUrl } from './ApiConfig';
 
 export const launcherApiAxios = axios.create({
-  baseURL: checkNotNull(process.env.REACT_APP_LAUNCHER_API_URL, 'process.env.REACT_APP_LAUNCHER_API_URL'),
+  baseURL: launcherApiUrl,
 });

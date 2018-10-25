@@ -1,7 +1,7 @@
-import { AuthenticationAction } from '../actions/index';
+import { AuthenticationAction } from '../actions';
 import { AuthenticationState } from '../states/AuthenticationState';
 import { createSelector } from 'reselect';
-import { AppState } from '../states/index';
+import { AppState } from '../states';
 
 const INITIAL_STATE: AuthenticationState = {
   error: false,

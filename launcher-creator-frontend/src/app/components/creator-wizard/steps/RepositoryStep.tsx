@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import Wizard from '../../../../shared/components/wizard/index';
+import Wizard from '../../../../shared/components/wizard';
 
 import { StepProps } from '../StepProps';
 import SectionLoader from '../../../../shared/components/loader/SectionLoader';
@@ -26,6 +26,20 @@ export interface RepositoryStepProps extends StepProps<RepositoryStepContext> {
   gitUserData: FetchedData<GitUser>;
 
   fetchGitUser(): void;
+}
+
+export interface BaseGitRepository {
+  organization?: string;
+  owner: string;
+  name: string;
+}
+
+
+function withGitHubUrl(repo: BaseGitRepository):GitRepository {
+  return {
+    ...repo,
+    url: `http://www.github.com/${repo.organization || repo.owner}/${repo.name}`,
+  };
 }
 
 class RepositoryStep extends Component<RepositoryStepProps> {
@@ -104,7 +118,8 @@ class RepositoryStep extends Component<RepositoryStepProps> {
     this.updateStepContext({name, organization, owner});
   }
 
-  private updateStepContext(repository: GitRepository) {
+  private updateStepContext(baseRepo: BaseGitRepository) {
+    const repository = withGitHubUrl(baseRepo);
     this.props.updateStepContext({context: {repository}, completed: validateRepository(repository)});
   }
 }

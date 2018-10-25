@@ -2,6 +2,7 @@ export interface StepStatus {
   completed: boolean;
   locked: boolean;
   selected: boolean;
+  enabled: boolean;
 }
 
 export interface StepProps<T> {

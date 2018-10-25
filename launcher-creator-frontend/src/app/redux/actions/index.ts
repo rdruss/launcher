@@ -43,22 +43,17 @@ export const apiAction = {
 };
 
 export enum WizardAction {
+  SAVE = 'WIZARD_SAVE',
+  RESET = 'WIZARD_RESET',
+  SUBMIT = 'WIZARD_SUBMIT',
   SUBMIT_SUCCESS = 'WIZARD_SUBMIT_SUCCESS',
   SUBMIT_FAILURE = 'WIZARD_SUBMIT_FAILURE',
-  SET_STEPS = 'WIZARD_SET_STEPS',
-  UPDATE_STEP_CONTEXT = 'WIZARD_UPDATE_STEP_CONTEXT',
-  GO_TO_STEP = 'WIZARD_GO_TO_STEP',
-  SUBMIT = 'WIZARD_SUBMIT',
-  RESET = 'WIZARD_RESET',
 }
 
 export const wizardAction = {
-  updateStepContext: (stepId: string, payload) => action(WizardAction.UPDATE_STEP_CONTEXT, {stepId, payload}),
-  goToStep: (stepId: string) => action(WizardAction.GO_TO_STEP, {stepId}),
-  setSteps: (steps: string[], current: string) => action(WizardAction.SET_STEPS, {steps, current}),
+  save: (payload) => action(WizardAction.SAVE, {payload}),
+  reset: () => action(WizardAction.RESET, {}),
   submit: (payload) => action(WizardAction.SUBMIT, {payload}),
   submitSuccess: (result) => action(WizardAction.SUBMIT_SUCCESS, {result}),
   submitFailure: (error) => action(WizardAction.SUBMIT_FAILURE, {error}),
-  reset: (steps: string[], current: string) => action(WizardAction.RESET, {steps, current}),
 };
-

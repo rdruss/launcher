@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { AppState } from '../states/index';
+import { AppState } from '../states';
 import authenticationReducer from './authenticationReducer';
 import globalReducer from './globalReducer';
 import wizardReducer from './wizardReducer';

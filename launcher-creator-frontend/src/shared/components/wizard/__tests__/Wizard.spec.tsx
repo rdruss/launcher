@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import Wizard from '../index';
+import Wizard from '..';
 
 describe('<Wizard />', () => {
   it('renders the wizard with one step', () => {

@@ -1,6 +1,6 @@
 import { requestsReducer } from 'redux-saga-requests';
-import { ApiAction } from '../../actions/index';
-import { AppState } from '../../states/index';
+import { ApiAction } from '../../actions';
+import { AppState } from '../../states';
 import { createSelector } from 'reselect';
 import GitUser from '../../../models/GitUser';
 import { FetchedData } from '../../../models/FetchedData';

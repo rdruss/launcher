@@ -1,5 +1,5 @@
 import { createDriver } from 'redux-saga-requests-mock';
-import { ApiAction } from '../../actions/index';
+import { ApiAction } from '../../actions';
 
 import * as capabilities from '../../../api/mocks/capabilities.json';
 import * as runtimes from '../../../api/mocks/runtimes.json';

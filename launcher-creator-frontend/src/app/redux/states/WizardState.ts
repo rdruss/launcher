@@ -1,16 +1,5 @@
-export interface StepState<T> {
-  completed: boolean;
-  context?: T;
-}
-
-export interface StepStateMap {
-  [s: string]: StepState<any>;
-}
-
 export interface WizardState {
-  current?: string;
-  stepStates: StepStateMap;
-  steps: string[];
+  data: any;
   submission: {
     payload?: any;
     result?: any;
@@ -18,5 +7,4 @@ export interface WizardState {
     completed: boolean;
     loading: boolean;
   };
-  valid: boolean;
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 
-import Wizard from '../../../../shared/components/wizard/index';
+import Wizard from '../../../../shared/components/wizard';
 import { StepProps } from '../StepProps';
 import OpenShiftCluster from '../../../models/OpenShiftCluster';
 import SectionLoader from '../../../../shared/components/loader/SectionLoader';
@@ -39,6 +39,7 @@ class DeploymentStep extends Component<DeploymentStepProps> {
     const selected = context.cluster ? context.cluster.id : undefined;
     const noop = () => {
     };
+    const submit = () => this.props.submit('launch');
     return (
       <Wizard.Step
         title={'OpenShift Deployment'}
@@ -60,7 +61,7 @@ class DeploymentStep extends Component<DeploymentStepProps> {
           </Select>
         </SectionLoader>
         <Wizard.StepFooter>
-          <Wizard.Button type={'launch'} title={'GO GO GO !'} onClick={this.props.submit} disabled={!this.props.status.completed}/>
+          <Wizard.Button type={'launch'} title={'GO GO GO !'} onClick={submit} disabled={!this.props.status.completed}/>
         </Wizard.StepFooter>
       </Wizard.Step>
     );

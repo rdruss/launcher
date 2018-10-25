@@ -1,6 +1,6 @@
 import NameStep from '../../../../components/creator-wizard/steps/NameStep';
 import { connect } from 'react-redux';
-import { AppState } from '../../../states/index';
+import { AppState } from '../../../states';
 
 const mapStateToRuntimeStepProps = (state:AppState, props) => ({});
 

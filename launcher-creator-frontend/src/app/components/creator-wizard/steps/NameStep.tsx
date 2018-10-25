@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import Wizard from '../../../../shared/components/wizard/index';
+import Wizard from '../../../../shared/components/wizard';
 import { StepProps } from '../StepProps';
 import { TextInput } from '@patternfly/react-core';
 

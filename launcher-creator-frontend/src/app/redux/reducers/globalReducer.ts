@@ -1,4 +1,4 @@
-import { GlobalState } from '../states/index';
+import { GlobalState } from '../states';
 
 const INITIAL_GLOBAL_STATE: GlobalState = {
 };

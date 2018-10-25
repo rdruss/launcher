@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { AppState } from '../../states/index';
+import { AppState } from '../../states';
 import WizardPage from '../../../components/pages/HomePage';
 
 const mapStateToProps = (state: AppState) => ({

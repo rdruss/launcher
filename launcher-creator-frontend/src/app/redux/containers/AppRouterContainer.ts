@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { AppState } from '../states/index';
+import { AppState } from '../states';
 import AppRouter from '../../components/AppRouter';
 
 const mapStateToProps = (state: AppState) => ({
