@@ -69,6 +69,7 @@ class RepositoryStep extends Component<RepositoryStepProps> {
     const options = gitUserData.data ? [gitUserData.data.login, ...gitUserData.data.organizations] : [];
     const noop = () => {
     };
+    const submit = () => this.props.submit();
     return (
       <Wizard.Step
         title={'Source Code Repository'}
@@ -93,7 +94,7 @@ class RepositoryStep extends Component<RepositoryStepProps> {
           <TextInput value={name} onChange={this.onNameChange} aria-label="select-repository"/>
         </SectionLoader>
         <Wizard.StepFooter>
-          <Wizard.Button type={'next'} onClick={this.props.submit} disabled={!this.props.status.completed}/>
+          <Wizard.Button type={'next'} onClick={submit} disabled={!this.props.status.completed}/>
         </Wizard.StepFooter>
       </Wizard.Step>
     );

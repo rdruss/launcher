@@ -30,6 +30,7 @@ class RuntimeStep extends React.Component<RuntimeStepProps, {}> {
     const {context, runtimesData, updateStepContext} = this.props;
     const summary = context.runtime && `➡️ Your future application will use «${context.runtime.name}»`;
     const onSelect = (runtime: Runtime) => updateStepContext({completed: true, context: {runtime}});
+    const submit = () => this.props.submit();
     return (
       <Wizard.Step
         title={'Language & Runtime'}
@@ -43,7 +44,7 @@ class RuntimeStep extends React.Component<RuntimeStepProps, {}> {
           </ListSingleSelection>
         </SectionLoader>
         <Wizard.StepFooter>
-          <Wizard.Button type={'next'} disabled={!this.props.status.completed} onClick={this.props.submit}/>
+          <Wizard.Button type={'next'} disabled={!this.props.status.completed} onClick={submit}/>
         </Wizard.StepFooter>
       </Wizard.Step>
     );
