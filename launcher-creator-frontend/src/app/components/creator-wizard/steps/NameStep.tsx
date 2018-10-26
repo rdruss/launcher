@@ -3,6 +3,7 @@ import { Component } from 'react';
 import Wizard from '../../../../shared/components/wizard';
 import { StepProps } from '../StepProps';
 import { TextInput } from '@patternfly/react-core';
+import * as _ from 'lodash';
 
 const NAME_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
 
@@ -20,6 +21,10 @@ class NameStep extends Component<StepProps<NameStepContext>, NameStepState> {
     context: { name: '' },
   };
 
+  private updateStepContext = _.throttle((payload) => {
+    this.props.updateStepContext(payload);
+  }, 300);
+
   constructor(props) {
     super(props);
     const name = this.props.context.name || '';
@@ -31,7 +36,7 @@ class NameStep extends Component<StepProps<NameStepContext>, NameStepState> {
 
   public componentDidUpdate(prevProps: StepProps<NameStepContext>, prevState: NameStepState) {
     if (prevProps.context.name !== this.props.context.name) {
-      this.onNameChange(this.props.context.name);
+      this.setNameInState(this.props.context.name);
     }
   }
 
@@ -58,12 +63,16 @@ class NameStep extends Component<StepProps<NameStepContext>, NameStepState> {
   }
 
   private goToNextStep = () => {
-    this.props.updateStepContext({context: {name: this.state.name}, completed: this.state.completed});
     this.props.submit();
   }
 
-  private onNameChange = (newTitle) => {
-    this.setState({name: newTitle, completed: this.isNameValid(newTitle)});
+  private onNameChange = (name) => {
+    this.updateStepContext({context: { name }, completed: this.isNameValid(name) });
+    this.setNameInState(name);
+  }
+
+  private setNameInState = (name) => {
+    this.setState({ name, completed: this.isNameValid(name)});
   }
 
   private isNameValid(name: string): boolean {

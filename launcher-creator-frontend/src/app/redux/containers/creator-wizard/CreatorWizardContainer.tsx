@@ -14,7 +14,8 @@ import NextStepsOpenShift from '../../../components/creator-wizard/next-steps/Ne
 import ProcessingApp from '../../../components/creator-wizard/next-steps/ProcessingApp';
 import { Projectile } from '../../../models/Projectile';
 import * as _ from 'lodash';
-import SmartWizard, { StepState } from '../../../../shared/components/smart-wizard/SmartWizard';
+import SmartWizard, { Step } from '../../../../shared/components/smart-wizard/SmartWizard';
+import { getWizardState } from '../../reducers/wizardReducer';
 
 
 const wizardStepsDefinition = {
@@ -41,6 +42,7 @@ const wizardStepsDefinition = {
 };
 
 interface CreatorWizardProps {
+  data: any;
   submission: {
     payload?: any;
     loading: boolean;
@@ -56,7 +58,7 @@ interface CreatorWizardProps {
   reset(): void;
 }
 
-function buildProjectile(stepState: StepState[]): Projectile {
+function buildProjectile(stepState: Step[]): Projectile {
   const byId = _.keyBy(stepState, 'id');
   return {
     name: _.get(byId[wizardStepsDefinition.nameStep.id], 'context.name'),
@@ -71,20 +73,17 @@ function buildProjectile(stepState: StepState[]): Projectile {
   };
 }
 
-class CreatorWizard extends Component<CreatorWizardProps, { id: string }> {
+class CreatorWizard extends Component<CreatorWizardProps> {
 
   constructor(props) {
     super(props);
-    this.state = {
-      id: `${Date.now()}`, // FIXME ia3andy workaround to reset wizard
-    };
   }
 
   public render() {
     return (
       <React.Fragment>
         <SmartWizard
-          id={this.state.id}
+          data={this.props.data}
           definition={wizardStepsDefinition}
           submit={this.submit}
           save={this.save}
@@ -96,7 +95,7 @@ class CreatorWizard extends Component<CreatorWizardProps, { id: string }> {
           isOpen={this.props.submission.completed && this.props.submission.payload.target === 'zip'}
           error={Boolean(this.props.submission.error)}
           downloadLink={this.props.submission.result && this.props.submission.result.downloadLink}
-          onClose={this.resetSmartWizard}
+          onClose={this.reset}
         />
         <NextStepsOpenShift
           isOpen={this.props.submission.completed && this.props.submission.payload.target === 'launch'}
@@ -104,7 +103,7 @@ class CreatorWizard extends Component<CreatorWizardProps, { id: string }> {
           deploymentLink={this.props.submission.payload && this.props.submission.payload.projectile.deploymentLink}
           repositoryLink={this.props.submission.payload && this.props.submission.payload.projectile.repositoryLink}
           landingPageLink={this.props.submission.payload && this.props.submission.payload.projectile.deploymentLink}
-          onClose={this.resetSmartWizard}
+          onClose={this.reset}
         />
       </React.Fragment>
     );
@@ -114,23 +113,18 @@ class CreatorWizard extends Component<CreatorWizardProps, { id: string }> {
     this.props.submit(payload);
   };
 
-  private save = () => {
-
+  private save = (data) => {
+    this.props.save(data);
   };
 
   private reset = () => {
     this.props.reset();
   };
-
-  private resetSmartWizard = () => {
-    this.setState({
-      id: `${Date.now()}`, // FIXME ia3andy workaround to reset wizard
-    });
-  };
 }
 
 const mapStateToProps = (state: AppState) => ({
-  submission: state.wizard.submission
+  data: getWizardState(state).data,
+  submission: getWizardState(state).submission,
 });
 
 const mapDispatchToProps = (dispatch) => ({

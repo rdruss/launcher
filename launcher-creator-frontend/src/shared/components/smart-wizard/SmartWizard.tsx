@@ -13,49 +13,42 @@ export interface WizardDefinition {
   [id: string]:StepDefinition;
 }
 
-interface SmartWizardProps {
-  id: string;
-  definition: WizardDefinition;
-  buildProjectile(steps: StepState[]): any;
-  save(payload): void;
-  submit(payload): void;
-  reset(): void;
-}
-
-export interface StepState {
+export interface Step {
   id: string;
   completed: boolean;
   context?: any;
 }
 
-interface SmartWizardState {
+export interface WizardData {
   current: string;
-  steps: StepState[];
+  steps: Step[];
   projectile: any;
 }
 
-class SmartWizard extends Component<SmartWizardProps, SmartWizardState> {
+interface SmartWizardProps {
+  definition: WizardDefinition;
+  data?: WizardData;
+  buildProjectile(steps: Step[]): any;
+  save(payload): void;
+  submit(payload): void;
+  reset(): void;
+}
+
+
+class SmartWizard extends Component<SmartWizardProps> {
+  private wizardData:WizardData;
 
   constructor(props) {
     super(props);
-    this.state = {
-      current: 'nameStep',
-      steps: this.getInitialSteps(),
-      projectile: {},
-    };
-  }
-
-  public componentDidUpdate(prevProps: SmartWizardProps) {
-    if (this.props.id !== prevProps.id) {
-      this.reset();
-    }
+    this.computeWizardDataFromProps();
   }
 
   public render() {
+    this.computeWizardDataFromProps();
     return (
       <React.Fragment>
         <Wizard>
-          {this.state.steps.map(step => {
+          {this.wizardData.steps.map(step => {
             return React.createElement((this.props.definition[step.id] as StepDefinition).component, this.getStepProps(step));
           })}
         </Wizard>
@@ -63,16 +56,19 @@ class SmartWizard extends Component<SmartWizardProps, SmartWizardState> {
     );
   }
 
-  private reset = () => {
-    this.setState({
-      current: 'nameStep',
-      steps: this.getInitialSteps(),
-      projectile: {},
-    });
-    this.props.reset();
+  private computeWizardDataFromProps() {
+    const steps = (this.props.data && this.props.data.steps) || this.buildStepsFromDefinition();
+    if (steps.length === 0) {
+      throw new Error('Invalid step definition');
+    }
+    this.wizardData = {
+      steps,
+      current: (this.props.data && this.props.data.current) || steps[0].id,
+      projectile: (this.props.data && this.props.data.projectile) || {},
+    };
   }
 
-  private getInitialSteps(): StepState[] {
+  private buildStepsFromDefinition(): Step[] {
     return Object.keys(this.props.definition).map(id => ({id, completed: false}));
   }
 
@@ -84,62 +80,59 @@ class SmartWizard extends Component<SmartWizardProps, SmartWizardState> {
     return prevStep.completed;
   }
 
-  private getPreviousStep(step: string): StepState | undefined {
+  private getPreviousStep(step: string): Step | undefined {
     const prevStep = findPrevStep(this.getStepIds(), step);
     return this.getStepState(prevStep);
   }
 
-  private getStepState(id?: string): StepState | undefined {
-    return this.state.steps.find(s => s.id === id);
+  private getStepState(id?: string): Step | undefined {
+    return this.wizardData.steps.find(s => s.id === id);
   }
 
   private getStepIds() {
-    return this.state.steps.map(s => s.id);
+    return this.wizardData.steps.map(s => s.id);
   }
 
-  private getStepProps(stepState: StepState) {
+  private getStepProps(step: Step) {
     return ({
-      key: stepState.id,
-      stepId: stepState.id,
+      key: step.id,
+      stepId: step.id,
       status: {
-        completed: stepState.completed,
-        locked: !this.isPreviousStepCompleted(stepState.id),
-        selected: stepState.id === this.state.current,
+        completed: step.completed,
+        locked: !this.isPreviousStepCompleted(step.id),
+        selected: step.id === this.wizardData.current,
         enabled: true,
       },
-      context: stepState.context,
-      projectile: this.state.projectile,
-      updateStepContext: (payload) => this.updateStepContext(stepState.id, payload),
-      select: () => this.selectStep(stepState.id),
-      submit: (name?: string) => this.submitStep(stepState.id, name),
+      context: step.context,
+      projectile: this.wizardData.projectile,
+      updateStepContext: (payload) => this.updateStepContext(step.id, payload),
+      select: () => this.selectStep(step.id),
+      submit: (name?: string) => this.submitStep(step.id, name),
     });
   }
 
-  private selectStep(id: string) {
-    this.setState({ current: id });
+  private selectStep = (id: string) => {
+    this.props.save({ ...this.wizardData, current: id });
   }
 
-  private updateStepContext(id: string, payload: {context: any; completed: boolean}) {
-    const index = this.state.steps.findIndex(s => s.id === id);
+  private updateStepContext = (id: string, payload: {context: any; completed: boolean}) => {
+    const index = this.wizardData.steps.findIndex(s => s.id === id);
     if (index < 0) {
       return;
     }
-    const newArray = [...this.state.steps];
-    const prev = this.state.steps[index];
+    const newArray = [...this.wizardData.steps];
+    const prev = this.wizardData.steps[index];
     newArray[index] = {
       ...prev,
       completed: payload.completed,
       context: payload.context,
     };
-    this.setState({
-      steps: newArray,
-      projectile: this.props.buildProjectile(newArray),
-    });
+    this.props.save({ ...this.props.data, steps: newArray, projectile: this.props.buildProjectile(newArray) });
   }
 
-  private submitStep(id: string, name?: string) {
+  private submitStep = (id: string, name?: string) => {
     if (typeof name === 'string') {
-      this.props.submit({ target: name, projectile: this.state.projectile });
+      this.props.submit({ target: name, projectile: this.wizardData.projectile });
       return;
     }
     const nextStep = findNextStep(this.getStepIds(), id);
