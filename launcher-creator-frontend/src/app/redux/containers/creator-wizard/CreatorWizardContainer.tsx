@@ -56,6 +56,8 @@ interface CreatorWizardProps {
   submit(payload): void;
 
   reset(): void;
+
+  resetSubmission(): void;
 }
 
 function buildProjectile(stepState: Step[]): Projectile {
@@ -95,7 +97,7 @@ class CreatorWizard extends Component<CreatorWizardProps> {
           isOpen={this.props.submission.completed && this.props.submission.payload.target === 'zip'}
           error={Boolean(this.props.submission.error)}
           downloadLink={this.props.submission.result && this.props.submission.result.downloadLink}
-          onClose={this.reset}
+          onClose={this.resetSubmission}
         />
         <NextStepsOpenShift
           isOpen={this.props.submission.completed && this.props.submission.payload.target === 'launch'}
@@ -120,6 +122,10 @@ class CreatorWizard extends Component<CreatorWizardProps> {
   private reset = () => {
     this.props.reset();
   };
+
+  private resetSubmission = () => {
+    this.props.resetSubmission();
+  };
 }
 
 const mapStateToProps = (state: AppState) => ({
@@ -131,6 +137,7 @@ const mapDispatchToProps = (dispatch) => ({
   save: (payload) => dispatch(wizardAction.save(payload)),
   submit: (payload) => dispatch(wizardAction.submit(payload)),
   reset: () => dispatch(wizardAction.reset()),
+  resetSubmission: () => dispatch(wizardAction.resetSubmission()),
 });
 
 const CreatorWizardContainer = connect(

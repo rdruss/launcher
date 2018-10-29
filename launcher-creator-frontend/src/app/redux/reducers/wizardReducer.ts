@@ -40,6 +40,9 @@ const wizardReducer = (state: WizardState = INITIAL_STATE, action) => {
     case WizardAction.RESET:
       newState = { ...INITIAL_STATE, data: undefined };
       break;
+    case WizardAction.RESET_SUBMISSION:
+      newState = { ...state, submission: { loading: false, completed: false } };
+      break;
   }
   return newState;
 };

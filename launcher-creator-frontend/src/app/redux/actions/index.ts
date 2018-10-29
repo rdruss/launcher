@@ -45,6 +45,7 @@ export const apiAction = {
 export enum WizardAction {
   SAVE = 'WIZARD_SAVE',
   RESET = 'WIZARD_RESET',
+  RESET_SUBMISSION = 'WIZARD_RESET_SUBMISSION',
   SUBMIT = 'WIZARD_SUBMIT',
   SUBMIT_SUCCESS = 'WIZARD_SUBMIT_SUCCESS',
   SUBMIT_FAILURE = 'WIZARD_SUBMIT_FAILURE',
@@ -53,6 +54,7 @@ export enum WizardAction {
 export const wizardAction = {
   save: (payload) => action(WizardAction.SAVE, {payload}),
   reset: () => action(WizardAction.RESET, {}),
+  resetSubmission: () => action(WizardAction.RESET_SUBMISSION, {}),
   submit: (payload) => action(WizardAction.SUBMIT, {payload}),
   submitSuccess: (result) => action(WizardAction.SUBMIT_SUCCESS, {result}),
   submitFailure: (error) => action(WizardAction.SUBMIT_FAILURE, {error}),
