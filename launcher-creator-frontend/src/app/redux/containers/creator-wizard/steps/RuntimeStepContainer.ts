@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { AppState } from '../../../states';
 import RuntimeStep from '../../../../components/creator-wizard/steps/RuntimeStep';
-import { getRuntimesData } from '../../../reducers/fetch/runtimesReducer';
+import { getRuntimesData } from '../../../reducers/runtimesReducer';
 import { fetchActions } from '../../../actions/fetchActions';
 
 const mapStateToRuntimeStepProps = (state:AppState) => ({

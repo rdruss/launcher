@@ -1,6 +1,6 @@
 import { AppState } from '../../../states';
 import DeploymentStep from '../../../../components/creator-wizard/steps/DeploymentStep';
-import { getConnectedClustersData } from '../../../reducers/fetch/gitReducer';
+import { getConnectedClustersData } from '../../../reducers/gitReducer';
 import { connect } from 'react-redux';
 import { fetchActions } from '../../../actions/fetchActions';
 

@@ -1,6 +1,6 @@
 import { AppState } from '../../../states';
 import RepositoryStep from '../../../../components/creator-wizard/steps/RepositoryStep';
-import { getGitUserData } from '../../../reducers/fetch/clustersReducer';
+import { getGitUserData } from '../../../reducers/clustersReducer';
 import { connect } from 'react-redux';
 import { fetchActions } from '../../../actions/fetchActions';
 

@@ -6,10 +6,6 @@ import GitUser from '../../models/GitUser';
 import { LaunchState } from './LaunchState';
 import { SmartWizardState } from '../../../shared/components/smart-wizard/SmartWizardState';
 
-export interface GlobalState {
-}
-
-
 export interface FetchedState<T> {
   data: T;
   error?: string;
@@ -17,7 +13,6 @@ export interface FetchedState<T> {
 }
 
 export interface AppState {
-  globalState: GlobalState;
   authentication: AuthenticationState;
   capabilities: FetchedState<Capability[]>;
   runtimes: FetchedState<Runtime[]>;
