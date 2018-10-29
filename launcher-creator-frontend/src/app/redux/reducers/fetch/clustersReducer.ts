@@ -1,13 +1,13 @@
 import { requestsReducer } from 'redux-saga-requests';
-import { ApiAction } from '../../actions';
 import { AppState } from '../../states';
 import { createSelector } from 'reselect';
 import GitUser from '../../../models/GitUser';
 import { FetchedData } from '../../../models/FetchedData';
+import { FetchActions } from '../../actions/fetchActions';
 
 // Reducer
 
-export const gitUserReducer = requestsReducer({ actionType: ApiAction.FETCH_GIT_USER });
+export const gitUserReducer = requestsReducer({ actionType: FetchActions.FETCH_GIT_USER });
 
 // Selectors
 

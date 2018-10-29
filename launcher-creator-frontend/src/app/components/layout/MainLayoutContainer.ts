@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { AppState } from '../../redux/states';
-import { authenticationAction } from '../../redux/actions';
+import { authenticationAction } from '../../redux/actions/authenticationActions';
 import MainLayout from './MainLayout';
 
 const mapStateToProps = (state: AppState) => ({

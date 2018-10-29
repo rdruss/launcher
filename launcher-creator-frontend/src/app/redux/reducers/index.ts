@@ -3,10 +3,11 @@ import { AppState } from '../states';
 import authenticationReducer from './authenticationReducer';
 import globalReducer from './globalReducer';
 import wizardReducer from './wizardReducer';
-import { capabilitiesReducer } from './api/capabilitiesReducer';
-import { runtimesReducer } from './api/runtimesReducer';
-import { clustersReducer } from './api/gitReducer';
-import { gitUserReducer } from './api/clustersReducer';
+import { capabilitiesReducer } from './fetch/capabilitiesReducer';
+import { runtimesReducer } from './fetch/runtimesReducer';
+import { clustersReducer } from './fetch/gitReducer';
+import { gitUserReducer } from './fetch/clustersReducer';
+import launchReducer from './launchReducer';
 
 const rootReducer = combineReducers<AppState>({
   authentication: authenticationReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers<AppState>({
   clusters: clustersReducer,
   gitUser: gitUserReducer,
   wizard: wizardReducer,
+  launch: launchReducer,
 });
 
 

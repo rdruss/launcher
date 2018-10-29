@@ -1,13 +1,13 @@
 import { requestsReducer } from 'redux-saga-requests';
-import { ApiAction } from '../../actions';
 import { AppState } from '../../states';
 import { createSelector } from 'reselect';
 import Runtime from '../../../models/Runtime';
 import { FetchedData } from '../../../models/FetchedData';
+import { FetchActions } from '../../actions/fetchActions';
 
 // Reducer
 
-export const runtimesReducer = requestsReducer({ actionType: ApiAction.FETCH_RUNTIMES, multiple: true });
+export const runtimesReducer = requestsReducer({ actionType: FetchActions.FETCH_RUNTIMES, multiple: true });
 
 // Selectors
 

@@ -1,8 +1,9 @@
 import { call, put, takeEvery, throttle } from 'redux-saga/effects';
 
-import { authenticationAction, AuthenticationAction } from '../actions';
+import { AuthenticationAction } from '../actions/authenticationActions';
 import { KeycloakAuthenticationApi, KeycloakConfig, OptionalUser } from '../../api/KeycloakAuthenticationApi';
 import { checkNotNull } from '../../../shared/utils/Preconditions';
+import { authenticationAction } from '../actions/authenticationActions';
 
 let config: KeycloakConfig;
 if (process.env.REACT_APP_KEYCLOAK_CLIENT_ID) {

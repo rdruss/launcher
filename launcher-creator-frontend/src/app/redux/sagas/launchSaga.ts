@@ -1,16 +1,16 @@
 import { call, put, select } from '../../../../node_modules/redux-saga/effects';
-import { authenticationAction, WizardAction, wizardAction } from '../actions';
 import { getToken } from '../reducers/authenticationReducer';
 import * as creatorApi from '../../api/CreatorApi';
 import * as mockCreatorApi from '../../api/mocks/MockCreatorApi';
 import { checkNotNull } from '../../../shared/utils/Preconditions';
 import { Projectile } from '../../models/Projectile';
 import { takeLatest } from 'redux-saga/effects';
+import { authenticationAction } from '../actions/authenticationActions';
+import { launchActions, LaunchActions } from '../actions/apiLaunchActions';
 
 const creator = checkNotNull(process.env.REACT_APP_API_DRIVER, 'process.env.REACT_APP_API_DRIVER') === 'mock' ? mockCreatorApi : creatorApi;
 
-
-interface SubmitWizardAction {
+interface LaunchProjectileAction {
   payload: {
     target: 'zip' | 'launch';
     projectile: Projectile;
@@ -18,7 +18,7 @@ interface SubmitWizardAction {
 }
 
 function* submitWizard(action) {
-  const { payload: { target, projectile } } = action as SubmitWizardAction;
+  const { payload: { target, projectile } } = action as LaunchProjectileAction;
   yield put(authenticationAction.refreshToken());
   const authorizationToken = yield select(getToken);
   try {
@@ -45,12 +45,12 @@ function* submitWizard(action) {
       default:
         throw new Error(`Invalid target: ${target}`);
     }
-    yield put(wizardAction.submitSuccess(result));
+    yield put(launchActions.launchProjectileSuccess(result));
   } catch (e) {
-    yield put(wizardAction.submitFailure(e));
+    yield put(launchActions.launchProjectilFailure(e));
   }
 }
 
-export default function* wizardSaga() {
-  yield takeLatest(WizardAction.SUBMIT, submitWizard);
+export default function* launchSaga() {
+  yield takeLatest(LaunchActions.LAUNCH_PROJECTILE, submitWizard);
 }

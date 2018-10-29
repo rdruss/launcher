@@ -7,7 +7,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import sagas from '../sagas';
 import rootReducer from '../reducers';
-import { authenticationAction } from '../actions';
+import { authenticationAction } from '../actions/authenticationActions';
 
 const loggerMiddleware = createLogger();
 const sagaMiddleware = createSagaMiddleware();

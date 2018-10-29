@@ -1,14 +1,14 @@
 import { requestsReducer } from 'redux-saga-requests';
-import { ApiAction } from '../../actions';
 import { AppState } from '../../states';
 import { createSelector } from 'reselect';
 import OpenShiftCluster from '../../../models/OpenShiftCluster';
 import { FetchedData } from '../../../models/FetchedData';
+import { FetchActions } from '../../actions/fetchActions';
 
 // Reducer
 
 export const clustersReducer = requestsReducer({
-  actionType: ApiAction.FETCH_CLUSTERS,
+  actionType: FetchActions.FETCH_CLUSTERS,
   multiple: true,
   getData: (state, action, config) => action.data.map(c => ({
     ...c.cluster,

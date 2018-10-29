@@ -8,7 +8,7 @@ import CapabilitiesStepContainer from './steps/CapabilitiesStepContainer';
 import DeploymentStepContainer from './steps/DeploymentStepContainer';
 import RepositoryStepContainer from './steps/RepositoryStepContainer';
 
-import { wizardAction } from '../../actions';
+import { wizardActions } from '../../actions/wizardActions';
 import NextStepsZip from '../../../components/creator-wizard/next-steps/NextStepsZip';
 import NextStepsOpenShift from '../../../components/creator-wizard/next-steps/NextStepsOpenShift';
 import ProcessingApp from '../../../components/creator-wizard/next-steps/ProcessingApp';
@@ -16,6 +16,8 @@ import { Projectile } from '../../../models/Projectile';
 import * as _ from 'lodash';
 import SmartWizard, { Step } from '../../../../shared/components/smart-wizard/SmartWizard';
 import { getWizardState } from '../../reducers/wizardReducer';
+import { launchActions } from '../../actions/apiLaunchActions';
+import { getLaunchState } from '../../reducers/launchReducer';
 
 
 const wizardStepsDefinition = {
@@ -51,13 +53,13 @@ interface CreatorWizardProps {
     result?: any;
   };
 
-  save(payload): void;
+  saveWizard(payload): void;
 
-  submit(payload): void;
+  launchProjectile(payload): void;
 
-  reset(): void;
+  resetWizard(): void;
 
-  resetSubmission(): void;
+  resetLaunch(): void;
 }
 
 function buildProjectile(stepState: Step[]): Projectile {
@@ -87,9 +89,9 @@ class CreatorWizard extends Component<CreatorWizardProps> {
         <SmartWizard
           data={this.props.data}
           definition={wizardStepsDefinition}
-          submit={this.submit}
-          save={this.save}
-          reset={this.reset}
+          submit={this.props.launchProjectile}
+          save={this.props.saveWizard}
+          reset={ this.reset}
           buildProjectile={buildProjectile}
         />
         <ProcessingApp isOpen={this.props.submission.loading}/>
@@ -97,7 +99,7 @@ class CreatorWizard extends Component<CreatorWizardProps> {
           isOpen={this.props.submission.completed && this.props.submission.payload.target === 'zip'}
           error={Boolean(this.props.submission.error)}
           downloadLink={this.props.submission.result && this.props.submission.result.downloadLink}
-          onClose={this.resetSubmission}
+          onClose={this.props.resetLaunch}
         />
         <NextStepsOpenShift
           isOpen={this.props.submission.completed && this.props.submission.payload.target === 'launch'}
@@ -111,33 +113,23 @@ class CreatorWizard extends Component<CreatorWizardProps> {
     );
   }
 
-  private submit = (payload) => {
-    this.props.submit(payload);
-  };
-
-  private save = (data) => {
-    this.props.save(data);
-  };
-
   private reset = () => {
-    this.props.reset();
+    this.props.resetLaunch();
+    this.props.resetWizard();
   };
 
-  private resetSubmission = () => {
-    this.props.resetSubmission();
-  };
 }
 
 const mapStateToProps = (state: AppState) => ({
   data: getWizardState(state).data,
-  submission: getWizardState(state).submission,
+  submission: getLaunchState(state).submission,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  save: (payload) => dispatch(wizardAction.save(payload)),
-  submit: (payload) => dispatch(wizardAction.submit(payload)),
-  reset: () => dispatch(wizardAction.reset()),
-  resetSubmission: () => dispatch(wizardAction.resetSubmission()),
+  saveWizard: (payload) => dispatch(wizardActions.save(payload)),
+  resetWizard: () => dispatch(wizardActions.reset()),
+  launchProjectile: (payload) => dispatch(launchActions.launchProjectile(payload)),
+  resetLaunch: () => dispatch(launchActions.resetLaunch()),
 });
 
 const CreatorWizardContainer = connect(

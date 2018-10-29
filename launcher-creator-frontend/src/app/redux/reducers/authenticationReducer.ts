@@ -1,4 +1,4 @@
-import { AuthenticationAction } from '../actions';
+import { AuthenticationAction } from '../actions/authenticationActions';
 import { AuthenticationState } from '../states/AuthenticationState';
 import { createSelector } from 'reselect';
 import { AppState } from '../states';

@@ -1,15 +1,15 @@
 import { connect } from 'react-redux';
 import { AppState } from '../../../states';
 import RuntimeStep from '../../../../components/creator-wizard/steps/RuntimeStep';
-import { apiAction } from '../../../actions';
-import { getRuntimesData } from '../../../reducers/api/runtimesReducer';
+import { getRuntimesData } from '../../../reducers/fetch/runtimesReducer';
+import { fetchActions } from '../../../actions/fetchActions';
 
 const mapStateToRuntimeStepProps = (state:AppState) => ({
   runtimesData: getRuntimesData(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchRuntimes: () => dispatch(apiAction.fetchRuntimes()),
+  fetchRuntimes: () => dispatch(fetchActions.fetchRuntimes()),
 });
 
 const RuntimeStepContainer = connect(mapStateToRuntimeStepProps, mapDispatchToProps)(RuntimeStep);
