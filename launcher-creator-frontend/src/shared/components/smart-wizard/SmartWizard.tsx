@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { ConnectedComponentClass } from 'react-redux';
+import { connect, ConnectedComponentClass } from 'react-redux';
 import { findNextStep, findPrevStep } from './SmartWizardHelper';
 import Wizard from '../wizard';
+import { getSmartWizardState } from './smartWizardReducer';
+import { SmartWizardState } from './SmartWizardState';
+import { smartWizardActions } from './smartWizardActions';
 
 export interface StepDefinition {
   id: string;
@@ -25,7 +28,7 @@ export interface WizardData {
   projectile: any;
 }
 
-interface SmartWizardProps {
+interface SmartWizardComponentProps {
   definition: WizardDefinition;
   data?: WizardData;
   buildProjectile(steps: Step[]): any;
@@ -35,7 +38,7 @@ interface SmartWizardProps {
 }
 
 
-class SmartWizard extends Component<SmartWizardProps> {
+class SmartWizardComponent extends Component<SmartWizardComponentProps> {
   private wizardData:WizardData;
 
   constructor(props) {
@@ -141,5 +144,19 @@ class SmartWizard extends Component<SmartWizardProps> {
     }
   }
 }
+
+const mapStateToProps = (state: { smartWizard: SmartWizardState }) => ({
+  data: getSmartWizardState(state).data,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  save: (payload) => dispatch(smartWizardActions.save(payload)),
+  reset: () => dispatch(smartWizardActions.reset()),
+});
+
+const SmartWizard = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SmartWizardComponent);
 
 export default SmartWizard;

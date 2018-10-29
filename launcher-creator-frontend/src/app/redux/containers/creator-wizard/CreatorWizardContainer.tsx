@@ -8,16 +8,15 @@ import CapabilitiesStepContainer from './steps/CapabilitiesStepContainer';
 import DeploymentStepContainer from './steps/DeploymentStepContainer';
 import RepositoryStepContainer from './steps/RepositoryStepContainer';
 
-import { wizardActions } from '../../actions/wizardActions';
 import NextStepsZip from '../../../components/creator-wizard/next-steps/NextStepsZip';
 import NextStepsOpenShift from '../../../components/creator-wizard/next-steps/NextStepsOpenShift';
 import ProcessingApp from '../../../components/creator-wizard/next-steps/ProcessingApp';
 import { Projectile } from '../../../models/Projectile';
 import * as _ from 'lodash';
 import SmartWizard, { Step } from '../../../../shared/components/smart-wizard/SmartWizard';
-import { getWizardState } from '../../reducers/wizardReducer';
-import { launchActions } from '../../actions/apiLaunchActions';
 import { getLaunchState } from '../../reducers/launchReducer';
+import { smartWizardActions } from '../../../../shared/components/smart-wizard/smartWizardActions';
+import { launchActions } from '../../actions/launchActions';
 
 
 const wizardStepsDefinition = {
@@ -87,11 +86,8 @@ class CreatorWizard extends Component<CreatorWizardProps> {
     return (
       <React.Fragment>
         <SmartWizard
-          data={this.props.data}
           definition={wizardStepsDefinition}
           submit={this.props.launchProjectile}
-          save={this.props.saveWizard}
-          reset={ this.reset}
           buildProjectile={buildProjectile}
         />
         <ProcessingApp isOpen={this.props.submission.loading}/>
@@ -121,14 +117,12 @@ class CreatorWizard extends Component<CreatorWizardProps> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-  data: getWizardState(state).data,
   submission: getLaunchState(state).submission,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  saveWizard: (payload) => dispatch(wizardActions.save(payload)),
-  resetWizard: () => dispatch(wizardActions.reset()),
   launchProjectile: (payload) => dispatch(launchActions.launchProjectile(payload)),
+  resetWizard: () => dispatch(smartWizardActions.reset()),
   resetLaunch: () => dispatch(launchActions.resetLaunch()),
 });
 

@@ -1,6 +1,6 @@
 import { AppState } from '../states/index';
 import { LaunchState } from '../states/LaunchState';
-import { LaunchActions } from '../actions/apiLaunchActions';
+import { LaunchActions } from '../actions/launchActions';
 
 // Reducer
 

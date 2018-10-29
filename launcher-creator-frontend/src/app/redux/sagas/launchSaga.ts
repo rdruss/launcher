@@ -6,7 +6,7 @@ import { checkNotNull } from '../../../shared/utils/Preconditions';
 import { Projectile } from '../../models/Projectile';
 import { takeLatest } from 'redux-saga/effects';
 import { authenticationAction } from '../actions/authenticationActions';
-import { launchActions, LaunchActions } from '../actions/apiLaunchActions';
+import { launchActions, LaunchActions } from '../actions/launchActions';
 
 const creator = checkNotNull(process.env.REACT_APP_API_DRIVER, 'process.env.REACT_APP_API_DRIVER') === 'mock' ? mockCreatorApi : creatorApi;
 

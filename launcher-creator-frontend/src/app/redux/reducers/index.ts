@@ -2,12 +2,12 @@ import { combineReducers } from 'redux';
 import { AppState } from '../states';
 import authenticationReducer from './authenticationReducer';
 import globalReducer from './globalReducer';
-import wizardReducer from './wizardReducer';
 import { capabilitiesReducer } from './fetch/capabilitiesReducer';
 import { runtimesReducer } from './fetch/runtimesReducer';
 import { clustersReducer } from './fetch/gitReducer';
 import { gitUserReducer } from './fetch/clustersReducer';
 import launchReducer from './launchReducer';
+import smartWizardReducer from '../../../shared/components/smart-wizard/smartWizardReducer';
 
 const rootReducer = combineReducers<AppState>({
   authentication: authenticationReducer,
@@ -16,7 +16,7 @@ const rootReducer = combineReducers<AppState>({
   runtimes: runtimesReducer,
   clusters: clustersReducer,
   gitUser: gitUserReducer,
-  wizard: wizardReducer,
+  smartWizard: smartWizardReducer,
   launch: launchReducer,
 });
 
