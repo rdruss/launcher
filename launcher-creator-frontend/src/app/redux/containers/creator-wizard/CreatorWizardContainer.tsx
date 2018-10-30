@@ -70,7 +70,7 @@ function buildProjectile(stepState: Step[]): Projectile {
     clusterId: _.get(byId[wizardStepsDefinition.deploymentStep.id], 'context.cluster.id'),
     projectName: _.get(byId[wizardStepsDefinition.nameStep.id], 'context.name'),
     gitOrganization: _.get(byId[wizardStepsDefinition.repositoryStep.id], 'context.repository.organization'),
-    gitRepository: _.get(byId[wizardStepsDefinition.repositoryStep.id], 'context.repository.id'),
+    gitRepository: _.get(byId[wizardStepsDefinition.repositoryStep.id], 'context.repository.name'),
     deploymentLink: _.get(byId[wizardStepsDefinition.deploymentStep.id], 'context.cluster.consoleUrl'),
     repositoryLink: _.get(byId[wizardStepsDefinition.repositoryStep.id], 'context.repository.url'),
   };
