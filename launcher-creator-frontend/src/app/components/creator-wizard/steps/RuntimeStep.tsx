@@ -38,7 +38,7 @@ class RuntimeStep extends React.Component<RuntimeStepProps, {}> {
         onClick={this.props.select}
         {...this.props.status}
       >
-        <SectionLoader loading={runtimesData.loading} error={runtimesData.error}>
+        <SectionLoader loading={runtimesData.loading} error={runtimesData.error} reload={this.props.fetchRuntimes}>
           <ListSingleSelection items={runtimesData.data} onSelect={onSelect} selectedItem={context.runtime}>
             Here you can choose a runtime for a specific programming language
           </ListSingleSelection>

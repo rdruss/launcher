@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Spinner, Icon, Masthead, MenuItem } from 'patternfly-react';
 import logo from '../../../assets/logo/RHD-logo.svg';
 import './TopNav.css';
+import { SignOutAltIcon, UserLockIcon } from '@patternfly/react-icons';
 
 interface TopNavProps {
   inProgress: boolean;
@@ -30,8 +31,8 @@ const TopNav = (props: TopNavProps) => (
             </span>,
             ]}
           >
-            <MenuItem onSelect={props.openAccountManagement}>Manage</MenuItem>
-            <MenuItem onSelect={props.logout}>Logout</MenuItem>
+            <MenuItem onSelect={props.openAccountManagement}><UserLockIcon />Manage</MenuItem>
+            <MenuItem onSelect={props.logout}><SignOutAltIcon />Logout</MenuItem>
           </Masthead.Dropdown>
         )}
       </Spinner>

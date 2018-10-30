@@ -1,32 +1,20 @@
 import { requestsReducer } from 'redux-saga-requests';
-import { AppState } from '../states/index';
+import { AppState } from '../states';
 import { createSelector } from 'reselect';
-import OpenShiftCluster from '../../models/OpenShiftCluster';
+import GitUser from '../../models/GitUser';
 import { FetchedData } from '../../models/FetchedData';
 import { FetchActions } from '../actions/fetchActions';
 
 // Reducer
 
-export const clustersReducer = requestsReducer({
-  actionType: FetchActions.FETCH_CLUSTERS,
-  multiple: true,
-  getData: (state, action, config) => action.data.map(c => ({
-    ...c.cluster,
-    connected: c.connected,
-  })),
-});
+export const gitUserReducer = requestsReducer({ actionType: FetchActions.FETCH_GIT_USER });
 
 // Selectors
 
-const getClustersState = (state:AppState) => state.clusters;
+const getGitUserState = (state:AppState) => state.gitUser;
 
-export const getClustersData = createSelector([getClustersState], (f) => ({
+export const getGitUserData = createSelector([getGitUserState], (f) => ({
   data: f.data,
-  loading: f.pending > 0,
+  loading: (!f.data && !f.error) || f.pending > 0,
   error: f.error,
-} as FetchedData<OpenShiftCluster[]>));
-
-export const getConnectedClustersData = createSelector([getClustersData], (d) => ({
-  ...d,
-  data: d.data.filter(c => c.connected),
-} as FetchedData<OpenShiftCluster[]>));
+} as FetchedData<GitUser>));

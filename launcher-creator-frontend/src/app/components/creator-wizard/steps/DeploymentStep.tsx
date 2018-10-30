@@ -6,7 +6,8 @@ import { StepProps } from '../StepProps';
 import OpenShiftCluster from '../../../models/OpenShiftCluster';
 import SectionLoader from '../../../../shared/components/loader/SectionLoader';
 import { FetchedData } from '../../../models/FetchedData';
-import { Select, SelectOption } from '@patternfly/react-core';
+import { Alert, Button, Select, SelectOption, Stack, StackItem } from '@patternfly/react-core';
+import { RebootingIcon, UserLockIcon } from '@patternfly/react-icons';
 
 
 export interface DeploymentStepContext {
@@ -15,7 +16,10 @@ export interface DeploymentStepContext {
 
 export interface DeploymentStepProps extends StepProps<DeploymentStepContext> {
   clustersData: FetchedData<OpenShiftCluster[]>;
-  fetchClusters: () => {};
+
+  fetchClusters(): void;
+
+  openAccountManagement(): void;
 }
 
 class DeploymentStep extends Component<DeploymentStepProps> {
@@ -47,18 +51,35 @@ class DeploymentStep extends Component<DeploymentStepProps> {
         onClick={this.props.select}
         {...this.props.status}
       >
-        <SectionLoader loading={clustersData.loading} error={clustersData.error}>
-          <Select
-            onChange={this.onClusterChange}
-            onBlur={noop}
-            onFocus={noop}
-            value={selected}
-            aria-label="select-cluster"
-          >
-            {clustersData.data.map((option, index) => (
-              <SelectOption key={index} value={option.id} label={option.name}/>
-            ))}
-          </Select>
+        <SectionLoader loading={clustersData.loading} error={clustersData.error} reload={this.props.fetchClusters}>
+          {clustersData.data.length > 0 && (
+            <Select
+              onChange={this.onClusterChange}
+              onBlur={noop}
+              onFocus={noop}
+              value={selected}
+              aria-label="select-cluster"
+            >
+              {clustersData.data.map((option, index) => (
+                <SelectOption key={index} value={option.id} label={option.name}/>
+              ))}
+            </Select>
+          )}
+          {clustersData.data.length === 0 && (
+            <Alert variant="warning"
+                   action={(
+                     <Stack gutter="sm">
+                       <StackItem isMain={false}>
+                         <Button variant="secondary" onClick={this.props.openAccountManagement}><UserLockIcon/>Manage identity</Button>
+                       </StackItem>
+                       <StackItem isMain={false}>
+                         <Button variant="secondary" onClick={this.props.fetchClusters}><RebootingIcon/>Reload</Button>
+                       </StackItem>
+                     </Stack>
+                   )}>
+              It seems you did not authorize any OpenShift cluster access. Please manage your repository identity and Reload..
+            </Alert>
+          )}
         </SectionLoader>
         <Wizard.StepFooter>
           <Wizard.Button type={'launch'} title={'GO GO GO !'} onClick={submit} disabled={!this.props.status.completed}/>
@@ -70,7 +91,7 @@ class DeploymentStep extends Component<DeploymentStepProps> {
   public onClusterChange = (clusterId) => {
     const cluster = this.props.clustersData.data.find(c => c.id === clusterId);
     this.props.updateStepContext({context: {cluster}, completed: true});
-  }
+  };
 }
 
 export default DeploymentStep;

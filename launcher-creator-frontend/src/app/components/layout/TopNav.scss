@@ -4,5 +4,9 @@
   .navbar-brand {
     width: 130px;
   }
-}
 
+  a[role=menuitem] svg {
+    width: 1.2em;
+    margin-right: 5px;
+  }
+}

@@ -57,6 +57,7 @@ class CapabilitiesStep extends React.Component<CapabilitiesStepProps, { Capabili
           onSelect={onSelect}
           onUnselect={onUnSelect}
           selectedCapabilities={context.capabilities}
+          reload={this.props.fetchCapabilities}
         />
         <Wizard.StepFooter>
           <React.Fragment>

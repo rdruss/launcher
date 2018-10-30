@@ -7,9 +7,9 @@ import { FetchedData } from '../../../models/FetchedData';
 
 interface CapabilityCardProps {
   capability: Capability;
-  onSelect: (capability: Capability) => void;
-  onUnselect: (capability: Capability) => void;
   selected: boolean;
+  onSelect(capability: Capability): void;
+  onUnselect(capability: Capability): void;
 }
 
 function CapabilityCard(props: CapabilityCardProps) {
@@ -29,15 +29,16 @@ function CapabilityCard(props: CapabilityCardProps) {
 interface CapabilitiesSelectorProps {
   capabilitiesData: FetchedData<Capability[]>;
   selectedCapabilities: Set<Capability>;
-  onSelect: (capability: Capability) => void;
-  onUnselect: (capability: Capability) => void;
+  onSelect(capability: Capability): void;
+  onUnselect(capability: Capability): void;
+  reload(): void;
 }
 
 function CapabilitiesSelection(props: CapabilitiesSelectorProps) {
   const {capabilitiesData, onSelect, selectedCapabilities, onUnselect } = props;
   return (
     <div className={'capabilities-selector'}>
-      <SectionLoader loading={capabilitiesData.loading} error={capabilitiesData.error}>
+      <SectionLoader loading={capabilitiesData.loading} error={capabilitiesData.error} reload={props.reload}>
         <p>Here you can choose a set of capabilities for your new application/service.</p>
         <Patternfly.ListView>
           {

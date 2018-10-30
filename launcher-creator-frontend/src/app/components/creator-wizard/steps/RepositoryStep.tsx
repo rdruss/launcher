@@ -7,7 +7,8 @@ import SectionLoader from '../../../../shared/components/loader/SectionLoader';
 import { GitRepository } from '../../../models/GitRepository';
 import GitUser from '../../../models/GitUser';
 import { FetchedData } from '../../../models/FetchedData';
-import { Select, SelectOption, TextInput } from '@patternfly/react-core';
+import { Alert, Button, Select, SelectOption, Stack, StackItem, TextInput } from '@patternfly/react-core';
+import { RebootingIcon, UserLockIcon } from '@patternfly/react-icons';
 
 const REPOSITORY_VALUE_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
 
@@ -25,6 +26,8 @@ export interface RepositoryStepProps extends StepProps<RepositoryStepContext> {
   applicationName?: string;
   gitUserData: FetchedData<GitUser>;
 
+  openAccountManagement(): void;
+
   fetchGitUser(): void;
 }
 
@@ -35,7 +38,7 @@ export interface BaseGitRepository {
 }
 
 
-function withGitHubUrl(repo: BaseGitRepository):GitRepository {
+function withGitHubUrl(repo: BaseGitRepository): GitRepository {
   return {
     ...repo,
     url: `http://www.github.com/${repo.organization || repo.owner}/${repo.name}`,
@@ -67,6 +70,7 @@ class RepositoryStep extends Component<RepositoryStepProps> {
     const {gitUserData} = this.props;
     const {organization, name} = this.props.context.repository || {name: '', organization: ''};
     const options = gitUserData.data ? [gitUserData.data.login, ...gitUserData.data.organizations] : [];
+    const isGitNotAuthorized = gitUserData.error && gitUserData.error.response && gitUserData.error.response.status === 404;
     const noop = () => {
     };
     const submit = () => this.props.submit();
@@ -77,21 +81,39 @@ class RepositoryStep extends Component<RepositoryStepProps> {
         onClick={this.props.select}
         {...this.props.status}
       >
-        <SectionLoader loading={gitUserData.loading} error={gitUserData.error}>
-          {gitUserData.data && (
-            <Select
-              onChange={this.onOrganizationChange}
-              onBlur={noop}
-              onFocus={noop}
-              value={organization || gitUserData.data.login}
-              aria-label="select-organization"
-            >
-              {options.map((option, index) => (
-                <SelectOption key={index} value={option} label={option}/>
-              ))}
-            </Select>
+        <SectionLoader loading={gitUserData.loading} error={!isGitNotAuthorized && gitUserData.error} reload={this.props.fetchGitUser}>
+          {isGitNotAuthorized && (
+            <Alert variant="warning"
+                   action={(
+                     <Stack gutter="sm">
+                       <StackItem isMain={false}>
+                         <Button variant="secondary" onClick={this.props.openAccountManagement}><UserLockIcon/>Manage identity</Button>
+                       </StackItem>
+                       <StackItem isMain={false}>
+                         <Button variant="secondary" onClick={this.props.fetchGitUser}><RebootingIcon/>Reload</Button>
+                       </StackItem>
+                     </Stack>
+                   )}>
+              It seems you did not authorize repository access. Please manage your repository identity and Reload..
+            </Alert>
           )}
-          <TextInput value={name} onChange={this.onNameChange} aria-label="select-repository"/>
+          {!isGitNotAuthorized && gitUserData.data && (
+            <React.Fragment>
+              <Select
+                onChange={this.onOrganizationChange}
+                onBlur={noop}
+                onFocus={noop}
+                value={organization || gitUserData.data.login}
+                aria-label="select-organization"
+              >
+                {options.map((option, index) => (
+                  <SelectOption key={index} value={option} label={option}/>
+                ))}
+              </Select>
+              <TextInput value={name} onChange={this.onNameChange} aria-label="select-repository"/>
+            </React.Fragment>
+          )}
+
         </SectionLoader>
         <Wizard.StepFooter>
           <Wizard.Button type={'next'} onClick={submit} disabled={!this.props.status.completed}/>
@@ -111,13 +133,13 @@ class RepositoryStep extends Component<RepositoryStepProps> {
       return;
     }
     this.updateStepContext({organization, name, owner});
-  }
+  };
 
   public onNameChange = (name) => {
     const organization = this.props.context.repository ? this.props.context.repository.organization : '';
     const owner = this.props.gitUserData.data.login;
     this.updateStepContext({name, organization, owner});
-  }
+  };
 
   private updateStepContext(baseRepo: BaseGitRepository) {
     const repository = withGitHubUrl(baseRepo);

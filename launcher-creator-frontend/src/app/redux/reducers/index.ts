@@ -3,10 +3,10 @@ import { AppState } from '../states';
 import authenticationReducer from './authenticationReducer';
 import { capabilitiesReducer } from './capabilitiesReducer';
 import { runtimesReducer } from './runtimesReducer';
-import { clustersReducer } from './gitReducer';
-import { gitUserReducer } from './clustersReducer';
 import launchReducer from './launchReducer';
 import smartWizardReducer from '../../../shared/components/smart-wizard/smartWizardReducer';
+import { clustersReducer } from './clustersReducer';
+import { gitUserReducer } from './gitReducer';
 
 const rootReducer = combineReducers<AppState>({
   authentication: authenticationReducer,
