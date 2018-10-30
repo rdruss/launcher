@@ -1,5 +1,5 @@
 import { requestsReducer } from 'redux-saga-requests';
-import { AppState } from '../states/index';
+import { AppState } from '../states';
 import { createSelector } from 'reselect';
 import GitUser from '../../models/GitUser';
 import { FetchedData } from '../../models/FetchedData';
