@@ -59,6 +59,10 @@ export class KeycloakAuthenticationApi  {
           this.initUser();
           resolve(this._user);
         });
+      this.keycloak.onTokenExpired = () => {
+        this.refreshToken()
+          .catch(e => console.error(e));
+      };
     });
   };
 
