@@ -19,7 +19,7 @@ const SectionLoader = (props: LoaderProps) => (
       <Alert variant="danger"
              action={props.reload && (<Button variant="secondary" onClick={props.reload}><RebootingIcon />Reload</Button>)}
       >
-        Holy guacamole... something weird happened, please reload the page to try again.
+        Holy guacamole... something weird happened, please reload to try again.
       </Alert>
     )}
     {props.loading && (
