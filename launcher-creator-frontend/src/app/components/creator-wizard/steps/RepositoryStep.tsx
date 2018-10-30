@@ -90,11 +90,11 @@ class RepositoryStep extends Component<RepositoryStepProps> {
                          <Button variant="secondary" onClick={this.props.openAccountManagement}><UserLockIcon/>Manage identity</Button>
                        </StackItem>
                        <StackItem isMain={false}>
-                         <Button variant="secondary" onClick={this.props.fetchGitUser}><RebootingIcon/>Reload</Button>
+                         <Button variant="secondary" onClick={this.props.fetchGitUser}><RebootingIcon/>Retry</Button>
                        </StackItem>
                      </Stack>
                    )}>
-              It seems you did not authorize repository access. Please manage your repository identity and Reload..
+              It seems you did not authorize repository access. Please manage your repository identity and Retry..
             </Alert>
           )}
           {!isGitNotAuthorized && gitUserData.data && (

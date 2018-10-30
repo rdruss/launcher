@@ -17,9 +17,9 @@ const SectionLoader = (props: LoaderProps) => (
   <div className="section-loader-wrapper">
     {!props.loading && props.error && (
       <Alert variant="danger"
-             action={props.reload && (<Button variant="secondary" onClick={props.reload}><RebootingIcon />Reload</Button>)}
+             action={props.reload && (<Button variant="secondary" onClick={props.reload}><RebootingIcon />Retry</Button>)}
       >
-        Holy guacamole... something weird happened, please reload to try again.
+        Holy guacamole... something weird happened, please try again.
       </Alert>
     )}
     {props.loading && (
