@@ -14,10 +14,10 @@ const AppRouter = ({ authenticated }: AppRouterProps) => {
       <BrowserRouter>
         <Route path="/">
           <Switch>
-            <Route path="/index" component={FrontPage} />
+            <Route path="/home" component={FrontPage} />
             <Route path="/login" component={LoginPageContainer} />
             <Redirect from="/wizard" to="/login" />
-            <Redirect from="/" to="/index" />
+            <Redirect from="/" to="/home" />
           </Switch>
         </Route>
       </BrowserRouter>
@@ -28,7 +28,7 @@ const AppRouter = ({ authenticated }: AppRouterProps) => {
       <Route path="/">
         <Switch>
           <Route exact={true} path="/wizard" component={WizardPageContainer} />
-          <Route path="/index" component={FrontPage} />
+          <Route path="/home" component={FrontPage} />
           <Redirect from="/" to="/wizard" />
         </Switch>
       </Route>
