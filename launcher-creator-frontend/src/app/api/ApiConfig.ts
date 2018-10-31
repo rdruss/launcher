@@ -5,7 +5,7 @@ import { KeycloakConfig } from './authentication/KeycloakAuthenticationApi';
 export const authenticationMode = checkNotNull(process.env.REACT_APP_AUTHENTICATION, 'process.env.REACT_APP_AUTHENTICATION');
 export const isKeycloakMode = authenticationMode === 'keycloak';
 
-export const isMockApi = checkNotNull(process.env.REACT_APP_API, 'process.env.REACT_APP_API_DRIVER') === 'mock';
+export const isMockApi = checkNotNull(process.env.REACT_APP_API, 'process.env.REACT_APP_API') === 'mock';
 
 export const keycloakConfig: KeycloakConfig | undefined = isKeycloakMode ? {
   clientId: checkNotNull(process.env.REACT_APP_KEYCLOAK_CLIENT_ID, 'process.env.REACT_APP_KEYCLOAK_CLIENT_ID'),
