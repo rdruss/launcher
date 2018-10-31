@@ -1,5 +1,5 @@
 import { AppState } from '../../../states';
-import RepositoryStep from '../../../../components/creator-wizard/steps/RepositoryStep';
+import RepositoryStep from '../../../../components/wizard/steps/RepositoryStep';
 import { getGitUserData } from '../../../reducers/gitReducer';
 import { connect } from 'react-redux';
 import { fetchActions } from '../../../actions/fetchActions';

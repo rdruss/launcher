@@ -3,7 +3,7 @@ import * as React from 'react';
 import './RuntimeStep.css';
 import Wizard from '../../../../shared/components/wizard';
 import Runtime from '../../../models/Runtime';
-import { StepProps } from '../StepProps';
+import { StepProps } from '../../../../shared/components/smart-wizard/StepProps';
 import ListSingleSelection from '../../../../shared/components/selection/ListSingleSelection';
 import SectionLoader from '../../../../shared/components/loader/SectionLoader';
 import { FetchedData } from '../../../models/FetchedData';

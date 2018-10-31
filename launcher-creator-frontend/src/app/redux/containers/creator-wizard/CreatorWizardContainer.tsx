@@ -8,9 +8,9 @@ import CapabilitiesStepContainer from './steps/CapabilitiesStepContainer';
 import DeploymentStepContainer from './steps/DeploymentStepContainer';
 import RepositoryStepContainer from './steps/RepositoryStepContainer';
 
-import NextStepsZip from '../../../components/creator-wizard/next-steps/NextStepsZip';
-import NextStepsOpenShift from '../../../components/creator-wizard/next-steps/NextStepsOpenShift';
-import ProcessingApp from '../../../components/creator-wizard/next-steps/ProcessingApp';
+import NextStepsZip from '../../../components/wizard/next-steps/NextStepsZip';
+import NextStepsOpenShift from '../../../components/wizard/next-steps/NextStepsOpenShift';
+import ProcessingApp from '../../../components/wizard/next-steps/ProcessingApp';
 import { Projectile } from '../../../models/Projectile';
 import * as _ from 'lodash';
 import SmartWizard, { Step } from '../../../../shared/components/smart-wizard/SmartWizard';

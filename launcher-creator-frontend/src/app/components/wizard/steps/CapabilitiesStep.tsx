@@ -2,7 +2,7 @@ import * as React from 'react';
 import Wizard from '../../../../shared/components/wizard';
 import CapabilitiesSelection from './CapabilitiesSelection';
 import Capability from '../../../models/Capability';
-import { StepProps } from '../StepProps';
+import { StepProps } from '../../../../shared/components/smart-wizard/StepProps';
 import { FetchedData } from '../../../models/FetchedData';
 
 export interface CapabilitiesStepContext {

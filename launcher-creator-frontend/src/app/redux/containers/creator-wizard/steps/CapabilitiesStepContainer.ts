@@ -1,7 +1,7 @@
 import { AppState } from '../../../states';
 import { getCapabilitiesDataForSelectedRuntime } from '../../../reducers/capabilitiesReducer';
 import { connect } from 'react-redux';
-import CapabilitiesStep from '../../../../components/creator-wizard/steps/CapabilitiesStep';
+import CapabilitiesStep from '../../../../components/wizard/steps/CapabilitiesStep';
 import { fetchActions } from '../../../actions/fetchActions';
 
 const mapStateToRuntimeStepProps = (state:AppState, props) => ({

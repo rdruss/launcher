@@ -1,5 +1,5 @@
 import { AppState } from '../../../states';
-import DeploymentStep from '../../../../components/creator-wizard/steps/DeploymentStep';
+import DeploymentStep from '../../../../components/wizard/steps/DeploymentStep';
 import { getConnectedClustersData } from '../../../reducers/clustersReducer';
 import { connect } from 'react-redux';
 import { fetchActions } from '../../../actions/fetchActions';
