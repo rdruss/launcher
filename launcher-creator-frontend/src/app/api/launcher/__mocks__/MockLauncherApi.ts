@@ -1,5 +1,4 @@
-import { Subject, timer } from 'rxjs';
-import { LauncherApi, StatusMessage } from '../LauncherApi';
+import { LauncherApi, StatusListener } from '../LauncherApi';
 
 
 const progressDef = {
@@ -31,20 +30,18 @@ const progressDef = {
 };
 
 export default class MockLauncherApi implements LauncherApi {
-  public listenToLaunchStatus = (id: string): Subject<StatusMessage> => {
+  public listenToLaunchStatus = (id: string, listener: StatusListener) => {
     const progress = progressDef[id];
-    const progressSubject = new Subject();
     let i = 0;
-    progressSubject.next(progress.map(p => p.statusMessage));
-    timer(0, 2500)
-      .subscribe(value => {
+    listener.onMessage(progress.map(p => p.statusMessage));
+    const interval = setInterval(value => {
         if (i < progress.length) {
-          progressSubject.next(progress[i++]);
+          listener.onMessage(progress[i++]);
         } else {
-          progressSubject.complete();
+          clearInterval(interval);
+          listener.onComplete();
         }
-      });
-    return progressSubject;
+      }, 2500);
   }
 
 }
