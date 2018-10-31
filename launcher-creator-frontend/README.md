@@ -74,4 +74,12 @@ $ yarn serve
 ## Patternfly doc
 http://patternfly-react.surge.sh/patternfly-4/components/
 
+## Code directory structure
+
+The app is stuctured in 4 directories:
+- `src/shared`: our own libraries (that are generic and could be in other repo)
+-  `src/app/api`: our apis (no redux, no react only services to access the backend)
+-  `src/app/components`: our app components (only react no redux at all)
+-  `src/app/redux`:  the binding between the components and the api + the app state
+
 
