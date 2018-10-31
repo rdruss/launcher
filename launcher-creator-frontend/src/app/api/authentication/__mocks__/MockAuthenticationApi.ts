@@ -11,6 +11,9 @@ const mockUser: User = {
 export default class MockAuthenticationApi implements AuthenticationApi {
   private _user: OptionalUser;
   public init = (): Promise<OptionalUser> => {
+    if (JSON.parse(sessionStorage.getItem('mock-auth') || 'false')) {
+      this.login();
+    }
     return Promise.resolve(this._user);
   }
 
@@ -21,10 +24,12 @@ export default class MockAuthenticationApi implements AuthenticationApi {
 
   public login= (): void => {
     this._user = mockUser;
+    sessionStorage.setItem('mock-auth', JSON.stringify(true));
   }
 
   public logout = (): void => {
     this._user = undefined;
+    sessionStorage.setItem('mock-auth', JSON.stringify(false));
   }
 
   public openAccountManagement = (): void => {
