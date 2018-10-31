@@ -6,7 +6,7 @@ export default class AxiosCreatorApi implements CreatorApi {
   constructor(private axios: AxiosInstance) {
   }
 
-  public zip(payload: ZipPayload, { authorizationToken }): Promise<ZipOutput> {
+  public zip = (payload: ZipPayload, { authorizationToken }): Promise<ZipOutput> => {
     const config = {
       headers: {
         'Authorization': `Bearer ${authorizationToken}`,
@@ -17,7 +17,7 @@ export default class AxiosCreatorApi implements CreatorApi {
     }));
   }
 
-  public launch(payload: LaunchPayload, { authorizationToken }): Promise<LaunchOutput> {
+  public launch = (payload: LaunchPayload, { authorizationToken }): Promise<LaunchOutput> => {
     const config = {
       headers: {
         'Authorization': `Bearer ${authorizationToken}`,

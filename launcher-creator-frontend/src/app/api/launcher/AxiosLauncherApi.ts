@@ -24,7 +24,7 @@ export default class AxiosLauncherApi implements LauncherApi {
 
   constructor(private axios: AxiosInstance) {}
 
-  public listenToLaunchStatus(id: string): Subject<StatusMessage> {
+  public listenToLaunchStatus = (id: string): Subject<StatusMessage> => {
     const progressMessages = new Subject<MessageEvent>();
     const socket = new WebSocket(createBackendWebsocketUrl(this.axios.defaults.baseURL) + id);
     socket.onmessage = progressMessages.next;

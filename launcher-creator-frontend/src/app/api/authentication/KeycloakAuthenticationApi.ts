@@ -3,16 +3,8 @@ import * as _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import * as Keycloak from 'keycloak-js';
 import { checkNotNull } from '../../../shared/utils/Preconditions';
+import { AuthenticationApi, OptionalUser } from './AuthenticationApi';
 
-export class User {
-  public token: string;
-  public accountLink: object;
-  public userName: string;
-  public userPreferredName: string;
-  public sessionState: string;
-}
-
-export type OptionalUser = User | undefined;
 
 class StoredData {
   public readonly token: string;
@@ -21,13 +13,12 @@ class StoredData {
 }
 
 export class KeycloakConfig {
-  public enabled: boolean;
-  public clientId?: string;
-  public realm?: string;
-  public url?: string;
+  public clientId: string;
+  public realm: string;
+  public url: string;
 }
 
-export class KeycloakAuthenticationApi  {
+export class KeycloakAuthenticationApi implements AuthenticationApi {
 
   private _user: OptionalUser;
 
@@ -37,23 +28,16 @@ export class KeycloakAuthenticationApi  {
       .replace(/\//g, '_');
   }
 
-  private readonly keycloak?: Keycloak.KeycloakInstance;
+  private readonly keycloak: Keycloak.KeycloakInstance;
 
   constructor(private config: KeycloakConfig, keycloakCoreFactory = Keycloak) {
-    if(config.enabled) {
-      this.keycloak = keycloakCoreFactory(config);
-    }
+    this.keycloak = keycloakCoreFactory(config);
   }
 
   public init = (): Promise<OptionalUser> => {
     return new Promise((resolve, reject) => {
-      if (!this.keycloak) {
-        this.initUser();
-        resolve(this._user);
-        return;
-      }
       const sessionKC = KeycloakAuthenticationApi.getStoredData();
-      this.keycloak.init({ ...sessionKC })
+      this.keycloak.init({...sessionKC})
         .error((e) => reject(e))
         .success(() => {
           this.initUser();
@@ -71,24 +55,15 @@ export class KeycloakAuthenticationApi  {
   }
 
   public login = () => {
-    if (!this.keycloak) {
-      throw new Error('KC is not enabled.');
-    }
     this.keycloak.login();
   };
 
   public logout = () => {
-    if (!this.keycloak) {
-      throw new Error('KC is not enabled.');
-    }
     KeycloakAuthenticationApi.clearStoredData();
     this.keycloak.logout();
   };
 
   public openAccountManagement = () => {
-    if (!this.keycloak) {
-      throw new Error('KC is not enabled.');
-    }
     if (!this._user) {
       throw new Error('User is not connected.');
     }
@@ -97,10 +72,6 @@ export class KeycloakAuthenticationApi  {
 
   public refreshToken = (): Promise<OptionalUser> => {
     return new Promise((resolve, reject) => {
-      if (!this.keycloak) {
-        this.initUser();
-        return resolve(this.user);
-      }
       if (this._user) {
         this.keycloak.updateToken(5)
           .success(() => {
@@ -118,9 +89,6 @@ export class KeycloakAuthenticationApi  {
   };
 
   public linkAccount = (provider: string, redirect?: string): string | undefined => {
-    if (!this.keycloak) {
-      throw new Error('KC is not enabled.');
-    }
     if (!this.user) {
       return undefined;
     }

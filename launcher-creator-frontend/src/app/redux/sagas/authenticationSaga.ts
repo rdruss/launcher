@@ -1,26 +1,11 @@
 import { call, put, takeEvery, throttle } from 'redux-saga/effects';
 
-import { AuthenticationAction } from '../actions/authenticationActions';
-import { KeycloakAuthenticationApi, KeycloakConfig, OptionalUser } from '../../api/authentication/KeycloakAuthenticationApi';
-import { checkNotNull } from '../../../shared/utils/Preconditions';
-import { authenticationAction } from '../actions/authenticationActions';
-
-let config: KeycloakConfig;
-if (process.env.REACT_APP_KEYCLOAK_CLIENT_ID) {
-  config = {
-    enabled: true,
-    clientId: checkNotNull(process.env.REACT_APP_KEYCLOAK_CLIENT_ID, 'process.env.REACT_APP_KEYCLOAK_CLIENT_ID'),
-    realm: checkNotNull(process.env.REACT_APP_KEYCLOAK_REALM, 'process.env.REACT_APP_KEYCLOAK_REALM'),
-    url: checkNotNull(process.env.REACT_APP_KEYCLOAK_URL, 'process.env.REACT_APP_KEYCLOAK_URL'),
-  };
-} else {
-  config = {
-    enabled: false,
-  };
-}
+import { AuthenticationAction, authenticationAction } from '../actions/authenticationActions';
+import { newKeycloakAuthenticationApi } from '../../api';
+import { OptionalUser } from '../../api/authentication/AuthenticationApi';
 
 
-const keycloakService = new KeycloakAuthenticationApi(config);
+const keycloakService = newKeycloakAuthenticationApi();
 
 function* authenticationRequest(action) {
   try {
@@ -51,6 +36,7 @@ export function* refreshTokenRequest(action) {
 function* loginRequest(action) {
   try {
     yield call(keycloakService.login, action.payload);
+    yield put(authenticationAction.authenticate());
   } catch (e) {
     yield put(authenticationAction.authenticationFailure(e));
   }
@@ -67,6 +53,7 @@ function* openAccountManagementRequest(action) {
 function* logoutRequest(action) {
   try {
     yield call(keycloakService.logout, action.payload);
+    yield put(authenticationAction.authenticate());
   } catch (e) {
     console.error(e);
   }

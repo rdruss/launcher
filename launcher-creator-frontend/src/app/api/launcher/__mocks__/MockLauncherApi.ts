@@ -31,7 +31,7 @@ const progressDef = {
 };
 
 export default class MockLauncherApi implements LauncherApi {
-  public listenToLaunchStatus(id: string): Subject<StatusMessage> {
+  public listenToLaunchStatus = (id: string): Subject<StatusMessage> => {
     const progress = progressDef[id];
     const progressSubject = new Subject();
     let i = 0;

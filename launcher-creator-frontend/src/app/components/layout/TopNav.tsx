@@ -15,7 +15,6 @@ interface TopNavProps {
 const TopNav = (props: TopNavProps) => (
   <Masthead
     iconImg={logo}
-    title="Launcher Creator"
     href="/"
     navToggle={false}
   >

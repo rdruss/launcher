@@ -1,16 +1,17 @@
 import axios from 'axios';
-import { KeycloakAuthenticationApi, KeycloakConfig } from './authentication/KeycloakAuthenticationApi';
-import { creatorApiUrl, isMockApi, launcherApiUrl } from './ApiConfig';
+import { KeycloakAuthenticationApi } from './authentication/KeycloakAuthenticationApi';
+import { creatorApiUrl, isMockApi, isMockAuthorization, keycloakConfig, launcherApiUrl } from './ApiConfig';
 import { MockCreatorApi } from './creator/__mocks__/MockCreatorApi';
 import AxiosCreatorApi from './creator/AxiosCreatorApi';
 import MockLauncherApi from './launcher/__mocks__/MockLauncherApi';
 import AxiosLauncherApi from './launcher/AxiosLauncherApi';
 import { LauncherApi } from './launcher/LauncherApi';
 import { CreatorApi } from './creator/CreatorApi';
+import MockAuthenticationApi from './authentication/__mocks__/MockAuthenticationApi';
 
 
-export function newKeycloakAuthenticationApi(config: KeycloakConfig) {
-  return new KeycloakAuthenticationApi(config);
+export function newKeycloakAuthenticationApi() {
+  return isMockAuthorization ? new MockAuthenticationApi() : new KeycloakAuthenticationApi(keycloakConfig);
 }
 
 export const creatorApiAxios = axios.create({
