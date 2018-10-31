@@ -1,7 +1,7 @@
 import { call, put, takeEvery, throttle } from 'redux-saga/effects';
 
 import { AuthenticationAction } from '../actions/authenticationActions';
-import { KeycloakAuthenticationApi, KeycloakConfig, OptionalUser } from '../../api/KeycloakAuthenticationApi';
+import { KeycloakAuthenticationApi, KeycloakConfig, OptionalUser } from '../../api/authentication/KeycloakAuthenticationApi';
 import { checkNotNull } from '../../../shared/utils/Preconditions';
 import { authenticationAction } from '../actions/authenticationActions';
 

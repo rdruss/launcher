@@ -71,8 +71,6 @@ class RepositoryStep extends Component<RepositoryStepProps> {
     const {organization, name} = this.props.context.repository || {name: '', organization: ''};
     const options = gitUserData.data ? [gitUserData.data.login, ...gitUserData.data.organizations] : [];
     const isGitNotAuthorized = gitUserData.error && gitUserData.error.response && gitUserData.error.response.status === 404;
-    const noop = () => {
-    };
     const submit = () => this.props.submit();
     return (
       <Wizard.Step
@@ -101,8 +99,6 @@ class RepositoryStep extends Component<RepositoryStepProps> {
             <React.Fragment>
               <Select
                 onChange={this.onOrganizationChange}
-                onBlur={noop}
-                onFocus={noop}
                 value={organization || gitUserData.data.login}
                 aria-label="select-organization"
               >

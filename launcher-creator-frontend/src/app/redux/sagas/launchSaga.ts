@@ -1,14 +1,12 @@
 import { call, put, select } from '../../../../node_modules/redux-saga/effects';
 import { getToken } from '../reducers/authenticationReducer';
-import * as creatorApi from '../../api/CreatorApi';
-import * as mockCreatorApi from '../../api/mocks/MockCreatorApi';
-import { checkNotNull } from '../../../shared/utils/Preconditions';
 import { Projectile } from '../../models/Projectile';
 import { takeLatest } from 'redux-saga/effects';
 import { authenticationAction } from '../actions/authenticationActions';
 import { launchActions, LaunchActions } from '../actions/launchActions';
+import { newCreatorApi } from '../../api';
 
-const creator = checkNotNull(process.env.REACT_APP_API_DRIVER, 'process.env.REACT_APP_API_DRIVER') === 'mock' ? mockCreatorApi : creatorApi;
+const creatorApi = newCreatorApi();
 
 interface LaunchProjectileAction {
   payload: {
@@ -25,14 +23,14 @@ function* submitWizard(action) {
     let result;
     switch (target) {
       case 'zip':
-        result = yield call(creator.zip, {
+        result = yield call(creatorApi.zip, {
           name: projectile.name,
           runtime: projectile.runtime,
           capabilities: (projectile.capabilities || []).map(c => ({ module: c.module })),
         }, { authorizationToken });
         break;
       case 'launch':
-        result = yield call(creator.launch, {
+        result = yield call(creatorApi.launch, {
           name: projectile.name,
           runtime: projectile.runtime,
           capabilities: (projectile.capabilities || []).map(c => ({ module: c.module })),
