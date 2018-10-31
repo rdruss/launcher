@@ -9,7 +9,7 @@ export const isMockApi = checkNotNull(process.env.REACT_APP_API, 'process.env.RE
 
 export const keycloakConfig: KeycloakConfig | undefined = isKeycloakMode ? {
   clientId: checkNotNull(process.env.REACT_APP_KEYCLOAK_CLIENT_ID, 'process.env.REACT_APP_KEYCLOAK_CLIENT_ID'),
-  realm: checkNotNull(process.env.REACT_APP_KEYCLOAK_REAL, 'process.env.REACT_APP_KEYCLOAK_REALM'),
+  realm: checkNotNull(process.env.REACT_APP_KEYCLOAK_REALM, 'process.env.REACT_APP_KEYCLOAK_REALM'),
   url: checkNotNull(process.env.REACT_APP_KEYCLOAK_URL, 'process.env.REACT_APP_KEYCLOAK_URL'),
 }: undefined;
 

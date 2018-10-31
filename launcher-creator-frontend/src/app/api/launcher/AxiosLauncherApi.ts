@@ -1,7 +1,6 @@
-import { Subject } from 'rxjs';
 import { AxiosInstance } from 'axios';
 import { checkNotNull } from '../../../shared/utils/Preconditions';
-import { LauncherApi, StatusMessage } from './LauncherApi';
+import { LauncherApi, StatusListener } from './LauncherApi';
 
 
 function createBackendWebsocketUrl(backendApiUrl?: string) {
@@ -24,12 +23,10 @@ export default class AxiosLauncherApi implements LauncherApi {
 
   constructor(private axios: AxiosInstance) {}
 
-  public listenToLaunchStatus = (id: string): Subject<StatusMessage> => {
-    const progressMessages = new Subject<MessageEvent>();
+  public listenToLaunchStatus = (id: string, listener: StatusListener) => {
     const socket = new WebSocket(createBackendWebsocketUrl(this.axios.defaults.baseURL) + id);
-    socket.onmessage = progressMessages.next;
-    socket.onerror = progressMessages.error;
-    socket.onclose = progressMessages.complete;
-    return progressMessages;
+    socket.onmessage = (msg) => listener.onMessage(msg);
+    socket.onerror = listener.onError;
+    socket.onclose = listener.onComplete;
   }
 }

@@ -1,9 +1,13 @@
-import { Subject } from 'rxjs';
+export interface StatusListener {
+  onMessage(message: StatusMessage);
+  onError(error: any);
+  onComplete();
+}
 
 export interface StatusMessage {
 
 }
 
 export interface LauncherApi {
-  listenToLaunchStatus(id: string): Subject<StatusMessage>;
+  listenToLaunchStatus(id: string, listener: StatusListener);
 }

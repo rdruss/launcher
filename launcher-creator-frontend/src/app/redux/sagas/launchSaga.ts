@@ -1,7 +1,6 @@
-import { call, put, select } from '../../../../node_modules/redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { getToken } from '../reducers/authenticationReducer';
 import { Projectile } from '../../models/Projectile';
-import { takeLatest } from 'redux-saga/effects';
 import { authenticationAction } from '../actions/authenticationActions';
 import { launchActions, LaunchActions } from '../actions/launchActions';
 import { newCreatorApi } from '../../api';

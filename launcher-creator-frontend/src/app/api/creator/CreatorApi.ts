@@ -19,6 +19,7 @@ export interface LaunchPayload {
 }
 
 export interface LaunchOutput {
+  id: string;
 }
 
 export interface CreatorApi {
