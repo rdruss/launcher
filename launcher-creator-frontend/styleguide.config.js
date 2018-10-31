@@ -10,11 +10,11 @@ module.exports = {
     sections: [
         {
             name: 'Generic Components',
-            components: 'src/components/**/*.tsx',
+            components: 'src/shared/components/**/*.tsx',
         },
         {
             name: 'Creator Components',
-            components: 'src/app/components/creator-wizard/**/*.tsx',
+            components: 'src/app/components/wizard/**/*.tsx',
         }
     ],
 };
