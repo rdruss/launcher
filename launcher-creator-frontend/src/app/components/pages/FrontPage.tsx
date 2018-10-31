@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Button, Card, CardBody, CardHeader, CardFooter } from '@patternfly/react-core';
+import { Card, CardBody, CardHeader, CardFooter } from '@patternfly/react-core';
+import { Link } from 'react-router-dom';
 import MainLayoutContainer from '../layout/MainLayoutContainer';
 import './FrontPage.css';
 import { CaretRightIcon } from '@patternfly/react-icons';
@@ -12,7 +13,7 @@ export default function FrontPage() {
                     <h1>launch</h1>
                     <h2>Continuous application delivery,</h2>
                     <h2>built and deployed on OpenShift.</h2>
-                    <Button className="launch" component="a" href="/wizard">Launch your Project</Button>
+                    <Link className="btn launch" to="wizard">Launch your Project</Link>
                 </div>
             </section>
             <section id="runtimes">
