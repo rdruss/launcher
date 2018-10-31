@@ -7,7 +7,7 @@ export default function HomePage() {
   return (
     <MainLayoutContainer>
       <div className="container">
-        <h1>Your are creating a new application/service</h1>
+        <h1>You are creating a new application</h1>
         <CreatorWizardContainer/>
       </div>
     </MainLayoutContainer>
