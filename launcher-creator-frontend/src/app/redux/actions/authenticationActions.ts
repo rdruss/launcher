@@ -1,6 +1,7 @@
 import { action } from '../../../shared/utils/Actions';
 
 export enum AuthenticationAction {
+  DISABLE = 'AUTHENTICATION_DISABLE',
   AUTHENTICATE = 'AUTHENTICATE',
   USER_CONNECTED = 'AUTHENTICATION_USER_CONNECTED',
   USER_NOT_CONNECTED = 'AUTHENTICATION_USER_NOT_CONNECTED',
@@ -12,6 +13,7 @@ export enum AuthenticationAction {
 }
 
 export const authenticationAction = {
+  disable: () => action(AuthenticationAction.DISABLE, {}),
   authenticate: () => action(AuthenticationAction.AUTHENTICATE, {}),
   login: () => action(AuthenticationAction.LOGIN, {}),
   userConnected: (response) => action(AuthenticationAction.USER_CONNECTED, {response}),

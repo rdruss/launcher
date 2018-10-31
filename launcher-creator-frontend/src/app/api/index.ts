@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { KeycloakAuthenticationApi } from './authentication/KeycloakAuthenticationApi';
-import { creatorApiUrl, isMockApi, isMockAuthorization, keycloakConfig, launcherApiUrl } from './ApiConfig';
+import { authenticationMode, creatorApiUrl, isMockApi, keycloakConfig, launcherApiUrl } from './ApiConfig';
 import { MockCreatorApi } from './creator/__mocks__/MockCreatorApi';
 import AxiosCreatorApi from './creator/AxiosCreatorApi';
 import MockLauncherApi from './launcher/__mocks__/MockLauncherApi';
@@ -8,10 +8,20 @@ import AxiosLauncherApi from './launcher/AxiosLauncherApi';
 import { LauncherApi } from './launcher/LauncherApi';
 import { CreatorApi } from './creator/CreatorApi';
 import MockAuthenticationApi from './authentication/__mocks__/MockAuthenticationApi';
+import NoAuthenticationApi from './authentication/NoAuthenticationApi';
 
 
 export function newKeycloakAuthenticationApi() {
-  return isMockAuthorization ? new MockAuthenticationApi() : new KeycloakAuthenticationApi(keycloakConfig);
+  switch (authenticationMode) {
+    case 'no':
+      return new NoAuthenticationApi();
+    case 'mock':
+      return new MockAuthenticationApi();
+    case 'keycloak':
+      return new KeycloakAuthenticationApi(keycloakConfig!);
+    default:
+      throw new Error(`Invalid authentication mode: ${authenticationMode}`);
+  }
 }
 
 export const creatorApiAxios = axios.create({

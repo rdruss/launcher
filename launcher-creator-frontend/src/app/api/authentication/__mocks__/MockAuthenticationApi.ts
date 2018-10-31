@@ -38,4 +38,8 @@ export default class MockAuthenticationApi implements AuthenticationApi {
   public get user() {
     return this._user;
   }
+
+  public get enabled(): boolean {
+    return true;
+  }
 }

@@ -5,11 +5,11 @@ import { newKeycloakAuthenticationApi } from '../../api';
 import { OptionalUser } from '../../api/authentication/AuthenticationApi';
 
 
-const keycloakService = newKeycloakAuthenticationApi();
+const authenticationApi = newKeycloakAuthenticationApi();
 
 function* authenticationRequest(action) {
   try {
-    const user: OptionalUser = yield call(keycloakService.init, action.payload);
+    const user: OptionalUser = yield call(authenticationApi.init, action.payload);
     if (user) {
       yield put(authenticationAction.userConnected(user));
     } else {
@@ -22,7 +22,7 @@ function* authenticationRequest(action) {
 
 export function* refreshTokenRequest(action) {
   try {
-    const user: OptionalUser = yield call(keycloakService.refreshToken, action.payload);
+    const user: OptionalUser = yield call(authenticationApi.refreshToken, action.payload);
     if (user) {
       yield put(authenticationAction.userConnected(user));
     } else {
@@ -35,7 +35,7 @@ export function* refreshTokenRequest(action) {
 
 function* loginRequest(action) {
   try {
-    yield call(keycloakService.login, action.payload);
+    yield call(authenticationApi.login, action.payload);
     yield put(authenticationAction.authenticate());
   } catch (e) {
     yield put(authenticationAction.authenticationFailure(e));
@@ -44,7 +44,7 @@ function* loginRequest(action) {
 
 function* openAccountManagementRequest(action) {
   try {
-    yield call(keycloakService.openAccountManagement, action.payload);
+    yield call(authenticationApi.openAccountManagement, action.payload);
   } catch (e) {
     console.error(e);
   }
@@ -52,7 +52,7 @@ function* openAccountManagementRequest(action) {
 
 function* logoutRequest(action) {
   try {
-    yield call(keycloakService.logout, action.payload);
+    yield call(authenticationApi.logout, action.payload);
     yield put(authenticationAction.authenticate());
   } catch (e) {
     console.error(e);
@@ -60,6 +60,10 @@ function* logoutRequest(action) {
 }
 
 export default function* authenticationSaga() {
+  if(!authenticationApi.enabled) {
+    yield put(authenticationAction.disable());
+    return;
+  }
   yield takeEvery(AuthenticationAction.AUTHENTICATE, authenticationRequest);
   yield takeEvery(AuthenticationAction.OPEN_ACCOUNT_MANAGEMENT, openAccountManagementRequest);
   yield throttle(10000, AuthenticationAction.REFRESH_TOKEN, refreshTokenRequest);

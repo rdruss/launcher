@@ -33,8 +33,9 @@ $ yarn install
 $ yarn start:local-api
 ```
 
-By default KeyCloak authentication will be disabled in this mode. If you want to use KeyCloak set the following environment vars:
+By default authentication will be disabled in this mode. If you want to use KeyCloak set the following environment vars:
 ```
+REACT_APP_AUTHENTICATION=keycloak
 REACT_APP_KEYCLOAK_CLIENT_ID=<clientId>
 REACT_APP_KEYCLOAK_REALM=<realm>
 REACT_APP_KEYCLOAK_URL=<url>

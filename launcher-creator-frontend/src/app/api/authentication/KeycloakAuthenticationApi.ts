@@ -135,6 +135,10 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
     }
   }
 
+  public get enabled(): boolean {
+    return true;
+  }
+
   private static clearStoredData() {
     localStorage.removeItem('kc');
   }

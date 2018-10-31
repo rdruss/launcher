@@ -4,6 +4,7 @@ import { authenticationAction } from '../../redux/actions/authenticationActions'
 import MainLayout from './MainLayout';
 
 const mapStateToProps = (state: AppState) => ({
+  authenticationEnabled: state.authentication.enabled,
   authenticated: state.authentication.authenticated,
   userName: state.authentication.userName,
   inProgress: state.authentication.inProgress

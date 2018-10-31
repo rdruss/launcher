@@ -10,6 +10,7 @@ export type OptionalUser = User | undefined;
 
 export interface AuthenticationApi {
   readonly user: OptionalUser;
+  readonly enabled: boolean;
   init(): Promise<OptionalUser>;
   login(): void;
   logout(): void;

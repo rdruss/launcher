@@ -6,8 +6,8 @@ import { StepProps } from '../../../../shared/components/smart-wizard/StepProps'
 import OpenShiftCluster from '../../../models/OpenShiftCluster';
 import SectionLoader from '../../../../shared/components/loader/SectionLoader';
 import { FetchedData } from '../../../models/FetchedData';
-import { Alert, Button, Select, SelectOption, Stack, StackItem } from '@patternfly/react-core';
-import { RebootingIcon, UserLockIcon } from '@patternfly/react-icons';
+import { Select, SelectOption } from '@patternfly/react-core';
+import { AuthorizationWarning } from '../../AuthorizationWarning';
 
 
 export interface DeploymentStepContext {
@@ -16,10 +16,11 @@ export interface DeploymentStepContext {
 
 export interface DeploymentStepProps extends StepProps<DeploymentStepContext> {
   clustersData: FetchedData<OpenShiftCluster[]>;
-
+  authentication: {
+    authenticationEnabled: boolean;
+    openAccountManagement(): void;
+  };
   fetchClusters(): void;
-
-  openAccountManagement(): void;
 }
 
 class DeploymentStep extends Component<DeploymentStepProps> {
@@ -66,19 +67,9 @@ class DeploymentStep extends Component<DeploymentStepProps> {
             </Select>
           )}
           {clustersData.data.length === 0 && (
-            <Alert variant="warning"
-                   action={(
-                     <Stack gutter="sm">
-                       <StackItem isMain={false}>
-                         <Button variant="secondary" onClick={this.props.openAccountManagement}><UserLockIcon/>Manage identity</Button>
-                       </StackItem>
-                       <StackItem isMain={false}>
-                         <Button variant="secondary" onClick={this.props.fetchClusters}><RebootingIcon/>Retry</Button>
-                       </StackItem>
-                     </Stack>
-                   )}>
-              It seems you did not authorize any OpenShift cluster access. Please manage your repository identity and Retry..
-            </Alert>
+            <AuthorizationWarning {...this.props.authentication}
+                                  name="OpenShift cluster"
+                                  retry={this.props.fetchClusters}/>
           )}
         </SectionLoader>
         <Wizard.StepFooter>

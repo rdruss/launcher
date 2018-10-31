@@ -5,6 +5,7 @@ import SectionLoader from '../../../shared/components/loader/SectionLoader';
 interface MainLayoutProps {
   inProgress: boolean;
   authenticated: boolean;
+  authenticationEnabled: boolean;
   userName: string;
   logout: () => {};
   openAccountManagement: () => void;

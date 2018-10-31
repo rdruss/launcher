@@ -6,6 +6,7 @@ import { SignOutAltIcon, UserLockIcon } from '@patternfly/react-icons';
 
 interface TopNavProps {
   inProgress: boolean;
+  authenticationEnabled: boolean;
   authenticated: boolean;
   userName: string;
   logout: () => void;
@@ -20,7 +21,7 @@ const TopNav = (props: TopNavProps) => (
   >
     <Masthead.Collapse>
       <Spinner loading={props.inProgress}>
-        {props.authenticated && (
+        {props.authenticationEnabled && props.authenticated && (
           <Masthead.Dropdown
             id="app-user-dropdown"
             title={[

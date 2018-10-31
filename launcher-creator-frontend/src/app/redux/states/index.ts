@@ -21,6 +21,7 @@ export interface LaunchState {
 }
 
 export interface AuthenticationState {
+  enabled: boolean;
   token?: string;
   userName?: string;
   userPreferredName?: string;

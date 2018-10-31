@@ -7,8 +7,8 @@ import SectionLoader from '../../../../shared/components/loader/SectionLoader';
 import { GitRepository } from '../../../models/GitRepository';
 import GitUser from '../../../models/GitUser';
 import { FetchedData } from '../../../models/FetchedData';
-import { Alert, Button, Select, SelectOption, Stack, StackItem, TextInput } from '@patternfly/react-core';
-import { RebootingIcon, UserLockIcon } from '@patternfly/react-icons';
+import { Select, SelectOption, TextInput } from '@patternfly/react-core';
+import { AuthorizationWarning } from '../../AuthorizationWarning';
 
 const REPOSITORY_VALUE_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
 
@@ -25,9 +25,10 @@ export interface RepositoryStepContext {
 export interface RepositoryStepProps extends StepProps<RepositoryStepContext> {
   applicationName?: string;
   gitUserData: FetchedData<GitUser>;
-
-  openAccountManagement(): void;
-
+  authentication: {
+    authenticationEnabled: boolean;
+    openAccountManagement(): void;
+  };
   fetchGitUser(): void;
 }
 
@@ -81,19 +82,10 @@ class RepositoryStep extends Component<RepositoryStepProps> {
       >
         <SectionLoader loading={gitUserData.loading} error={!isGitNotAuthorized && gitUserData.error} reload={this.props.fetchGitUser}>
           {isGitNotAuthorized && (
-            <Alert variant="warning"
-                   action={(
-                     <Stack gutter="sm">
-                       <StackItem isMain={false}>
-                         <Button variant="secondary" onClick={this.props.openAccountManagement}><UserLockIcon/>Manage identity</Button>
-                       </StackItem>
-                       <StackItem isMain={false}>
-                         <Button variant="secondary" onClick={this.props.fetchGitUser}><RebootingIcon/>Retry</Button>
-                       </StackItem>
-                     </Stack>
-                   )}>
-              It seems you did not authorize repository access. Please manage your repository identity and Retry..
-            </Alert>
+            <AuthorizationWarning {...this.props.authentication}
+                                  name="repository access"
+                                  retry={this.props.fetchGitUser}
+            />
           )}
           {!isGitNotAuthorized && gitUserData.data && (
             <React.Fragment>
