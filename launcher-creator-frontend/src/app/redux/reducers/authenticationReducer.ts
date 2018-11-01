@@ -20,6 +20,7 @@ const authenticationReducer = (state: AuthenticationState = INITIAL_STATE, actio
       return Object.assign({}, INITIAL_STATE, {
         authenticated: true,
         enabled: false,
+        token: action.token,
       });
     case AuthenticationAction.AUTHENTICATE:
     case AuthenticationAction.LOGIN:

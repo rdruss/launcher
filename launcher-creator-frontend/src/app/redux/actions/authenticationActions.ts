@@ -13,7 +13,7 @@ export enum AuthenticationAction {
 }
 
 export const authenticationAction = {
-  disable: () => action(AuthenticationAction.DISABLE, {}),
+  disable: (token) => action(AuthenticationAction.DISABLE, {token}),
   authenticate: () => action(AuthenticationAction.AUTHENTICATE, {}),
   login: () => action(AuthenticationAction.LOGIN, {}),
   userConnected: (response) => action(AuthenticationAction.USER_CONNECTED, {response}),

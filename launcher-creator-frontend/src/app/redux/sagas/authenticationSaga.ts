@@ -61,7 +61,7 @@ function* logoutRequest(action) {
 
 export default function* authenticationSaga() {
   if(!authenticationApi.enabled) {
-    yield put(authenticationAction.disable());
+    yield put(authenticationAction.disable(authenticationApi.user!.token));
     return;
   }
   yield takeEvery(AuthenticationAction.AUTHENTICATE, authenticationRequest);
