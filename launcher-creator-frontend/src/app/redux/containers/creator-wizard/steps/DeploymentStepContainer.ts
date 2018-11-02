@@ -8,14 +8,14 @@ import { getAuthenticationState } from '../../../reducers/authenticationReducer'
 
 const mapStateToRuntimeStepProps = (state:AppState, props) => ({
   clustersData: getConnectedClustersData(state),
-  authorization: {
-    authorizationEnabled: getAuthenticationState(state).enabled,
+  authentication: {
+    authenticationEnabled: getAuthenticationState(state).enabled,
   }
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchClusters: () => dispatch(fetchActions.fetchClusters()),
-  authorization: {
+  authentication: {
     openAccountManagement: () => dispatch(authenticationAction.openAccountManagement()),
   },
 });
@@ -24,9 +24,9 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
   ...dispatchProps,
-  authorization: {
-    ...stateProps.authorization,
-    ...dispatchProps.authorization,
+  authentication: {
+    ...stateProps.authentication,
+    ...dispatchProps.authentication,
   }
 });
 

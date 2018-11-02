@@ -23,7 +23,11 @@ export default class AxiosCreatorApi implements CreatorApi {
         'Authorization': `Bearer ${authorizationToken}`,
       },
     };
-    return this.axios.post<{id: string}>('/launch', payload, config).then(r => r.data);
+    return this.axios.post<{uuid_link: string, events: []}>('/launch', payload, config)
+      .then(r => ({
+        id: r.data.uuid_link,
+        events: r.data.events,
+      }));
   }
 
 }

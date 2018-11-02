@@ -47,6 +47,8 @@ interface CreatorWizardProps {
   submission: {
     payload?: any;
     loading: boolean;
+    progressEvents?: [];
+    progressEventsResults?: [];
     completed: boolean;
     error?: string;
     result?: any;
@@ -90,7 +92,9 @@ class CreatorWizard extends Component<CreatorWizardProps> {
           submit={this.props.launchProjectile}
           buildProjectile={buildProjectile}
         />
-        <ProcessingApp isOpen={this.props.submission.loading}/>
+        <ProcessingApp isOpen={this.props.submission.loading}
+                       progressEvents={this.props.submission.progressEvents}
+                       progressEventsResults={this.props.submission.progressEventsResults}/>
         <NextStepsZip
           isOpen={this.props.submission.completed && this.props.submission.payload.target === 'zip'}
           error={Boolean(this.props.submission.error)}
@@ -99,7 +103,7 @@ class CreatorWizard extends Component<CreatorWizardProps> {
         />
         <NextStepsOpenShift
           isOpen={this.props.submission.completed && this.props.submission.payload.target === 'launch'}
-          error={Boolean(this.props.submission.error)}
+          error={this.props.submission.error}
           deploymentLink={this.props.submission.payload && this.props.submission.payload.projectile.deploymentLink}
           repositoryLink={this.props.submission.payload && this.props.submission.payload.projectile.repositoryLink}
           landingPageLink={this.props.submission.payload && this.props.submission.payload.projectile.deploymentLink}

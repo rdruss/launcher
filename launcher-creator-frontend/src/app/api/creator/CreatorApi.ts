@@ -20,6 +20,7 @@ export interface LaunchPayload {
 
 export interface LaunchOutput {
   id: string;
+  events: Array<{name: string, message: string}>;
 }
 
 export interface CreatorApi {

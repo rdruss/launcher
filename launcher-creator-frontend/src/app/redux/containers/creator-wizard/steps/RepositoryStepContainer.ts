@@ -9,14 +9,14 @@ import { getAuthenticationState } from '../../../reducers/authenticationReducer'
 const mapStateToRuntimeStepProps = (state:AppState, props) => ({
   applicationName: props.projectile.name,
   gitUserData: getGitUserData(state),
-  authorization: {
-    authorizationEnabled: getAuthenticationState(state).enabled,
+  authentication: {
+    authenticationEnabled: getAuthenticationState(state).enabled,
   }
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchGitUser: () => dispatch(fetchActions.fetchGitUser()),
-  authorization: {
+  authentication: {
     openAccountManagement: () => dispatch(authenticationAction.openAccountManagement()),
   },
 });
@@ -25,9 +25,9 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
   ...dispatchProps,
-  authorization: {
-    ...stateProps.authorization,
-    ...dispatchProps.authorization,
+  authentication: {
+    ...stateProps.authentication,
+    ...dispatchProps.authentication,
   }
 });
 

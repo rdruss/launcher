@@ -56,11 +56,13 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
 
   public login = () => {
     this.keycloak.login();
+    return Promise.resolve();
   };
 
   public logout = () => {
     KeycloakAuthenticationApi.clearStoredData();
     this.keycloak.logout();
+    return Promise.resolve();
   };
 
   public openAccountManagement = () => {

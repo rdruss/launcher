@@ -5,9 +5,13 @@ export interface StatusListener {
 }
 
 export interface StatusMessage {
-
+  statusMessage: string;
+  data?: {
+    location?: string;
+    error?: string;
+  };
 }
 
 export interface LauncherApi {
-  listenToLaunchStatus(id: string, listener: StatusListener);
+  listenToLaunchStatus(id: string, events: Array<{ name: string }>, listener: StatusListener);
 }

@@ -4,7 +4,7 @@ import { ClusterIcon, CodeIcon, GiftIcon } from '@patternfly/react-icons';
 
 interface NextStepsOpenShiftProps {
   isOpen: boolean;
-  error?: boolean;
+  error?: any;
   landingPageLink?: string;
   repositoryLink?: string;
   deploymentLink?: string;
@@ -21,7 +21,7 @@ class NextStepsOpenShift extends React.Component<NextStepsOpenShiftProps, {}> {
       <Modal title="Next steps..." isOpen={this.props.isOpen} onClose={this.props.onClose} actions={this.props.children} isLarge>
         {!this.props.error && (
           <React.Fragment>
-            <Alert variant="success">We are delivering your new Application</Alert>
+            <Alert variant="success">Your application deployment has started</Alert>
             <h2>Follow your application delivery</h2>
             <p>You can follow your application deployment in your OpenShift Console</p>
             <Button component="a" variant="link" href={deploymentLink} target={'_blank'}>
@@ -44,7 +44,8 @@ class NextStepsOpenShift extends React.Component<NextStepsOpenShiftProps, {}> {
         )}
         {this.props.error && (
           <Alert variant="danger">
-            Holy guacamole... something weird happened, please reload the page to try again.
+            <p>Holy guacamole... something weird happened, please reload the page to try again.</p>
+            <p>{this.props.error.toString()}</p>
           </Alert>
         )}
       </Modal>

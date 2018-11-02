@@ -15,6 +15,14 @@ export interface LaunchState {
     payload?: any;
     result?: any;
     error?: string;
+    progressEvents?: Array<{name: string, message: string}>;
+    progressEventsResults?: Array<{
+      statusMessage: string;
+      data?: {
+        location?: string;
+        error?: string;
+      };
+    }>;
     completed: boolean;
     loading: boolean;
   };

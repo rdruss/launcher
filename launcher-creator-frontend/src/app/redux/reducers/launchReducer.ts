@@ -17,6 +17,16 @@ const launchReducer = (state: LaunchState = INITIAL_STATE, action) => {
     case LaunchActions.LAUNCH_PROJECTILE:
       newState = { ...state, submission: { loading: true, completed: false, payload: action.payload } };
       break;
+    case LaunchActions.LAUNCH_PROJECTILE_FOLLOW_PROGRESS:
+      newState = { ...state, submission: { ...state.submission,
+          progressEvents: action.result.events
+        }};
+      break;
+    case LaunchActions.LAUNCH_PROJECTILE_PROGRESS_MESSAGE:
+      newState = { ...state, submission: { ...state.submission,
+          progressEventsResults: [...state.submission.progressEventsResults || [], action.message ]
+        }};
+      break;
     case LaunchActions.LAUNCH_PROJECTILE_SUCCESS:
       newState = { ...state, submission: { ...state.submission,
           loading: false,
