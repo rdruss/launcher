@@ -4,7 +4,7 @@ import authenticationReducer from './authenticationReducer';
 import { capabilitiesReducer } from './capabilitiesReducer';
 import { runtimesReducer } from './runtimesReducer';
 import launchReducer from './launchReducer';
-import smartWizardReducer from '../../../shared/components/smart-wizard/smartWizardReducer';
+import smartWizardReducer from '../../../shared/smart-components/smart-wizard/smartWizardReducer';
 import { clustersReducer } from './clustersReducer';
 import { gitUserReducer } from './gitReducer';
 

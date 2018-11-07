@@ -21,7 +21,7 @@ function createBackendWebsocketUrl(backendApiUrl?: string) {
 
 export default class AxiosLauncherApi implements LauncherApi {
 
-  constructor(private axios: AxiosInstance) {}
+  constructor(private readonly axios: AxiosInstance) {}
 
   public listenToLaunchStatus = (id: string, events: Array<{ name: string }>, listener: StatusListener) => {
     const socket = new WebSocket(createBackendWebsocketUrl(this.axios.defaults.baseURL) + id);

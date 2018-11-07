@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { connect, ConnectedComponentClass } from 'react-redux';
 import { findNextStep, findPrevStep } from './SmartWizardHelper';
-import Wizard from '../wizard';
+import Wizard from '../../components/wizard';
 import { getSmartWizardState } from './smartWizardReducer';
 import { SmartWizardState } from './SmartWizardState';
 import { smartWizardActions } from './smartWizardActions';

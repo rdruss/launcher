@@ -14,6 +14,6 @@ export const launchActions = {
   launchProjectileFollowProgress: (result) => action(LaunchActions.LAUNCH_PROJECTILE_FOLLOW_PROGRESS, {result}),
   launchProjectileProgressMessage: (message) => action(LaunchActions.LAUNCH_PROJECTILE_PROGRESS_MESSAGE, {message}),
   launchProjectileSuccess: (result) => action(LaunchActions.LAUNCH_PROJECTILE_SUCCESS, {result}),
-  launchProjectilFailure: (error) => action(LaunchActions.LAUNCH_PROJECTILE_FAILURE, {error}),
+  launchProjectileFailure: (error) => action(LaunchActions.LAUNCH_PROJECTILE_FAILURE, {error}),
   resetLaunch: () => action(LaunchActions.RESET_LAUNCH, {}),
 };

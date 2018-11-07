@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import Wizard from '../../../../shared/components/wizard';
 
-import { StepProps } from '../../../../shared/components/smart-wizard/StepProps';
+import { StepProps } from '../../../../shared/smart-components/smart-wizard/StepProps';
 import SectionLoader from '../../../../shared/components/loader/SectionLoader';
 import { GitRepository } from '../../../models/GitRepository';
 import GitUser from '../../../models/GitUser';

@@ -48,7 +48,7 @@ function* submitWizard(action) {
     }
 
   } catch (e) {
-    yield put(launchActions.launchProjectilFailure(e));
+    yield put(launchActions.launchProjectileFailure(e));
   }
 }
 
@@ -67,7 +67,7 @@ function* followStatus(action) {
         emitter(END);
       },
       onError(error) {
-        emitter(launchActions.launchProjectilFailure(error));
+        emitter(launchActions.launchProjectileFailure(error));
         emitter(END);
       }
     });

@@ -13,9 +13,9 @@ import NextStepsOpenShift from '../../../components/wizard/next-steps/NextStepsO
 import ProcessingApp from '../../../components/wizard/next-steps/ProcessingApp';
 import { Projectile } from '../../../models/Projectile';
 import * as _ from 'lodash';
-import SmartWizard, { Step } from '../../../../shared/components/smart-wizard/SmartWizard';
+import SmartWizard, { Step } from '../../../../shared/smart-components/smart-wizard/SmartWizard';
 import { getLaunchState } from '../../reducers/launchReducer';
-import { smartWizardActions } from '../../../../shared/components/smart-wizard/smartWizardActions';
+import { smartWizardActions } from '../../../../shared/smart-components/smart-wizard/smartWizardActions';
 import { launchActions } from '../../actions/launchActions';
 
 

@@ -14,7 +14,14 @@ interface CapabilityCardProps {
 
 function CapabilityCard(props: CapabilityCardProps) {
   const {capability, onSelect, onUnselect, selected} = props;
-  const doOnSelect = () => selected ? onUnselect(capability) : onSelect(capability);
+  const doOnSelect = () => {
+    if (selected) {
+      onUnselect(capability);
+    } else {
+
+      onSelect(capability);
+    }
+  };
   return (
     <Patternfly.ListViewItem
       onClick={doOnSelect}
@@ -22,7 +29,12 @@ function CapabilityCard(props: CapabilityCardProps) {
       heading={capability.name}
       leftContent={capability.icon && (<img src={capability.icon} />)}
       description={capability.description}
-    />
+      stacked={false}
+    >
+      {selected && (
+        <div>heeloooo</div>
+      )}
+    </Patternfly.ListViewItem>
   );
 }
 
