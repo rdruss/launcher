@@ -154,9 +154,8 @@ const mapDispatchToProps = (dispatch) => ({
   reset: () => dispatch(smartWizardActions.reset()),
 });
 
-const SmartWizard = connect(
+export const SmartWizard = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(SmartWizardComponent);
 
-export default SmartWizard;

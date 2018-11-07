@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import * as Patternfly from 'patternfly-react';
-import SectionLoader from '../../../../shared/components/loader/SectionLoader';
-import Capability from '../../../models/Capability';
-import { FetchedData } from '../../../models/FetchedData';
+import { FetchedData } from '@app/models/FetchedData';
+import Capability from '@app/models/Capability';
+import SectionLoader from '@shared/components/loader/SectionLoader';
 
 interface CapabilityCardProps {
   capability: Capability;

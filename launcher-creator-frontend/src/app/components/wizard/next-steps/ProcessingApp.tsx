@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as Patternfly from 'patternfly-react';
 
 import { Modal } from '@patternfly/react-core';
-import SectionLoader from '../../../../shared/components/loader/SectionLoader';
+import SectionLoader from '@shared/components/loader/SectionLoader';
 
 
 interface EventStatus {

@@ -1,4 +1,4 @@
-import { action } from '../../../shared/utils/Actions';
+import { action } from '@shared/utils/Actions';
 
 export enum LaunchActions {
   LAUNCH_PROJECTILE = 'LAUNCH_PROJECTILE',

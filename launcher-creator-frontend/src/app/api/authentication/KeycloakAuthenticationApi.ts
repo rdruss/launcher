@@ -2,7 +2,7 @@ import * as jsSHA from 'jssha';
 import * as _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import * as Keycloak from 'keycloak-js';
-import { checkNotNull } from '../../../shared/utils/Preconditions';
+import { checkNotNull } from '@shared/utils/Preconditions';
 import { AuthenticationApi, OptionalUser } from './AuthenticationApi';
 
 

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { AppState } from '../../../states';
-import RuntimeStep from '../../../../components/wizard/steps/RuntimeStep';
+import RuntimeStep from '@app/components/wizard/steps/RuntimeStep';
 import { getRuntimesData } from '../../../reducers/runtimesReducer';
 import { fetchActions } from '../../../actions/fetchActions';
 

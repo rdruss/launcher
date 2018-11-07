@@ -1,4 +1,4 @@
-import NameStep from '../../../../components/wizard/steps/NameStep';
+import NameStep from '@app/components/wizard/steps/NameStep';
 import { connect } from 'react-redux';
 import { AppState } from '../../../states';
 

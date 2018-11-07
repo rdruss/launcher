@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
-import Wizard from '../../../../shared/components/wizard';
-import { StepProps } from '../../../../shared/smart-components/smart-wizard/StepProps';
+import Wizard from '@shared/components/wizard';
+import { StepProps } from '@shared/smart-components/smart-wizard/StepProps';
 import { TextInput } from '@patternfly/react-core';
 import * as _ from 'lodash';
 

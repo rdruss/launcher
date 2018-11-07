@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Component } from 'react';
 
-import Wizard from '../../../../shared/components/wizard';
-import { StepProps } from '../../../../shared/smart-components/smart-wizard/StepProps';
-import OpenShiftCluster from '../../../models/OpenShiftCluster';
-import SectionLoader from '../../../../shared/components/loader/SectionLoader';
-import { FetchedData } from '../../../models/FetchedData';
+import Wizard from '@shared/components/wizard';
+import { StepProps } from '@shared/smart-components/smart-wizard/StepProps';
+import OpenShiftCluster from '@app/models/OpenShiftCluster';
+import SectionLoader from '@shared/components/loader/SectionLoader';
+import { FetchedData } from '@app/models/FetchedData';
 import { Select, SelectOption } from '@patternfly/react-core';
 import { AuthorizationWarning } from '../../AuthorizationWarning';
 

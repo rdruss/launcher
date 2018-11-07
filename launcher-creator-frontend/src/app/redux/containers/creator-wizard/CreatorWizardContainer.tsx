@@ -8,15 +8,15 @@ import CapabilitiesStepContainer from './steps/CapabilitiesStepContainer';
 import DeploymentStepContainer from './steps/DeploymentStepContainer';
 import RepositoryStepContainer from './steps/RepositoryStepContainer';
 
-import NextStepsZip from '../../../components/wizard/next-steps/NextStepsZip';
-import NextStepsOpenShift from '../../../components/wizard/next-steps/NextStepsOpenShift';
-import ProcessingApp from '../../../components/wizard/next-steps/ProcessingApp';
-import { Projectile } from '../../../models/Projectile';
+import NextStepsZip from '@app/components/wizard/next-steps/NextStepsZip';
+import NextStepsOpenShift from '@app/components/wizard/next-steps/NextStepsOpenShift';
+import ProcessingApp from '@app/components/wizard/next-steps/ProcessingApp';
+import { Projectile } from '@app/models/Projectile';
 import * as _ from 'lodash';
-import SmartWizard, { Step } from '../../../../shared/smart-components/smart-wizard/SmartWizard';
 import { getLaunchState } from '../../reducers/launchReducer';
-import { smartWizardActions } from '../../../../shared/smart-components/smart-wizard/smartWizardActions';
 import { launchActions } from '../../actions/launchActions';
+import { SmartWizard, Step } from '@shared/smart-components/smart-wizard/SmartWizard';
+import { smartWizardActions } from '@shared/smart-components/smart-wizard/smartWizardActions';
 
 
 const wizardStepsDefinition = {

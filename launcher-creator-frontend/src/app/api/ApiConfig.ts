@@ -1,4 +1,4 @@
-import { checkNotNull } from '../../shared/utils/Preconditions';
+import { checkNotNull } from '@shared/utils/Preconditions';
 import { KeycloakConfig } from './authentication/KeycloakAuthenticationApi';
 
 

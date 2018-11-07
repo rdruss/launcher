@@ -1,4 +1,4 @@
-import { action } from '../../../shared/utils/Actions';
+import { action } from '@shared/utils/Actions';
 
 export enum AuthenticationAction {
   DISABLE = 'AUTHENTICATION_DISABLE',

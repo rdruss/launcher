@@ -1,6 +1,6 @@
 import * as React from 'react';
 import TopNav from './TopNav';
-import SectionLoader from '../../../shared/components/loader/SectionLoader';
+import SectionLoader from '@shared/components/loader/SectionLoader';
 
 interface MainLayoutProps {
   inProgress: boolean;

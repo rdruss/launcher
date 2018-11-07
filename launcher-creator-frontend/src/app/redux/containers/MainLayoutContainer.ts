@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import { AppState } from '../../redux/states';
-import { authenticationAction } from '../../redux/actions/authenticationActions';
-import MainLayout from './MainLayout';
+import { AppState } from '@app/redux/states';
+import { authenticationAction } from '@app/redux/actions/authenticationActions';
+import MainLayout from '@app/components/layout/MainLayout';
 
 const mapStateToProps = (state: AppState) => ({
   authenticationEnabled: state.authentication.enabled,

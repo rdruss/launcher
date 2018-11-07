@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Component } from 'react';
-import Wizard from '../../../../shared/components/wizard';
+import Wizard from '@shared/components/wizard';
 
-import { StepProps } from '../../../../shared/smart-components/smart-wizard/StepProps';
-import SectionLoader from '../../../../shared/components/loader/SectionLoader';
-import { GitRepository } from '../../../models/GitRepository';
-import GitUser from '../../../models/GitUser';
-import { FetchedData } from '../../../models/FetchedData';
+import { StepProps } from '@shared/smart-components/smart-wizard/StepProps';
+import SectionLoader from '@shared/components/loader/SectionLoader';
+import { GitRepository } from '@app/models/GitRepository';
+import GitUser from '@app/models/GitUser';
+import { FetchedData } from '@app/models/FetchedData';
 import { Select, SelectOption, TextInput } from '@patternfly/react-core';
 import { AuthorizationWarning } from '../../AuthorizationWarning';
 

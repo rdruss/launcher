@@ -1,8 +1,8 @@
-import Capability from '../../models/Capability';
-import Runtime from '../../models/Runtime';
-import OpenShiftCluster from '../../models/OpenShiftCluster';
-import GitUser from '../../models/GitUser';
-import { SmartWizardState } from '../../../shared/smart-components/smart-wizard/SmartWizardState';
+import { SmartWizardState } from '@shared/smart-components/smart-wizard/SmartWizardState';
+import OpenShiftCluster from '@app/models/OpenShiftCluster';
+import Capability from '@app/models/Capability';
+import Runtime from '@app/models/Runtime';
+import GitUser from '@app/models/GitUser';
 
 export interface FetchedState<T> {
   data: T;

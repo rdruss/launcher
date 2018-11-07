@@ -1,4 +1,4 @@
-import { action } from '../../../shared/utils/Actions';
+import { action } from '@shared/utils/Actions';
 
 export enum FetchActions {
   FETCH_CAPABILITIES = 'FETCH_CAPABILITIES',

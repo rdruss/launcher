@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { checkNotNull } from '../../../shared/utils/Preconditions';
+import { checkNotNull } from '@shared/utils/Preconditions';
 import { LauncherApi, StatusListener, StatusMessage } from './LauncherApi';
 
 
