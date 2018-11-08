@@ -1,0 +1,6 @@
+{
+  "watch": ["lib", "catalog"],
+  "ext": "ts",
+  "ignore": ["test"],
+  "exec": "NODE_PATH=lib:catalog ts-node ./lib/server.ts 8081"
+}

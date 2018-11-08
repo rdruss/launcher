@@ -1,0 +1,24 @@
+.navbar.navbar-pf-vertical {
+  background-color: black;
+  border-top: solid 5px #cc0000;
+  height: 40px;
+
+  .nav-item-iconic.dropdown-toggle.btn.btn-link {
+    padding-top: 12px;
+    padding-bottom: 13px;
+  }
+  .navbar-brand {
+    width: 100%;
+    padding: 0 15px;
+
+    img {
+      height: 45px;
+      max-height: none;
+    }
+  }
+
+  a[role=menuitem] svg {
+    width: 1.2em;
+    margin-right: 5px;
+  }
+}

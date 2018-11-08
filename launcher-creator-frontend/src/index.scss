@@ -1,0 +1,36 @@
+/**
+  Third Party / Dependency imports here
+*/
+$font-path: './assets/patternfly/fonts/';
+$img-path: '/assets/patternfly/img/';
+$icon-font-path: './assets/patternfly/fonts/';
+
+/**
+  Patternfly Sass
+*/
+@import 'patternfly';
+
+/**
+  Patternfly React Specific Sass Extensions
+*/
+@import 'patternfly-react';
+
+@import '../node_modules/@patternfly/react-core/dist/styles/base.css';
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+button.pf-c-button svg {
+  vertical-align: middle;
+}
+
+.pf-c-alert {
+  margin: 10px 0 40px 0;
+}
+
+.pf-c-button.pf-m-link:disabled {
+  background: none;
+}

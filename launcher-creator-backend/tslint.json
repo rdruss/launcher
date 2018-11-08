@@ -1,0 +1,66 @@
+{
+  "extends": [
+    "tslint:recommended"
+  ],
+  "rules": {
+    "max-classes-per-file": false,
+    // Custom
+    "trailing-comma": [
+      false,
+      {
+        "multiline": "always",
+        "singleline": "never"
+      }
+    ],
+    "interface-name": [
+      false,
+      "always-prefix"
+    ],
+    "member-ordering": false,
+    // General
+    "no-console": [
+      true,
+      "time",
+      "timeEnd",
+      "trace"
+    ],
+    "max-line-length": [
+      true,
+      140
+    ],
+    "no-string-literal": false,
+    "no-use-before-declare": true,
+    "object-literal-sort-keys": false,
+    "object-literal-shorthand": false,
+    "ordered-imports": false,
+    "no-empty-interface": false,
+    "no-empty": false,
+    "one-variable-per-declaration": false,
+    "object-literal-key-quotes": [
+      true,
+      "always"
+    ],
+    "quotemark": [
+      true,
+      "single",
+      "avoid-escape"
+    ],
+    "variable-name": [
+      true,
+      "allow-leading-underscore",
+      "allow-pascal-case",
+      "ban-keywords",
+      "check-format"
+    ],
+    "arrow-parens": false,
+    "no-trailing-whitespace": [
+      true,
+      "ignore-blank-lines"
+    ]
+  },
+  "linterOptions": {
+    "include": [
+      "**/*.ts"
+    ]
+  }
+}

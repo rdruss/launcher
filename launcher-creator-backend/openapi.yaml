@@ -1,0 +1,228 @@
+openapi: 3.0.0
+servers:
+- url: http://api-creator-backend.devtools-dev.ext.devshift.net/
+  description: Development server
+- url: http://localhost:8081
+  description: Local Development
+- url: http://localhost:8080
+  description: Local Dist
+
+info:
+  version: "1.0.0"
+  title: Launcher Creator Backend API
+  description: >-
+    This document defines the REST endpoints exposed by the
+    launcher-creator-backend component
+
+security:
+- application:
+  - read
+  - write
+
+paths:
+  /runtimes:
+    get:
+      summary: Returns the available Runtimes
+      security: []
+      description: >-
+        This endpoint returns all known Runtimes
+      tags:
+      - catalog
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Runtime'
+        '404':
+          description: Not Found
+  /capabilities:
+    get:
+      summary: Returns the available Capabilities
+      security: []
+      description: >-
+        This endpoint returns all known Capabilities
+      tags:
+      - catalog
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Capability'
+        '404':
+          description: Not Found
+  /zip:
+    post:
+      summary: Create ZIP containing a generated project and returns and id to download it
+      security: []
+      description: >-
+        This endpoint returns and id to download the ZIP containing code that was
+        generated using the specified Capabilities
+      tags:
+      - project
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The application name to use for the project
+                  type: string
+                runtime:
+                  description: The runtime to use for the project
+                  type: string
+                capabilities:
+                  description: The capabilities to add to the project
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      module:
+                        type: string
+              required:
+              - name
+              - runtime
+              - capabilities
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    description: The id to download the zip
+                    type: string
+        '404':
+          description: Not Found
+  /download:
+    get:
+      summary: Returns a ZIP containing a generated project for the specified id
+      security: []
+      description: >-
+        This endpoint returns a ZIP containing a generated project for the specified id
+      tags:
+      - project
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The id returned by the zip method
+      responses:
+        '200':
+          description: OK
+          content:
+            application/zip: {}
+        '404':
+          description: Not Found
+  /launch:
+    post:
+      summary: Pushes a generated project to GitHub and OpenShift
+      security:
+      - bearerAuth: []
+      description: >-
+        This endpoint pushes code that was generated using the specified
+        Capabilities to a user's GitHub and OpenShift accounts
+      tags:
+      - project
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The application name to use for the project
+                  type: string
+                runtime:
+                  description: The runtime to use for the project
+                  type: string
+                capabilities:
+                  description: The capabilities to add to the project
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      module:
+                        type: string
+                clusterId:
+                  description: The OpenShift cluster to use
+                  type: string
+                projectName:
+                  description: The OpenShift project name to be used
+                  type: string
+                gitOrganization:
+                  description: The Git Organization to push the code
+                  type: string
+                gitRepository:
+                  description: The Git Repository to push the code
+                  type: string
+              required:
+              - name
+              - runtime
+              - capabilities
+              - clusterId
+              - projectName
+              - gitOrganization
+              - gitRepository
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+
+components:
+  schemas:
+    Runtime:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        icon:
+          type: string
+        metadata:
+          type: object
+
+    Capability:
+      type: array
+      items:
+        type: object
+        properties:
+          module:
+            type: string
+          name:
+            type: string
+          description:
+            type: string
+          props:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                description:
+                  type: string
+                type:
+                  type: string
+                required:
+                  type: boolean
+
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    # optional, arbitrary value for documentation purposes
