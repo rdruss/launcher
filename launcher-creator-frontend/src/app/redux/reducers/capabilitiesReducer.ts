@@ -12,7 +12,10 @@ export const capabilitiesReducer = requestsReducer({ actionType: FetchActions.FE
 // Selectors
 
 function createCapabilityFilterForRuntime(runtimeId?: string): (Capability) => boolean {
-  return (c) => !runtimeId || Boolean(c.props.runtime && c.props.runtime.values.find(p => p.id === runtimeId));
+  return (c) => {
+    // TODO add a way to filter capabilities by runtime
+    return true;
+  };
 }
 
 const getCapabilitiesState = (state:AppState) => state.capabilities;

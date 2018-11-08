@@ -1,13 +1,9 @@
-import IdAndName from './IdAndName';
+import IdAndName from '@app/models/IdAndName';
 
 export default interface Capability {
   module: string;
   name: string;
   description: string;
   icon?: string;
-  props: {
-    runtime?: {
-      values: [IdAndName];
-    }
-  };
+  props: Array<{ id: string; values?: IdAndName[]}>;
 }

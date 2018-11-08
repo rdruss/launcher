@@ -29,12 +29,7 @@ function CapabilityCard(props: CapabilityCardProps) {
       heading={capability.name}
       leftContent={capability.icon && (<img src={capability.icon} />)}
       description={capability.description}
-      stacked={false}
-    >
-      {selected && (
-        <div>heeloooo</div>
-      )}
-    </Patternfly.ListViewItem>
+    />
   );
 }
 
